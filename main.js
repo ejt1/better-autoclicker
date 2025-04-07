@@ -1,7 +1,16 @@
 /**
  * Better AutoClicker - An enhanced mod for Cookie Clicker
- * This mod allows automatic clicking on the cookie, even in background,
- * with centered animations on the cookie and multilingual support.
+ * © 2025 Teyko / Théo Vln
+ *
+ * This work is licensed under CC BY-NC-SA 4.0
+ * https://creativecommons.org/licenses/by-nc-sa/4.0/
+ *
+ * You are free to:
+ * - Share and adapt the material
+ * Under the following terms:
+ * - Attribution: You must give appropriate credit
+ * - NonCommercial: You may not use this for commercial purposes
+ * - ShareAlike: If you remix or transform, you must distribute under the same license
  */
 Game.registerMod("better-autoclicker", {
     // Configuration variables
