@@ -1,11 +1,13 @@
 {
 	"Name": "Better AutoClicker",
-	"ID": "better-autoclicker",
-	"Author": "Teyko / Théo Vln",
+	"ID": "betterautoclicker",
+	"Author": "Teyko",
 	"Description": "A comprehensive auto-clicker mod for Cookie Clicker with advanced features that enhance gameplay automation while providing a polished user experience.",
 	"ModVersion": 1.0,
 	"GameVersion": 2.053,
 	"Date": "28/03/2025",
 	"Dependencies": [],
-	"Disabled": 0
+	"Disabled": 0,
+	"AllowSteamAchievs": 1,
+	"Workshop": "3454905335"
 }
