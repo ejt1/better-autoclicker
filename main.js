@@ -12,7 +12,7 @@
  * - NonCommercial: You may not use this for commercial purposes
  * - ShareAlike: If you remix or transform, you must distribute under the same license
  */
-Game.registerMod("better-autoclicker", {
+Game.registerMod("betterautoclicker", {
     // Configuration variables
     clicksPerSecond: 10,          // Default clicks per second
     isActive: false,              // Initial state of the auto-clicker (disabled)
@@ -27,6 +27,12 @@ Game.registerMod("better-autoclicker", {
     clickWrinklers: false,        // Enable auto-click on Wrinklers
     wrinklerClickDelay: 1000,     // Delay between clicks on Wrinklers (in ms)
     wrinklerCheckInterval: null,  // Reference to the wrinkler check interval
+    panelX: 5,                   // Position X par défaut du panneau (pixels depuis la gauche)
+    panelY: 'bottom',            // Position Y par défaut du panneau ('bottom' pour depuis le bas)
+    panelOffsetY: 60,            // Décalage Y par défaut lorsque la position est 'bottom'
+    isDragging: false,           // Indique si le panneau est en cours de déplacement
+    dragOffsetX: 0,              // Décalage X lors du déplacement
+    dragOffsetY: 0,              // Décalage Y lors du déplacement
 
     // Localization system integrated directly into the code because i don't know how to use the external file in the mod
     localization: {
@@ -936,8 +942,8 @@ Game.registerMod("better-autoclicker", {
         modMenu.className = 'framed';
         modMenu.style.cssText = `
             position: absolute;
-            left: 5px;
-            bottom: 60px;
+            left: ${this.panelX}px;
+            ${this.panelY === 'bottom' ? 'bottom: ' + this.panelOffsetY + 'px' : 'top: ' + this.panelOffsetY + 'px'};
             padding: 10px;
             background: rgba(0, 0, 0, 0.7);
             border: 2px solid #C0B070;
@@ -945,6 +951,19 @@ Game.registerMod("better-autoclicker", {
             z-index: 10000;
             font-family: 'Merriweather', serif;
         `;
+
+        // Ajoute une poignée de déplacement en haut
+        let dragHandle = document.createElement('div');
+        dragHandle.id = 'betterAutoClickerDragHandle';
+        dragHandle.style.cssText = `
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            cursor: move;
+        `;
+        modMenu.appendChild(dragHandle);
 
         // Mod title
         let title = document.createElement('div');
@@ -956,6 +975,7 @@ Game.registerMod("better-autoclicker", {
             margin-bottom: 5px;
             color: #FFF;
             text-align: center;
+            cursor: move;
         `;
         modMenu.appendChild(title);
 
@@ -1244,8 +1264,70 @@ Game.registerMod("better-autoclicker", {
         `;
         modMenu.appendChild(note);
 
+        this.setupDragEvents(modMenu, title);
+        this.setupDragEvents(modMenu, dragHandle);
+
         // Add menu to document body
         document.body.appendChild(modMenu);
+    },
+
+    /**
+     * Configure les événements pour rendre un élément déplaçable
+     * @param {HTMLElement} element - L'élément à rendre déplaçable
+     * @param {HTMLElement} handle - La poignée/zone de déplacement
+     */
+    setupDragEvents: function(element, handle) {
+        const self = this;
+
+        // Fonction pour commencer le déplacement
+        const startDrag = function(e) {
+            e.preventDefault();
+            self.isDragging = true;
+
+            // Calcule le décalage entre la souris et le coin de l'élément
+            const rect = element.getBoundingClientRect();
+            self.dragOffsetX = e.clientX - rect.left;
+            self.dragOffsetY = e.clientY - rect.top;
+
+            // Ajoute les événements de déplacement et de fin
+            document.addEventListener('mousemove', doDrag);
+            document.addEventListener('mouseup', stopDrag);
+        };
+
+        // Fonction pour effectuer le déplacement
+        const doDrag = function(e) {
+            if (!self.isDragging) return;
+
+            // Calcule les nouvelles coordonnées
+            let newX = e.clientX - self.dragOffsetX;
+            let newY = e.clientY - self.dragOffsetY;
+
+            // Limite les coordonnées pour rester dans la fenêtre
+            newX = Math.max(0, Math.min(window.innerWidth - element.offsetWidth, newX));
+            newY = Math.max(0, Math.min(window.innerHeight - element.offsetHeight, newY));
+
+            // Applique les nouvelles coordonnées
+            element.style.left = newX + 'px';
+
+            // Change le mode de position de bottom à top si déplacé
+            element.style.bottom = 'auto';
+            element.style.top = newY + 'px';
+
+            // Sauvegarde les coordonnées
+            self.panelX = newX;
+            self.panelY = 'top';
+            self.panelOffsetY = newY;
+        };
+
+        // Fonction pour arrêter le déplacement
+        const stopDrag = function() {
+            self.isDragging = false;
+            document.removeEventListener('mousemove', doDrag);
+            document.removeEventListener('mouseup', stopDrag);
+        };
+
+        // Attache l'événement de début de déplacement à la poignée
+        handle.addEventListener('mousedown', startDrag);
     },
 
     /**
@@ -1583,7 +1665,10 @@ Game.registerMod("better-autoclicker", {
             clickGoldenCookies: this.clickGoldenCookies,
             clickWrathCookies: this.clickWrathCookies,
             clickWrinklers: this.clickWrinklers,
-            wrinklerClickDelay: this.wrinklerClickDelay
+            wrinklerClickDelay: this.wrinklerClickDelay,
+            panelX: this.panelX,
+            panelY: this.panelY,
+            panelOffsetY: this.panelOffsetY
         });
     },
 
@@ -1628,6 +1713,16 @@ Game.registerMod("better-autoclicker", {
 
                 if (config.hasOwnProperty('wrinklerClickDelay')) {
                     this.wrinklerClickDelay = config.wrinklerClickDelay;
+                }
+
+                if (config.hasOwnProperty('panelX')) {
+                    this.panelX = config.panelX;
+                }
+                if (config.hasOwnProperty('panelY')) {
+                    this.panelY = config.panelY;
+                }
+                if (config.hasOwnProperty('panelOffsetY')) {
+                    this.panelOffsetY = config.panelOffsetY;
                 }
 
                 // Update user interface (if it already exists)
