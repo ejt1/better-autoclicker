@@ -27,12 +27,14 @@ Game.registerMod("betterautoclicker", {
     clickWrinklers: false,        // Enable auto-click on Wrinklers
     wrinklerClickDelay: 1000,     // Delay between clicks on Wrinklers (in ms)
     wrinklerCheckInterval: null,  // Reference to the wrinkler check interval
-    panelX: 5,                   // Default panel X position (pixels from the left)
-    panelY: 'bottom',            // Default panel Y position ('bottom' for from the bottom)
-    panelOffsetY: 60,            // Default Y offset when position is 'bottom'
-    isDragging: false,           // Indicates if the panel is being dragged
-    dragOffsetX: 0,              // X offset during dragging
-    dragOffsetY: 0,              // Y offset during dragging
+    clickSeasonalCookies: true,   // Enable auto-click on seasonal cookies like Reindeer for Christmas
+    seasonalCheckInterval: null,  // Reference to the seasonal cookie check interval
+    panelX: 5,                    // Default panel X position (pixels from the left)
+    panelY: 'bottom',             // Default panel Y position ('bottom' for from the bottom)
+    panelOffsetY: 60,             // Default Y offset when position is 'bottom'
+    isDragging: false,            // Indicates if the panel is being dragged
+    dragOffsetX: 0,               // X offset during dragging
+    dragOffsetY: 0,               // Y offset during dragging
 
     // Localization system integrated directly into the code because i don't know how to use the external file in the mod
     localization: {
@@ -85,7 +87,14 @@ Game.registerMod("betterautoclicker", {
             "wrinklerPoppedDesc": "Collected cookies from a wrinkler",
             "wrinklerClickDelay": "Click delay:",
             "wrinklerDelayChanged": "Wrinkler click delay changed",
-            "wrinklerDelayChangedDesc": "Delay between clicks set to {0} ms"
+            "wrinklerDelayChangedDesc": "Delay between clicks set to {0} ms",
+            "seasonalCookieOption": "Auto-click seasonal specials",
+            "seasonalCookieEnabled": "Seasonal specials auto-click enabled",
+            "seasonalCookieDisabled": "Seasonal specials auto-click disabled",
+            "seasonalCookieClicked": "Auto-clicked a seasonal special!",
+            "christmasReindeerClicked": "Found a Christmas reindeer!",
+            "seasonalCookiesWill": "Seasonal specials will be clicked automatically",
+            "seasonalCookiesWont": "Seasonal specials will not be clicked automatically",
         },
         "FR": {
             "modTitle": "Better AutoClicker",
@@ -136,7 +145,14 @@ Game.registerMod("betterautoclicker", {
             "wrinklerPoppedDesc": "Cookies collectés d'un rideux",
             "wrinklerClickDelay": "Délai entre clics :",
             "wrinklerDelayChanged": "Délai des clics de rideux modifié",
-            "wrinklerDelayChangedDesc": "Délai entre les clics défini à {0} ms"
+            "wrinklerDelayChangedDesc": "Délai entre les clics défini à {0} ms",
+            "seasonalCookieOption": "Auto-clic sur les spéciaux saisonniers",
+            "seasonalCookieEnabled": "Auto-clic des spéciaux saisonniers activé",
+            "seasonalCookieDisabled": "Auto-clic des spéciaux saisonniers désactivé",
+            "seasonalCookieClicked": "Spécial saisonnier cliqué automatiquement !",
+            "christmasReindeerClicked": "Renne de Noël trouvé !",
+            "seasonalCookiesWill": "Les spéciaux saisonniers seront cliqués automatiquement",
+            "seasonalCookiesWont": "Les spéciaux saisonniers ne seront pas cliqués automatiquement",
         },
         "DE": {
             "modTitle": "Better AutoClicker",
@@ -187,7 +203,14 @@ Game.registerMod("betterautoclicker", {
             "wrinklerPoppedDesc": "Kekse von einem Falter gesammelt",
             "wrinklerClickDelay": "Klick-Verzögerung:",
             "wrinklerDelayChanged": "Falter-Klick-Verzögerung geändert",
-            "wrinklerDelayChangedDesc": "Verzögerung zwischen Klicks auf {0} ms gesetzt"
+            "wrinklerDelayChangedDesc": "Verzögerung zwischen Klicks auf {0} ms gesetzt",
+            "seasonalCookieOption": "Automatischer Klick auf saisonale Spezialobjekte",
+            "seasonalCookieEnabled": "Automatischer Klick auf saisonale Spezialobjekte aktiviert",
+            "seasonalCookieDisabled": "Automatischer Klick auf saisonale Spezialobjekte deaktiviert",
+            "seasonalCookieClicked": "Saisonales Spezialobjekt automatisch geklickt!",
+            "christmasReindeerClicked": "Weihnachtsrentier gefunden!",
+            "seasonalCookiesWill": "Saisonale Spezialobjekte werden automatisch geklickt",
+            "seasonalCookiesWont": "Saisonale Spezialobjekte werden nicht automatisch geklickt"
         },
         "NL": {
             "modTitle": "Better AutoClicker",
@@ -238,7 +261,14 @@ Game.registerMod("betterautoclicker", {
             "wrinklerPoppedDesc": "Cookies verzameld van een Rimpeler",
             "wrinklerClickDelay": "Klikvertraging:",
             "wrinklerDelayChanged": "Rimpeler klikvertraging gewijzigd",
-            "wrinklerDelayChangedDesc": "Vertraging tussen klikken ingesteld op {0} ms"
+            "wrinklerDelayChangedDesc": "Vertraging tussen klikken ingesteld op {0} ms",
+            "seasonalCookieOption": "Auto-klik op seizoensgebonden specials",
+            "seasonalCookieEnabled": "Auto-klik op seizoensgebonden specials ingeschakeld",
+            "seasonalCookieDisabled": "Auto-klik op seizoensgebonden specials uitgeschakeld",
+            "seasonalCookieClicked": "Seizoensgebonden special automatisch geklikt!",
+            "christmasReindeerClicked": "Kerst rendier gevonden!",
+            "seasonalCookiesWill": "Seizoensgebonden specials worden automatisch geklikt",
+            "seasonalCookiesWont": "Seizoensgebonden specials worden niet automatisch geklikt"
         },
         "CS": {
             "modTitle": "Better AutoClicker",
@@ -289,7 +319,14 @@ Game.registerMod("betterautoclicker", {
             "wrinklerPoppedDesc": "Sesbírány sušenky z Vráskavce",
             "wrinklerClickDelay": "Prodleva kliknutí:",
             "wrinklerDelayChanged": "Prodleva kliknutí na Vráskavce změněna",
-            "wrinklerDelayChangedDesc": "Prodleva mezi kliknutími nastavena na {0} ms"
+            "wrinklerDelayChangedDesc": "Prodleva mezi kliknutími nastavena na {0} ms",
+            "seasonalCookieOption": "Automatické klikání na sezónní speciály",
+            "seasonalCookieEnabled": "Automatické klikání na sezónní speciály je zapnuto",
+            "seasonalCookieDisabled": "Automatické klikání na sezónní speciály je vypnuto",
+            "seasonalCookieClicked": "Sezónní speciál automaticky kliknut!",
+            "christmasReindeerClicked": "Vánoční sob nalezen!",
+            "seasonalCookiesWill": "Sezónní speciály budou automaticky klikány",
+            "seasonalCookiesWont": "Sezónní speciály nebudou automaticky klikány"
         },
         "PL": {
             "modTitle": "Better AutoClicker",
@@ -340,7 +377,14 @@ Game.registerMod("betterautoclicker", {
             "wrinklerPoppedDesc": "Zebrane ciasteczka z Pomarszczacza",
             "wrinklerClickDelay": "Opóźnienie kliknięcia:",
             "wrinklerDelayChanged": "Zmieniono opóźnienie kliknięcia Pomarszczacza",
-            "wrinklerDelayChangedDesc": "Opóźnienie między kliknięciami ustawione na {0} ms"
+            "wrinklerDelayChangedDesc": "Opóźnienie między kliknięciami ustawione na {0} ms",
+            "seasonalCookieOption": "Auto-klik na sezonowe specjalności",
+            "seasonalCookieEnabled": "Auto-klik na sezonowe specjalności włączony",
+            "seasonalCookieDisabled": "Auto-klik na sezonowe specjalności wyłączony",
+            "seasonalCookieClicked": "Sezonowa specjalność automatycznie kliknięta!",
+            "christmasReindeerClicked": "Znaleziono świątecznego renifera!",
+            "seasonalCookiesWill": "Sezonowe specjalności będą klikane automatycznie",
+            "seasonalCookiesWont": "Sezonowe specjalności nie będą klikane automatycznie"
         },
         "IT": {
             "modTitle": "Better AutoClicker",
@@ -391,7 +435,14 @@ Game.registerMod("betterautoclicker", {
             "wrinklerPoppedDesc": "Biscotti raccolti da un Rugoso",
             "wrinklerClickDelay": "Ritardo di clic:",
             "wrinklerDelayChanged": "Ritardo di clic dei Rugosi modificato",
-            "wrinklerDelayChangedDesc": "Ritardo tra i clic impostato a {0} ms"
+            "wrinklerDelayChangedDesc": "Ritardo tra i clic impostato a {0} ms",
+            "seasonalCookieOption": "Auto-click sugli speciali stagionali",
+            "seasonalCookieEnabled": "Auto-click sugli speciali stagionali attivato",
+            "seasonalCookieDisabled": "Auto-click sugli speciali stagionali disattivato",
+            "seasonalCookieClicked": "Speciale stagionale cliccato automaticamente!",
+            "christmasReindeerClicked": "Renna di Natale trovata!",
+            "seasonalCookiesWill": "Gli speciali stagionali verranno cliccati automaticamente",
+            "seasonalCookiesWont": "Gli speciali stagionali non verranno cliccati automaticamente"
         },
         "ES": {
             "modTitle": "Better AutoClicker",
@@ -442,7 +493,14 @@ Game.registerMod("betterautoclicker", {
             "wrinklerPoppedDesc": "Galletas recolectadas de un Arrugador",
             "wrinklerClickDelay": "Retardo de clic:",
             "wrinklerDelayChanged": "Retardo de clic de Arrugadores cambiado",
-            "wrinklerDelayChangedDesc": "Retardo entre clics establecido en {0} ms"
+            "wrinklerDelayChangedDesc": "Retardo entre clics establecido en {0} ms",
+            "seasonalCookieOption": "Auto-clic en los especiales de temporada",
+            "seasonalCookieEnabled": "Auto-clic en especiales de temporada activado",
+            "seasonalCookieDisabled": "Auto-clic en especiales de temporada desactivado",
+            "seasonalCookieClicked": "¡Especial de temporada clicado automáticamente!",
+            "christmasReindeerClicked": "¡Reno navideño encontrado!",
+            "seasonalCookiesWill": "Los especiales de temporada se clicarán automáticamente",
+            "seasonalCookiesWont": "Los especiales de temporada no se clicarán automáticamente"
         },
         "PT-BR": {
             "modTitle": "Better AutoClicker",
@@ -493,7 +551,14 @@ Game.registerMod("betterautoclicker", {
             "wrinklerPoppedDesc": "Cookies coletados de um Enrugador",
             "wrinklerClickDelay": "Atraso de clique:",
             "wrinklerDelayChanged": "Atraso de clique de Enrugadores alterado",
-            "wrinklerDelayChangedDesc": "Atraso entre cliques definido para {0} ms"
+            "wrinklerDelayChangedDesc": "Atraso entre cliques definido para {0} ms",
+            "seasonalCookieOption": "Clique automático nos especiais sazonais",
+            "seasonalCookieEnabled": "Clique automático nos especiais sazonais ativado",
+            "seasonalCookieDisabled": "Clique automático nos especiais sazonais desativado",
+            "seasonalCookieClicked": "Especial sazonal clicado automaticamente!",
+            "christmasReindeerClicked": "Rena de Natal encontrada!",
+            "seasonalCookiesWill": "Os especiais sazonais serão clicados automaticamente",
+            "seasonalCookiesWont": "Os especiais sazonais não serão clicados automaticamente"
         },
         "ZH-CN": {
             "modTitle": "Better AutoClicker",
@@ -544,7 +609,14 @@ Game.registerMod("betterautoclicker", {
             "wrinklerPoppedDesc": "从皱纹怪收集了饼干",
             "wrinklerClickDelay": "点击延迟：",
             "wrinklerDelayChanged": "皱纹怪点击延迟已更改",
-            "wrinklerDelayChangedDesc": "点击间隔设置为 {0} 毫秒"
+            "wrinklerDelayChangedDesc": "点击间隔设置为 {0} 毫秒",
+            "seasonalCookieOption": "自动点击季节性特殊项目",
+            "seasonalCookieEnabled": "已启用自动点击季节性特殊项目",
+            "seasonalCookieDisabled": "已禁用自动点击季节性特殊项目",
+            "seasonalCookieClicked": "已自动点击季节性特殊项目！",
+            "christmasReindeerClicked": "找到了圣诞驯鹿！",
+            "seasonalCookiesWill": "季节性特殊项目将自动点击",
+            "seasonalCookiesWont": "季节性特殊项目不会自动点击"
         },
         "JA": {
             "modTitle": "Better AutoClicker",
@@ -595,7 +667,14 @@ Game.registerMod("betterautoclicker", {
             "wrinklerPoppedDesc": "リンクラーからクッキーを回収しました",
             "wrinklerClickDelay": "クリック遅延：",
             "wrinklerDelayChanged": "リンクラークリック遅延が変更されました",
-            "wrinklerDelayChangedDesc": "クリック間の遅延が {0} ミリ秒に設定されました"
+            "wrinklerDelayChangedDesc": "クリック間の遅延が {0} ミリ秒に設定されました",
+            "seasonalCookieOption": "季節限定スペシャルを自動クリック",
+            "seasonalCookieEnabled": "季節限定スペシャルの自動クリックが有効",
+            "seasonalCookieDisabled": "季節限定スペシャルの自動クリックが無効",
+            "seasonalCookieClicked": "季節限定スペシャルを自動クリックしました！",
+            "christmasReindeerClicked": "クリスマスのトナカイを発見！",
+            "seasonalCookiesWill": "季節限定スペシャルは自動的にクリックされます",
+            "seasonalCookiesWont": "季節限定スペシャルは自動的にクリックされません"
         },
         "KO": {
             "modTitle": "Better AutoClicker",
@@ -646,7 +725,14 @@ Game.registerMod("betterautoclicker", {
             "wrinklerPoppedDesc": "주름벌레에서 쿠키를 수집했습니다",
             "wrinklerClickDelay": "클릭 지연:",
             "wrinklerDelayChanged": "주름벌레 클릭 지연이 변경되었습니다",
-            "wrinklerDelayChangedDesc": "클릭 사이의 지연이 {0}ms로 설정되었습니다"
+            "wrinklerDelayChangedDesc": "클릭 사이의 지연이 {0}ms로 설정되었습니다",
+            "seasonalCookieOption": "계절 특수 아이템 자동 클릭",
+            "seasonalCookieEnabled": "계절 특수 아이템 자동 클릭 활성화됨",
+            "seasonalCookieDisabled": "계절 특수 아이템 자동 클릭 비활성화됨",
+            "seasonalCookieClicked": "계절 특수 아이템이 자동으로 클릭됨!",
+            "christmasReindeerClicked": "크리스마스 순록을 찾았습니다!",
+            "seasonalCookiesWill": "계절 특수 아이템이 자동으로 클릭됩니다",
+            "seasonalCookiesWont": "계절 특수 아이템이 자동으로 클릭되지 않습니다"
         },
         "RU": {
             "modTitle": "Better AutoClicker",
@@ -697,7 +783,14 @@ Game.registerMod("betterautoclicker", {
             "wrinklerPoppedDesc": "Собраны печеньки из Морщуна",
             "wrinklerClickDelay": "Задержка клика:",
             "wrinklerDelayChanged": "Задержка клика по Морщунам изменена",
-            "wrinklerDelayChangedDesc": "Задержка между кликами установлена на {0} мс"
+            "wrinklerDelayChangedDesc": "Задержка между кликами установлена на {0} мс",
+            "seasonalCookieOption": "Автоклик по сезонным объектам",
+            "seasonalCookieEnabled": "Автоклик по сезонным объектам включен",
+            "seasonalCookieDisabled": "Автоклик по сезонным объектам отключен",
+            "seasonalCookieClicked": "Сезонный объект автоматически нажат!",
+            "christmasReindeerClicked": "Рождественский олень найден!",
+            "seasonalCookiesWill": "Сезонные объекты будут нажиматься автоматически",
+            "seasonalCookiesWont": "Сезонные объекты не будут нажиматься автоматически"
         }
     },
 
@@ -1234,6 +1327,46 @@ Game.registerMod("betterautoclicker", {
 
         modMenu.appendChild(wrinklerDelayControl);
 
+        // Option for seasonal cookies
+        let seasonalOption = document.createElement('div');
+        seasonalOption.style.marginTop = '8px';
+        seasonalOption.style.marginBottom = '8px';
+
+        // Create checkbox for seasonal cookies
+        let seasonalCheck = document.createElement('input');
+        seasonalCheck.type = 'checkbox';
+        seasonalCheck.id = 'seasonalCookieClicking';
+        seasonalCheck.checked = this.clickSeasonalCookies;
+        seasonalCheck.addEventListener('change', () => {
+            this.clickSeasonalCookies = seasonalCheck.checked;
+            Game.Notify(
+                this.getText(this.clickSeasonalCookies ? 'seasonalCookieEnabled' : 'seasonalCookieDisabled'),
+                this.getText(this.clickSeasonalCookies ? 'seasonalCookiesWill' : 'seasonalCookiesWont'),
+                [0, this.clickSeasonalCookies ? 2 : 3],
+                2
+            );
+
+            // Start or stop seasonal cookie checking
+            if (this.isActive) {
+                if (this.clickSeasonalCookies) {
+                    this.startSpecialCookieChecker();
+                } else {
+                    this.stopSpecialCookieChecker();
+                }
+            }
+        });
+        seasonalOption.appendChild(seasonalCheck);
+
+        // Label for seasonal cookie checkbox
+        let seasonalLabel = document.createElement('label');
+        seasonalLabel.id = 'betterAutoClickerSeasonalLabel';
+        seasonalLabel.htmlFor = 'seasonalCookieClicking';
+        seasonalLabel.textContent = ' ' + this.getText('seasonalCookieOption');
+        seasonalLabel.style.color = '#FFF';
+        seasonalOption.appendChild(seasonalLabel);
+
+        modMenu.appendChild(seasonalOption);
+
         // Toggle button for activation/deactivation
         let toggleButton = document.createElement('a');
         toggleButton.id = 'autoClickerToggle';
@@ -1439,7 +1572,7 @@ Game.registerMod("betterautoclicker", {
         const self = this;
         // Check for golden cookies every 500 ms
         this.goldenCheckInterval = setInterval(function() {
-            self.checkForGoldenCookies();
+            self.checkForSpecialCookies();
         }, 500);
 
         console.log("Golden cookie checker started");
@@ -1457,9 +1590,36 @@ Game.registerMod("betterautoclicker", {
     },
 
     /**
+     * Start periodic checking for special cookies (seasonal)
+     */
+    startSpecialCookieChecker: function() {
+
+        if (this.seasonalCheckInterval) {
+            clearInterval(this.seasonalCheckInterval);
+        }
+
+        const self = this;
+        // Check for special cookies every 500 ms
+        this.seasonalCheckInterval = setInterval(function() {
+            self.checkForSpecialCookies();
+        }, 500);
+
+    },
+
+    /**
+     * Stop checking for special cookies
+     */
+    stopSpecialCookieChecker: function() {
+        if (this.seasonalCheckInterval) {
+            clearInterval(this.seasonalCheckInterval);
+            this.seasonalCheckInterval = null;
+        }
+    },
+
+    /**
      * Check if there are golden cookies on screen and click them
      */
-    checkForGoldenCookies: function() {
+    checkForSpecialCookies: function() {
         // Special cookies are stored in Game.shimmers
         if (Game.shimmers && Game.shimmers.length > 0) {
             for (let i = 0; i < Game.shimmers.length; i++) {
@@ -1481,19 +1641,30 @@ Game.registerMod("betterautoclicker", {
                         }
                     }
                     // If it's a normal golden cookie
-                    else {
-                        if (this.clickGoldenCookies) {
-                            shimmer.pop();
-                            console.log("Auto-clicked a golden cookie");
-                            Game.Notify(
-                                this.getText('goldenCookieClicked'),
-                                '',
-                                [10, 14], // Golden cookie icon
-                                1 // Short duration
-                            );
-                            break;
-                        }
+                    else if (shimmer.wrath === 0 && this.clickGoldenCookies) {
+                        // Cookie doré normal
+                        shimmer.pop();
+                        console.log("Auto-clicked a golden cookie");
+                        Game.Notify(
+                            this.getText('goldenCookieClicked'),
+                            '',
+                            [10, 14],
+                            1
+                        );
+                        break;
                     }
+                }
+                // Check if it's a seasonal cookie (like reindeer for Christmas)
+                else if (shimmer.type === 'reindeer' && this.clickSeasonalCookies) {
+                    shimmer.pop();
+                    console.log("Auto-clicked a reindeer");
+                    Game.Notify(
+                        this.getText('seasonalCookieClicked'),
+                        this.getText('reindeerClicked'),
+                        [12, 9],
+                        1
+                    );
+                    break;
                 }
             }
         }
@@ -1513,7 +1684,6 @@ Game.registerMod("betterautoclicker", {
             self.checkForWrinklers();
         }, 2000);
 
-        console.log("Wrinkler checker started with click delay of " + this.wrinklerClickDelay + "ms");
     },
 
     /**
@@ -1524,7 +1694,6 @@ Game.registerMod("betterautoclicker", {
             clearInterval(this.wrinklerCheckInterval);
             this.wrinklerCheckInterval = null;
         }
-        console.log("Wrinkler checker stopped");
     },
 
     /**
@@ -1666,6 +1835,7 @@ Game.registerMod("betterautoclicker", {
             clickWrathCookies: this.clickWrathCookies,
             clickWrinklers: this.clickWrinklers,
             wrinklerClickDelay: this.wrinklerClickDelay,
+            clickSeasonalCookies: this.clickSeasonalCookies,
             panelX: this.panelX,
             panelY: this.panelY,
             panelOffsetY: this.panelOffsetY
@@ -1713,6 +1883,10 @@ Game.registerMod("betterautoclicker", {
 
                 if (config.hasOwnProperty('wrinklerClickDelay')) {
                     this.wrinklerClickDelay = config.wrinklerClickDelay;
+                }
+
+                if (config.hasOwnProperty('clickSeasonalCookies')) {
+                    this.clickSeasonalCookies = config.clickSeasonalCookies;
                 }
 
                 if (config.hasOwnProperty('panelX')) {
