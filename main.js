@@ -27,12 +27,12 @@ Game.registerMod("betterautoclicker", {
     clickWrinklers: false,        // Enable auto-click on Wrinklers
     wrinklerClickDelay: 1000,     // Delay between clicks on Wrinklers (in ms)
     wrinklerCheckInterval: null,  // Reference to the wrinkler check interval
-    panelX: 5,                   // Position X par défaut du panneau (pixels depuis la gauche)
-    panelY: 'bottom',            // Position Y par défaut du panneau ('bottom' pour depuis le bas)
-    panelOffsetY: 60,            // Décalage Y par défaut lorsque la position est 'bottom'
-    isDragging: false,           // Indique si le panneau est en cours de déplacement
-    dragOffsetX: 0,              // Décalage X lors du déplacement
-    dragOffsetY: 0,              // Décalage Y lors du déplacement
+    panelX: 5,                   // Default panel X position (pixels from the left)
+    panelY: 'bottom',            // Default panel Y position ('bottom' for from the bottom)
+    panelOffsetY: 60,            // Default Y offset when position is 'bottom'
+    isDragging: false,           // Indicates if the panel is being dragged
+    dragOffsetX: 0,              // X offset during dragging
+    dragOffsetY: 0,              // Y offset during dragging
 
     // Localization system integrated directly into the code because i don't know how to use the external file in the mod
     localization: {
@@ -1272,61 +1272,61 @@ Game.registerMod("betterautoclicker", {
     },
 
     /**
-     * Configure les événements pour rendre un élément déplaçable
-     * @param {HTMLElement} element - L'élément à rendre déplaçable
-     * @param {HTMLElement} handle - La poignée/zone de déplacement
+     * Sets up events to make an element draggable
+     * @param {HTMLElement} element - The element to make draggable
+     * @param {HTMLElement} handle - The handle/drag area
      */
     setupDragEvents: function(element, handle) {
         const self = this;
 
-        // Fonction pour commencer le déplacement
+        // Function to start dragging
         const startDrag = function(e) {
             e.preventDefault();
             self.isDragging = true;
 
-            // Calcule le décalage entre la souris et le coin de l'élément
+            // Calculate the offset between the mouse and the element
             const rect = element.getBoundingClientRect();
             self.dragOffsetX = e.clientX - rect.left;
             self.dragOffsetY = e.clientY - rect.top;
 
-            // Ajoute les événements de déplacement et de fin
+            // Add mousemove and mouseup events to the document
             document.addEventListener('mousemove', doDrag);
             document.addEventListener('mouseup', stopDrag);
         };
 
-        // Fonction pour effectuer le déplacement
+        // Function to perform dragging
         const doDrag = function(e) {
             if (!self.isDragging) return;
 
-            // Calcule les nouvelles coordonnées
+            // Calculate new coordinates
             let newX = e.clientX - self.dragOffsetX;
             let newY = e.clientY - self.dragOffsetY;
 
-            // Limite les coordonnées pour rester dans la fenêtre
+            // Limit the coordinates to the window size
             newX = Math.max(0, Math.min(window.innerWidth - element.offsetWidth, newX));
             newY = Math.max(0, Math.min(window.innerHeight - element.offsetHeight, newY));
 
-            // Applique les nouvelles coordonnées
+            // Set new position
             element.style.left = newX + 'px';
 
-            // Change le mode de position de bottom à top si déplacé
+            // Change positioning mode from bottom to top when dragged
             element.style.bottom = 'auto';
             element.style.top = newY + 'px';
 
-            // Sauvegarde les coordonnées
+            // Update the panel position variables
             self.panelX = newX;
             self.panelY = 'top';
             self.panelOffsetY = newY;
         };
 
-        // Fonction pour arrêter le déplacement
+        // Function to stop dragging
         const stopDrag = function() {
             self.isDragging = false;
             document.removeEventListener('mousemove', doDrag);
             document.removeEventListener('mouseup', stopDrag);
         };
 
-        // Attache l'événement de début de déplacement à la poignée
+        // Attach the drag start event to the handle
         handle.addEventListener('mousedown', startDrag);
     },
 
