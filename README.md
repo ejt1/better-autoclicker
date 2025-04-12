@@ -9,19 +9,18 @@ An enhanced auto-clicker mod for Cookie Clicker with advanced features for a smo
 - **Centered Click Animations**: Display visually pleasing click animations at the center of the cookie
 - **Golden/Wrath Cookie Auto-Clicking**: Automatically click golden cookies and optionally wrath cookies
 - **Wrinkler Management**: Auto-pop wrinklers to collect hoarded cookies with configurable delay
+- **Seasonal Cookie Hunter**: Optionally click seasonal cookies (such as Reindeer during Christmas)
 - **Keyboard Shortcut**: Toggle the auto-clicker on/off using the 'A' key
 - **Multi-language Support**: Available in 13 languages:
     - English, French, German, Dutch, Czech, Polish, Italian, Spanish, Portuguese, Chinese, Japanese, Korean, and Russian
 
 ## Installation
 
-1. Make sure you're running the latest version of Cookie Clicker
-2. Download the files:
-    - `main.js`
-    - `info.txt`
-3. Create a folder named `better-autoclicker` in your Cookie Clicker's `/mods/local` directory
-4. Place the downloaded files in this folder
-5. Restart Cookie Clicker and enable the mod in the Mod menu
+1. Make sure you're running the latest version of Cookie Clicker.  
+2. Download the latest release from [GitHub](https://github.com/Teyk0o/better-autoclicker/releases).  
+3. Unzip the folder into your Cookie Clicker `/mods/local` directory.  
+4. You should now have a folder named something like `BAC-*.*.*` inside the `/mods/local` directory, containing the mod files.  
+5. Restart Cookie Clicker and enable the mod from the Mod Menu.
 
 ## Usage
 
@@ -32,6 +31,7 @@ Once installed, you'll see a control panel in the bottom-left corner of the game
 - **Centered animations**: Toggle whether click animations appear at the cookie's center
 - **Auto-click golden cookies**: Automatically click golden cookies when they appear
 - **Auto-click wrath cookies**: Automatically click wrath cookies when they appear
+- **Auto-click seasonal cookies**: Automatically click seasonal cookies when they appear
 - **Auto-pop Wrinklers**: Automatically pop wrinklers when they have stored cookies
 - **Click delay**: Adjust the timing between wrinkler pops
 
