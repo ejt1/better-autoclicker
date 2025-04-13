@@ -29,12 +29,6 @@ Game.registerMod("betterautoclicker", {
     wrinklerCheckInterval: null,  // Reference to the wrinkler check interval
     clickSeasonalCookies: true,   // Enable auto-click on seasonal cookies like Reindeer for Christmas
     seasonalCheckInterval: null,  // Reference to the seasonal cookie check interval
-    panelX: 5,                    // Default panel X position (pixels from the left)
-    panelY: 'bottom',             // Default panel Y position ('bottom' for from the bottom)
-    panelOffsetY: 60,             // Default Y offset when position is 'bottom'
-    isDragging: false,            // Indicates if the panel is being dragged
-    dragOffsetX: 0,               // X offset during dragging
-    dragOffsetY: 0,               // Y offset during dragging
 
     // Localization system integrated directly into the code because i don't know how to use the external file in the mod
     localization: {
@@ -95,6 +89,9 @@ Game.registerMod("betterautoclicker", {
             "christmasReindeerClicked": "Found a Christmas reindeer!",
             "seasonalCookiesWill": "Seasonal specials will be clicked automatically",
             "seasonalCookiesWont": "Seasonal specials will not be clicked automatically",
+            "discordSupport": "Join our Discord server",
+            "discordSupportDesc": "For support, bug reports, or idea sharing",
+            "discordButton": "Discord Better AutoClicker"
         },
         "FR": {
             "modTitle": "Better AutoClicker",
@@ -153,6 +150,9 @@ Game.registerMod("betterautoclicker", {
             "christmasReindeerClicked": "Renne de Noël trouvé !",
             "seasonalCookiesWill": "Les spéciaux saisonniers seront cliqués automatiquement",
             "seasonalCookiesWont": "Les spéciaux saisonniers ne seront pas cliqués automatiquement",
+            "discordSupport": "Rejoignez notre serveur Discord",
+            "discordSupportDesc": "Pour le support, signaler des bugs ou proposer des idées",
+            "discordButton": "Discord Better AutoClicker",
         },
         "DE": {
             "modTitle": "Better AutoClicker",
@@ -210,7 +210,10 @@ Game.registerMod("betterautoclicker", {
             "seasonalCookieClicked": "Saisonales Spezialobjekt automatisch geklickt!",
             "christmasReindeerClicked": "Weihnachtsrentier gefunden!",
             "seasonalCookiesWill": "Saisonale Spezialobjekte werden automatisch geklickt",
-            "seasonalCookiesWont": "Saisonale Spezialobjekte werden nicht automatisch geklickt"
+            "seasonalCookiesWont": "Saisonale Spezialobjekte werden nicht automatisch geklickt",
+            "discordSupport": "Tritt unserem Discord-Server bei",
+            "discordSupportDesc": "Für Support, Bugmeldungen oder Ideen",
+            "discordButton": "Discord Better AutoClicker"
         },
         "NL": {
             "modTitle": "Better AutoClicker",
@@ -268,7 +271,10 @@ Game.registerMod("betterautoclicker", {
             "seasonalCookieClicked": "Seizoensgebonden special automatisch geklikt!",
             "christmasReindeerClicked": "Kerst rendier gevonden!",
             "seasonalCookiesWill": "Seizoensgebonden specials worden automatisch geklikt",
-            "seasonalCookiesWont": "Seizoensgebonden specials worden niet automatisch geklikt"
+            "seasonalCookiesWont": "Seizoensgebonden specials worden niet automatisch geklikt",
+            "discordSupport": "Word lid van onze Discord-server",
+            "discordSupportDesc": "Voor ondersteuning, bugrapporten of ideeën",
+            "discordButton": "Discord Better AutoClicker"
         },
         "CS": {
             "modTitle": "Better AutoClicker",
@@ -326,7 +332,10 @@ Game.registerMod("betterautoclicker", {
             "seasonalCookieClicked": "Sezónní speciál automaticky kliknut!",
             "christmasReindeerClicked": "Vánoční sob nalezen!",
             "seasonalCookiesWill": "Sezónní speciály budou automaticky klikány",
-            "seasonalCookiesWont": "Sezónní speciály nebudou automaticky klikány"
+            "seasonalCookiesWont": "Sezónní speciály nebudou automaticky klikány",
+            "discordSupport": "Připojte se k našemu Discord serveru",
+            "discordSupportDesc": "Pro podporu, hlášení chyb nebo návrhy",
+            "discordButton": "Discord Better AutoClicker"
         },
         "PL": {
             "modTitle": "Better AutoClicker",
@@ -384,7 +393,10 @@ Game.registerMod("betterautoclicker", {
             "seasonalCookieClicked": "Sezonowa specjalność automatycznie kliknięta!",
             "christmasReindeerClicked": "Znaleziono świątecznego renifera!",
             "seasonalCookiesWill": "Sezonowe specjalności będą klikane automatycznie",
-            "seasonalCookiesWont": "Sezonowe specjalności nie będą klikane automatycznie"
+            "seasonalCookiesWont": "Sezonowe specjalności nie będą klikane automatycznie",
+            "discordSupport": "Dołącz do naszego serwera Discord",
+            "discordSupportDesc": "Aby uzyskać pomoc, zgłosić błędy lub podzielić się pomysłami",
+            "discordButton": "Discord Better AutoClicker"
         },
         "IT": {
             "modTitle": "Better AutoClicker",
@@ -442,7 +454,10 @@ Game.registerMod("betterautoclicker", {
             "seasonalCookieClicked": "Speciale stagionale cliccato automaticamente!",
             "christmasReindeerClicked": "Renna di Natale trovata!",
             "seasonalCookiesWill": "Gli speciali stagionali verranno cliccati automaticamente",
-            "seasonalCookiesWont": "Gli speciali stagionali non verranno cliccati automaticamente"
+            "seasonalCookiesWont": "Gli speciali stagionali non verranno cliccati automaticamente",
+            "discordSupport": "Unisciti al nostro server Discord",
+            "discordSupportDesc": "Per supporto, segnalazione bug o suggerimenti",
+            "discordButton": "Discord Better AutoClicker"
         },
         "ES": {
             "modTitle": "Better AutoClicker",
@@ -500,7 +515,10 @@ Game.registerMod("betterautoclicker", {
             "seasonalCookieClicked": "¡Especial de temporada clicado automáticamente!",
             "christmasReindeerClicked": "¡Reno navideño encontrado!",
             "seasonalCookiesWill": "Los especiales de temporada se clicarán automáticamente",
-            "seasonalCookiesWont": "Los especiales de temporada no se clicarán automáticamente"
+            "seasonalCookiesWont": "Los especiales de temporada no se clicarán automáticamente",
+            "discordSupport": "Únete a nuestro servidor de Discord",
+            "discordSupportDesc": "Para soporte, reportar errores o compartir ideas",
+            "discordButton": "Discord Better AutoClicker"
         },
         "PT-BR": {
             "modTitle": "Better AutoClicker",
@@ -558,7 +576,10 @@ Game.registerMod("betterautoclicker", {
             "seasonalCookieClicked": "Especial sazonal clicado automaticamente!",
             "christmasReindeerClicked": "Rena de Natal encontrada!",
             "seasonalCookiesWill": "Os especiais sazonais serão clicados automaticamente",
-            "seasonalCookiesWont": "Os especiais sazonais não serão clicados automaticamente"
+            "seasonalCookiesWont": "Os especiais sazonais não serão clicados automaticamente",
+            "discordSupport": "Entre no nosso servidor do Discord",
+            "discordSupportDesc": "Para suporte, relatar bugs ou enviar ideias",
+            "discordButton": "Discord Better AutoClicker"
         },
         "ZH-CN": {
             "modTitle": "Better AutoClicker",
@@ -616,7 +637,10 @@ Game.registerMod("betterautoclicker", {
             "seasonalCookieClicked": "已自动点击季节性特殊项目！",
             "christmasReindeerClicked": "找到了圣诞驯鹿！",
             "seasonalCookiesWill": "季节性特殊项目将自动点击",
-            "seasonalCookiesWont": "季节性特殊项目不会自动点击"
+            "seasonalCookiesWont": "季节性特殊项目不会自动点击",
+            "discordSupport": "加入我们的 Discord 服务器",
+            "discordSupportDesc": "用于支持、报告错误或提出建议",
+            "discordButton": "Discord Better AutoClicker"
         },
         "JA": {
             "modTitle": "Better AutoClicker",
@@ -674,7 +698,10 @@ Game.registerMod("betterautoclicker", {
             "seasonalCookieClicked": "季節限定スペシャルを自動クリックしました！",
             "christmasReindeerClicked": "クリスマスのトナカイを発見！",
             "seasonalCookiesWill": "季節限定スペシャルは自動的にクリックされます",
-            "seasonalCookiesWont": "季節限定スペシャルは自動的にクリックされません"
+            "seasonalCookiesWont": "季節限定スペシャルは自動的にクリックされません",
+            "discordSupport": "Discordサーバーに参加する",
+            "discordSupportDesc": "サポート、バグ報告、アイデアの共有のために",
+            "discordButton": "Discord Better AutoClicker"
         },
         "KO": {
             "modTitle": "Better AutoClicker",
@@ -732,7 +759,10 @@ Game.registerMod("betterautoclicker", {
             "seasonalCookieClicked": "계절 특수 아이템이 자동으로 클릭됨!",
             "christmasReindeerClicked": "크리스마스 순록을 찾았습니다!",
             "seasonalCookiesWill": "계절 특수 아이템이 자동으로 클릭됩니다",
-            "seasonalCookiesWont": "계절 특수 아이템이 자동으로 클릭되지 않습니다"
+            "seasonalCookiesWont": "계절 특수 아이템이 자동으로 클릭되지 않습니다",
+            "discordSupport": "우리의 Discord 서버에 참여하세요",
+            "discordSupportDesc": "지원, 버그 신고 또는 아이디어 제안용",
+            "discordButton": "Discord Better AutoClicker"
         },
         "RU": {
             "modTitle": "Better AutoClicker",
@@ -790,7 +820,10 @@ Game.registerMod("betterautoclicker", {
             "seasonalCookieClicked": "Сезонный объект автоматически нажат!",
             "christmasReindeerClicked": "Рождественский олень найден!",
             "seasonalCookiesWill": "Сезонные объекты будут нажиматься автоматически",
-            "seasonalCookiesWont": "Сезонные объекты не будут нажиматься автоматически"
+            "seasonalCookiesWont": "Сезонные объекты не будут нажиматься автоматически",
+            "discordSupport": "Присоединяйтесь к нашему серверу Discord",
+            "discordSupportDesc": "Для поддержки, отчётов об ошибках и идей",
+            "discordButton": "Discord Better AutoClicker"
         }
     },
 
@@ -824,12 +857,13 @@ Game.registerMod("betterautoclicker", {
             self.originalMouseY = e.clientY;
         });
 
-        // Create the mod's user interface (after a short delay to ensure everything is loaded)
+        // Initialize mod with short delay
         setTimeout(() => {
-            this.createModUI();
-
             // Register keyboard shortcut
             this.registerKeyboardShortcut();
+
+            // Add mod to the game's Options menu
+            this.injectGameOptions();
 
             // Initialization notification
             Game.Notify(
@@ -837,18 +871,7 @@ Game.registerMod("betterautoclicker", {
                 this.getText('modLoadedDesc'),
                 [16, 5]
             );
-
-            // Add mod to the game's Options menu
-            this.injectGameOptions();
         }, 1000);
-
-        // Handle window events (focus/blur)
-        window.addEventListener('blur', () => {
-            // Continue clicking even when the window loses focus
-            if (this.isActive && this.clicksInBackground) {
-                console.log("Window in background, clicks continuing");
-            }
-        });
     },
 
     /**
@@ -875,17 +898,8 @@ Game.registerMod("betterautoclicker", {
      * @param {string} langCode - Language code ('EN', 'FR', etc. or 'auto')
      */
     setLanguage: function(langCode) {
-        console.log("Setting language to:", langCode);
-
         // Save the new language
         this.userLanguage = langCode;
-
-        // Check that we have translations for this language
-        if (this.localization && this.localization[langCode]) {
-            console.log("Translations available for:", langCode);
-        } else if (langCode !== 'auto') {
-            console.warn("No translations found for:", langCode);
-        }
 
         // Update interface elements
         this.updateUILanguage();
@@ -903,17 +917,6 @@ Game.registerMod("betterautoclicker", {
      * Updates the user interface with the current language
      */
     updateUILanguage: function() {
-        console.log("Updating UI to language: " + this.getLanguage());
-
-        // Radical strategy: Remove and recreate the interface
-        const oldMenu = document.getElementById('betterAutoClickerMenu');
-        if (oldMenu) {
-            oldMenu.remove();
-        }
-
-        // Recreate the interface with new translations
-        this.createModUI();
-
         // Update options in the game menu
         if (Game.onMenu === 'prefs') {
             // Force an update of the Options menu
@@ -962,11 +965,10 @@ Game.registerMod("betterautoclicker", {
         // Reference to our mod instance
         let self = this;
 
-        // Add our options to the menu, following the example style
+        // Add our options to the menu
         Game.customOptionsMenu.push(() => {
             // Create a main container with style
             let box = document.createElement("div");
-            box.className = "listing";
             box.style.border = "1px solid #333";
             box.style.padding = "10px";
             box.style.marginBottom = "15px";
@@ -974,14 +976,280 @@ Game.registerMod("betterautoclicker", {
             // Section title
             let title = document.createElement("div");
             title.className = "title";
+            title.style.marginBottom = "5px";
             title.textContent = this.getText('betterAutoClickerOptions');
             box.appendChild(title);
+
+            // Activation button using game style
+            let toggleButton = document.createElement('a');
+            toggleButton.id = 'autoClickerToggle';
+            toggleButton.className = 'option smallFancyButton';
+            toggleButton.textContent = this.isActive ?
+                this.getText('deactivate') :
+                this.getText('activate');
+            toggleButton.style.background = this.isActive ? '#CC0000' : '#5C4317';
+
+            toggleButton.addEventListener('click', () => {
+                this.toggleAutoClicker();
+                // Update button text after toggle
+                toggleButton.textContent = this.isActive ?
+                    this.getText('deactivate') :
+                    this.getText('activate');
+
+                Game.PlaySound('snd/tick.mp3');
+            });
+
+            let toggleDiv = document.createElement('div');
+            toggleDiv.className = 'listing';
+            toggleDiv.appendChild(toggleButton);
+
+            // Keyboard hint
+            let hint = document.createElement('small');
+            hint.textContent = ' ' + this.getText('keyboardHint');
+            hint.style.opacity = '0.7';
+            toggleDiv.appendChild(hint);
+
+            box.appendChild(toggleDiv);
+
+            // Speed control
+            let speedControl = document.createElement('div');
+            speedControl.className = "listing";
+            speedControl.style.marginTop = '5px';
+
+            // Label
+            let speedLabel = document.createElement('span');
+            speedLabel.textContent = this.getText('clicksPerSecond') + ' ';
+            speedControl.appendChild(speedLabel);
+
+            // Speed input
+            let speedInput = document.createElement('input');
+            speedInput.type = 'number';
+            speedInput.id = 'autoClickerSpeed';
+            speedInput.min = '1';
+            speedInput.max = '100';
+            speedInput.value = this.clicksPerSecond;
+            speedInput.style.width = '40px';
+            speedInput.style.marginLeft = '5px';
+            speedInput.addEventListener('change', () => {
+                const newSpeed = parseInt(speedInput.value, 10);
+                if (newSpeed >= 1 && newSpeed <= 100) {
+                    this.clicksPerSecond = newSpeed;
+                    if (this.isActive) {
+                        // Update currently running interval
+                        this.stopAutoClicker();
+                        this.startAutoClicker();
+                    }
+                    this.saveSettings();
+                }
+            });
+            speedControl.appendChild(speedInput);
+            box.appendChild(speedControl);
+
+            // Options with Game-style buttons
+            let optionsDiv = document.createElement('div');
+            box.appendChild(optionsDiv);
+
+            // Create game-style toggle buttons
+            const createToggleButton = (id, property, onText, offText) => {
+                let buttonDiv = document.createElement('div');
+                buttonDiv.className = 'listing';
+
+                let button = document.createElement('a');
+                button.id = id;
+                button.className = 'option smallFancyButton prefButton' + (this[property] ? '' : ' off');
+                button.textContent = this[property] ? onText : offText;
+
+                button.addEventListener('click', () => {
+                    this[property] = !this[property];
+                    button.textContent = this[property] ? onText : offText;
+
+                    if (this[property]) {
+                        button.classList.remove('off');
+                    } else {
+                        button.classList.add('off');
+                    }
+
+                    // Handle specific actions for each option
+                    if (id === 'backgroundClicking') {
+                        Game.Notify(
+                            this.getText(this[property] ? 'backgroundEnabled' : 'backgroundDisabled'),
+                            this.getText(this[property] ? 'backgroundWill' : 'backgroundWont') + ' ' +
+                            this.getText('backgroundWhenInactive'),
+                            [0, this[property] ? 2 : 3],
+                            2
+                        );
+                    }
+                    else if (id === 'centerAnimations') {
+                        Game.Notify(
+                            this.getText(this[property] ? 'animationsEnabled' : 'animationsDisabled'),
+                            this.getText(this[property] ? 'animationsWill' : 'animationsWont') + ' ' +
+                            this.getText('atCookieCenter'),
+                            [0, this[property] ? 2 : 3],
+                            2
+                        );
+                    }
+                    else if (id === 'goldenCookieClicking') {
+                        Game.Notify(
+                            this.getText(this[property] ? 'goldenCookieEnabled' : 'goldenCookieDisabled'),
+                            this.getText(this[property] ? 'goldenCookiesWill' : 'goldenCookiesWont'),
+                            [0, this[property] ? 2 : 3],
+                            2
+                        );
+
+                        // Start or stop golden cookie checking
+                        if (this.isActive) {
+                            if (this[property]) {
+                                this.startGoldenCookieChecker();
+                            } else {
+                                this.stopGoldenCookieChecker();
+                            }
+                        }
+                    }
+                    else if (id === 'wrathCookieClicking') {
+                        Game.Notify(
+                            this.getText(this[property] ? 'wrathCookieEnabled' : 'wrathCookieDisabled'),
+                            this.getText(this[property] ? 'wrathCookiesWill' : 'wrathCookiesWont'),
+                            [0, this[property] ? 2 : 3],
+                            2
+                        );
+                    }
+                    else if (id === 'wrinklerClicking') {
+                        Game.Notify(
+                            this.getText(this[property] ? 'wrinklerClickEnabled' : 'wrinklerClickDisabled'),
+                            this.getText(this[property] ? 'wrinklersWill' : 'wrinklersWont'),
+                            [0, this[property] ? 2 : 3],
+                            2
+                        );
+
+                        // Start or stop Wrinkler checking
+                        if (this.isActive) {
+                            if (this[property]) {
+                                this.startWrinklerChecker();
+                            } else {
+                                this.stopWrinklerChecker();
+                            }
+                        }
+
+                        // Show/hide delay control based on button state
+                        wrinklerDelayControl.style.display = this[property] ? 'block' : 'none';
+                    }
+                    else if (id === 'seasonalCookieClicking') {
+                        Game.Notify(
+                            this.getText(this[property] ? 'seasonalCookieEnabled' : 'seasonalCookieDisabled'),
+                            this.getText(this[property] ? 'seasonalCookiesWill' : 'seasonalCookiesWont'),
+                            [0, this[property] ? 2 : 3],
+                            2
+                        );
+
+                        // Start or stop seasonal cookie checking
+                        if (this.isActive) {
+                            if (this[property]) {
+                                this.startSpecialCookieChecker();
+                            } else {
+                                this.stopSpecialCookieChecker();
+                            }
+                        }
+                    }
+
+                    this.saveSettings();
+
+                    Game.PlaySound('snd/tick.mp3');
+                });
+
+                buttonDiv.appendChild(button);
+                return buttonDiv;
+            };
+
+            // Option for background clicking
+            optionsDiv.appendChild(createToggleButton(
+                'backgroundClicking',
+                'clicksInBackground',
+                this.getText('backgroundOption') + ' ' + this.getText('activate'),
+                this.getText('backgroundOption') + ' ' + this.getText('deactivate')
+            ));
+
+            // Option for centering animations
+            optionsDiv.appendChild(createToggleButton(
+                'centerAnimations',
+                'centerAnimations',
+                this.getText('centerOption') + ' ' + this.getText('activate'),
+                this.getText('centerOption') + ' ' + this.getText('deactivate')
+            ));
+
+            // Option for golden cookies
+            optionsDiv.appendChild(createToggleButton(
+                'goldenCookieClicking',
+                'clickGoldenCookies',
+                this.getText('goldenCookieOption') + ' ' + this.getText('activate'),
+                this.getText('goldenCookieOption') + ' ' + this.getText('deactivate')
+            ));
+
+            // Option for wrath cookies
+            optionsDiv.appendChild(createToggleButton(
+                'wrathCookieClicking',
+                'clickWrathCookies',
+                this.getText('wrathCookieOption') + ' ' + this.getText('activate'),
+                this.getText('wrathCookieOption') + ' ' + this.getText('deactivate')
+            ));
+
+            // Option for Wrinklers
+            optionsDiv.appendChild(createToggleButton(
+                'wrinklerClicking',
+                'clickWrinklers',
+                this.getText('wrinklerOption') + ' ' + this.getText('activate'),
+                this.getText('wrinklerOption') + ' ' + this.getText('deactivate')
+            ));
+
+            // Control for Wrinkler click delay
+            let wrinklerDelayControl = document.createElement('div');
+            wrinklerDelayControl.className = 'listing';
+            wrinklerDelayControl.style.marginLeft = '20px';
+            wrinklerDelayControl.style.display = this.clickWrinklers ? 'block' : 'none';
+
+            // Label for delay
+            let wrinklerDelayLabel = document.createElement('span');
+            wrinklerDelayLabel.textContent = this.getText('wrinklerClickDelay') + ' ';
+            wrinklerDelayControl.appendChild(wrinklerDelayLabel);
+
+            // Input for delay
+            let wrinklerDelayInput = document.createElement('input');
+            wrinklerDelayInput.type = 'number';
+            wrinklerDelayInput.id = 'wrinklerClickDelay';
+            wrinklerDelayInput.min = '100';
+            wrinklerDelayInput.max = '5000';
+            wrinklerDelayInput.step = '100';
+            wrinklerDelayInput.value = this.wrinklerClickDelay;
+            wrinklerDelayInput.style.width = '60px';
+            wrinklerDelayInput.style.marginLeft = '5px';
+            wrinklerDelayInput.addEventListener('change', () => {
+                const newDelay = parseInt(wrinklerDelayInput.value, 10);
+                if (newDelay >= 100 && newDelay <= 5000) {
+                    this.wrinklerClickDelay = newDelay;
+                    Game.Notify(
+                        this.getText('wrinklerDelayChanged'),
+                        this.formatString(this.getText('wrinklerDelayChangedDesc'), this.wrinklerClickDelay),
+                        [0, 2],
+                        2
+                    );
+                    this.saveSettings();
+                }
+            });
+            wrinklerDelayControl.appendChild(wrinklerDelayInput);
+            wrinklerDelayControl.appendChild(document.createTextNode(' ms'));
+            optionsDiv.appendChild(wrinklerDelayControl);
+
+            // Option for seasonal cookies
+            optionsDiv.appendChild(createToggleButton(
+                'seasonalCookieClicking',
+                'clickSeasonalCookies',
+                this.getText('seasonalCookieOption') + ' ' + this.getText('activate'),
+                this.getText('seasonalCookieOption') + ' ' + this.getText('deactivate')
+            ));
 
             // Language options section
             let langBox = document.createElement("div");
             langBox.className = "listing";
-            langBox.style.border = "1px solid #333";
-            langBox.style.padding = "10px";
+            langBox.style.marginTop = "20px";
             langBox.style.marginBottom = "10px";
 
             // Create label and selector
@@ -1009,11 +1277,43 @@ Game.registerMod("betterautoclicker", {
             // Listen for language changes
             langSelect.addEventListener("change", () => {
                 this.setLanguage(langSelect.value);
+                this.saveSettings();
+
+                // Force update of the menu to reflect language changes
+                Game.UpdateMenu();
             });
 
             langDiv.appendChild(langSelect);
             langBox.appendChild(langDiv);
             box.appendChild(langBox);
+
+            // Discord section
+            let discordBox = document.createElement("div");
+            discordBox.className = "listing";
+            discordBox.style.marginTop = "15px";
+            discordBox.style.borderTop = "1px solid #333";
+            discordBox.style.paddingTop = "8px";
+
+            let discordTitle = document.createElement("div");
+            discordTitle.className = "title";  // Utilisation du style de titre Cookie Clicker
+            discordTitle.style.fontSize = "1.1em";
+            discordTitle.textContent = this.getText('discordSupport');
+            discordBox.appendChild(discordTitle);
+
+            let discordText = document.createElement("div");
+            discordText.textContent = this.getText('discordSupportDesc');
+            discordText.style.marginBottom = "8px";
+            discordBox.appendChild(discordText);
+
+            let discordLink = document.createElement("a");
+            discordLink.href = "https://discord.gg/HUQQD49ced";
+            discordLink.target = "_blank";
+            discordLink.className = "option smallFancyButton";  // Utilisation du style de bouton Cookie Clicker
+            discordLink.textContent = this.getText('discordButton');
+            discordLink.style.display = "inline-block";
+            discordBox.appendChild(discordLink);
+
+            box.appendChild(discordBox);
 
             // Add directly to the game menu
             l('menu').appendChild(box);
@@ -1023,444 +1323,6 @@ Game.registerMod("betterautoclicker", {
         if (Game.onMenu === 'prefs') {
             Game.UpdateMenu();
         }
-    },
-
-    /**
-     * Creates the mod's user interface
-     */
-    createModUI: function() {
-        // Create the mod control panel
-        let modMenu = document.createElement('div');
-        modMenu.id = 'betterAutoClickerMenu';
-        modMenu.className = 'framed';
-        modMenu.style.cssText = `
-            position: absolute;
-            left: ${this.panelX}px;
-            ${this.panelY === 'bottom' ? 'bottom: ' + this.panelOffsetY + 'px' : 'top: ' + this.panelOffsetY + 'px'};
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            border: 2px solid #C0B070;
-            border-radius: 5px;
-            z-index: 10000;
-            font-family: 'Merriweather', serif;
-        `;
-
-        // Ajoute une poignée de déplacement en haut
-        let dragHandle = document.createElement('div');
-        dragHandle.id = 'betterAutoClickerDragHandle';
-        dragHandle.style.cssText = `
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 20px;
-            cursor: move;
-        `;
-        modMenu.appendChild(dragHandle);
-
-        // Mod title
-        let title = document.createElement('div');
-        title.textContent = this.getText('modTitle');
-        title.id = 'betterAutoClickerTitle';
-        title.className = 'title';
-        title.style.cssText = `
-            font-size: 16px;
-            margin-bottom: 5px;
-            color: #FFF;
-            text-align: center;
-            cursor: move;
-        `;
-        modMenu.appendChild(title);
-
-        // Speed control
-        let speedControl = document.createElement('div');
-        speedControl.style.marginTop = '5px';
-        speedControl.style.marginBottom = '8px';
-
-        // Label
-        let speedLabel = document.createElement('span');
-        speedLabel.id = 'betterAutoClickerSpeedLabel';
-        speedLabel.textContent = this.getText('clicksPerSecond') + ' ';
-        speedLabel.style.color = '#FFF';
-        speedControl.appendChild(speedLabel);
-
-        // Speed input
-        let speedInput = document.createElement('input');
-        speedInput.type = 'number';
-        speedInput.id = 'autoClickerSpeed';
-        speedInput.min = '1';
-        speedInput.max = '100';
-        speedInput.value = this.clicksPerSecond;
-        speedInput.style.width = '40px';
-        speedInput.style.marginLeft = '5px';
-        speedInput.addEventListener('change', () => {
-            const newSpeed = parseInt(speedInput.value, 10);
-            if (newSpeed >= 1 && newSpeed <= 100) {
-                this.clicksPerSecond = newSpeed;
-                if (this.isActive) {
-                    // Update currently running interval
-                    this.stopAutoClicker();
-                    this.startAutoClicker();
-                }
-            }
-        });
-        speedControl.appendChild(speedInput);
-        modMenu.appendChild(speedControl);
-
-        // Option for background clicking
-        let backgroundOption = document.createElement('div');
-        backgroundOption.style.marginTop = '8px';
-        backgroundOption.style.marginBottom = '8px';
-
-        // Create checkbox for background
-        let backgroundCheck = document.createElement('input');
-        backgroundCheck.type = 'checkbox';
-        backgroundCheck.id = 'backgroundClicking';
-        backgroundCheck.checked = this.clicksInBackground;
-        backgroundCheck.addEventListener('change', () => {
-            this.clicksInBackground = backgroundCheck.checked;
-            Game.Notify(
-                this.getText(this.clicksInBackground ? 'backgroundEnabled' : 'backgroundDisabled'),
-                this.getText(this.clicksInBackground ? 'backgroundWill' : 'backgroundWont') + ' ' +
-                this.getText('backgroundWhenInactive'),
-                [0, this.clicksInBackground ? 2 : 3],
-                2
-            );
-        });
-        backgroundOption.appendChild(backgroundCheck);
-
-        // Label for background checkbox
-        let backgroundLabel = document.createElement('label');
-        backgroundLabel.id = 'betterAutoClickerBackgroundLabel';
-        backgroundLabel.htmlFor = 'backgroundClicking';
-        backgroundLabel.textContent = ' ' + this.getText('backgroundOption');
-        backgroundLabel.style.color = '#FFF';
-        backgroundOption.appendChild(backgroundLabel);
-
-        modMenu.appendChild(backgroundOption);
-
-        // Option for centering animations
-        let centerOption = document.createElement('div');
-        centerOption.style.marginTop = '8px';
-        centerOption.style.marginBottom = '8px';
-
-        // Create checkbox for centering animations
-        let centerCheck = document.createElement('input');
-        centerCheck.type = 'checkbox';
-        centerCheck.id = 'centerAnimations';
-        centerCheck.checked = this.centerAnimations;
-        centerCheck.addEventListener('change', () => {
-            this.centerAnimations = centerCheck.checked;
-            Game.Notify(
-                this.getText(this.centerAnimations ? 'animationsEnabled' : 'animationsDisabled'),
-                this.getText(this.centerAnimations ? 'animationsWill' : 'animationsWont') + ' ' +
-                this.getText('atCookieCenter'),
-                [0, this.centerAnimations ? 2 : 3],
-                2
-            );
-        });
-        centerOption.appendChild(centerCheck);
-
-        // Label for centering checkbox
-        let centerLabel = document.createElement('label');
-        centerLabel.id = 'betterAutoClickerCenterLabel';
-        centerLabel.htmlFor = 'centerAnimations';
-        centerLabel.textContent = ' ' + this.getText('centerOption');
-        centerLabel.style.color = '#FFF';
-        centerOption.appendChild(centerLabel);
-
-        modMenu.appendChild(centerOption);
-
-        // Option for golden cookies
-        let goldenOption = document.createElement('div');
-        goldenOption.style.marginTop = '8px';
-        goldenOption.style.marginBottom = '8px';
-
-        // Create checkbox for golden cookies
-        let goldenCheck = document.createElement('input');
-        goldenCheck.type = 'checkbox';
-        goldenCheck.id = 'goldenCookieClicking';
-        goldenCheck.checked = this.clickGoldenCookies;
-        goldenCheck.addEventListener('change', () => {
-            this.clickGoldenCookies = goldenCheck.checked;
-            Game.Notify(
-                this.getText(this.clickGoldenCookies ? 'goldenCookieEnabled' : 'goldenCookieDisabled'),
-                this.getText(this.clickGoldenCookies ? 'goldenCookiesWill' : 'goldenCookiesWont'),
-                [0, this.clickGoldenCookies ? 2 : 3],
-                2
-            );
-
-            // Start or stop golden cookie checking
-            if (this.isActive) {
-                if (this.clickGoldenCookies) {
-                    this.startGoldenCookieChecker();
-                } else {
-                    this.stopGoldenCookieChecker();
-                }
-            }
-        });
-        goldenOption.appendChild(goldenCheck);
-
-        // Label for golden cookie checkbox
-        let goldenLabel = document.createElement('label');
-        goldenLabel.id = 'betterAutoClickerGoldenLabel';
-        goldenLabel.htmlFor = 'goldenCookieClicking';
-        goldenLabel.textContent = ' ' + this.getText('goldenCookieOption');
-        goldenLabel.style.color = '#FFF';
-        goldenOption.appendChild(goldenLabel);
-
-        modMenu.appendChild(goldenOption);
-
-        // Option for wrath cookies
-        let wrathOption = document.createElement('div');
-        wrathOption.style.marginTop = '8px';
-        wrathOption.style.marginBottom = '8px';
-
-        // Create checkbox for wrath cookies
-        let wrathCheck = document.createElement('input');
-        wrathCheck.type = 'checkbox';
-        wrathCheck.id = 'wrathCookieClicking';
-        wrathCheck.checked = this.clickWrathCookies;
-        wrathCheck.addEventListener('change', () => {
-            this.clickWrathCookies = wrathCheck.checked;
-            Game.Notify(
-                this.getText(this.clickWrathCookies ? 'wrathCookieEnabled' : 'wrathCookieDisabled'),
-                this.getText(this.clickWrathCookies ? 'wrathCookiesWill' : 'wrathCookiesWont'),
-                [0, this.clickWrathCookies ? 2 : 3],
-                2
-            );
-        });
-        wrathOption.appendChild(wrathCheck);
-
-        // Label for wrath cookie checkbox
-        let wrathLabel = document.createElement('label');
-        wrathLabel.id = 'betterAutoClickerWrathLabel';
-        wrathLabel.htmlFor = 'wrathCookieClicking';
-        wrathLabel.textContent = ' ' + this.getText('wrathCookieOption');
-        wrathLabel.style.color = '#FFF';
-        wrathOption.appendChild(wrathLabel);
-
-        modMenu.appendChild(wrathOption);
-
-        // Option for clicking Wrinklers
-        let wrinklerOption = document.createElement('div');
-        wrinklerOption.style.marginTop = '8px';
-        wrinklerOption.style.marginBottom = '8px';
-
-        // Create checkbox for Wrinklers
-        let wrinklerCheck = document.createElement('input');
-        wrinklerCheck.type = 'checkbox';
-        wrinklerCheck.id = 'wrinklerClicking';
-        wrinklerCheck.checked = this.clickWrinklers;
-        wrinklerCheck.addEventListener('change', () => {
-            this.clickWrinklers = wrinklerCheck.checked;
-            Game.Notify(
-                this.getText(this.clickWrinklers ? 'wrinklerClickEnabled' : 'wrinklerClickDisabled'),
-                this.getText(this.clickWrinklers ? 'wrinklersWill' : 'wrinklersWont'),
-                [0, this.clickWrinklers ? 2 : 3],
-                2
-            );
-
-            // Start or stop Wrinkler checking
-            if (this.isActive) {
-                if (this.clickWrinklers) {
-                    this.startWrinklerChecker();
-                } else {
-                    this.stopWrinklerChecker();
-                }
-            }
-        });
-        wrinklerOption.appendChild(wrinklerCheck);
-
-        // Label for Wrinkler checkbox
-        let wrinklerLabel = document.createElement('label');
-        wrinklerLabel.id = 'betterAutoClickerWrinklerLabel';
-        wrinklerLabel.htmlFor = 'wrinklerClicking';
-        wrinklerLabel.textContent = ' ' + this.getText('wrinklerOption');
-        wrinklerLabel.style.color = '#FFF';
-        wrinklerOption.appendChild(wrinklerLabel);
-
-        modMenu.appendChild(wrinklerOption);
-
-        // Control for Wrinkler click delay
-        let wrinklerDelayControl = document.createElement('div');
-        wrinklerDelayControl.style.marginTop = '5px';
-        wrinklerDelayControl.style.marginBottom = '8px';
-        wrinklerDelayControl.style.display = this.clickWrinklers ? 'block' : 'none';
-
-        // Label for delay
-        let wrinklerDelayLabel = document.createElement('span');
-        wrinklerDelayLabel.id = 'betterAutoClickerWrinklerDelayLabel';
-        wrinklerDelayLabel.textContent = this.getText('wrinklerClickDelay') + ' ';
-        wrinklerDelayLabel.style.color = '#FFF';
-        wrinklerDelayControl.appendChild(wrinklerDelayLabel);
-
-        // Input for delay
-        let wrinklerDelayInput = document.createElement('input');
-        wrinklerDelayInput.type = 'number';
-        wrinklerDelayInput.id = 'wrinklerClickDelay';
-        wrinklerDelayInput.min = '100';
-        wrinklerDelayInput.max = '5000';
-        wrinklerDelayInput.step = '100';
-        wrinklerDelayInput.value = this.wrinklerClickDelay;
-        wrinklerDelayInput.style.width = '60px';
-        wrinklerDelayInput.style.marginLeft = '5px';
-        wrinklerDelayInput.addEventListener('change', () => {
-            const newDelay = parseInt(wrinklerDelayInput.value, 10);
-            if (newDelay >= 100 && newDelay <= 5000) {
-                this.wrinklerClickDelay = newDelay;
-                Game.Notify(
-                    this.getText('wrinklerDelayChanged'),
-                    this.formatString(this.getText('wrinklerDelayChangedDesc'), this.wrinklerClickDelay),
-                    [0, 2],
-                    2
-                );
-            }
-        });
-        wrinklerDelayControl.appendChild(wrinklerDelayInput);
-        wrinklerDelayControl.appendChild(document.createTextNode(' ms'));
-
-        // Show/hide delay control based on checkbox state
-        wrinklerCheck.addEventListener('change', () => {
-            wrinklerDelayControl.style.display = wrinklerCheck.checked ? 'block' : 'none';
-        });
-
-        modMenu.appendChild(wrinklerDelayControl);
-
-        // Option for seasonal cookies
-        let seasonalOption = document.createElement('div');
-        seasonalOption.style.marginTop = '8px';
-        seasonalOption.style.marginBottom = '8px';
-
-        // Create checkbox for seasonal cookies
-        let seasonalCheck = document.createElement('input');
-        seasonalCheck.type = 'checkbox';
-        seasonalCheck.id = 'seasonalCookieClicking';
-        seasonalCheck.checked = this.clickSeasonalCookies;
-        seasonalCheck.addEventListener('change', () => {
-            this.clickSeasonalCookies = seasonalCheck.checked;
-            Game.Notify(
-                this.getText(this.clickSeasonalCookies ? 'seasonalCookieEnabled' : 'seasonalCookieDisabled'),
-                this.getText(this.clickSeasonalCookies ? 'seasonalCookiesWill' : 'seasonalCookiesWont'),
-                [0, this.clickSeasonalCookies ? 2 : 3],
-                2
-            );
-
-            // Start or stop seasonal cookie checking
-            if (this.isActive) {
-                if (this.clickSeasonalCookies) {
-                    this.startSpecialCookieChecker();
-                } else {
-                    this.stopSpecialCookieChecker();
-                }
-            }
-        });
-        seasonalOption.appendChild(seasonalCheck);
-
-        // Label for seasonal cookie checkbox
-        let seasonalLabel = document.createElement('label');
-        seasonalLabel.id = 'betterAutoClickerSeasonalLabel';
-        seasonalLabel.htmlFor = 'seasonalCookieClicking';
-        seasonalLabel.textContent = ' ' + this.getText('seasonalCookieOption');
-        seasonalLabel.style.color = '#FFF';
-        seasonalOption.appendChild(seasonalLabel);
-
-        modMenu.appendChild(seasonalOption);
-
-        // Toggle button for activation/deactivation
-        let toggleButton = document.createElement('a');
-        toggleButton.id = 'autoClickerToggle';
-        toggleButton.className = 'option';
-        toggleButton.textContent = this.getText('activate');
-        toggleButton.style.cssText = `
-            display: block;
-            margin: 5px auto;
-            padding: 4px 8px;
-            background: #5C4317;
-            color: #FFF;
-            border-radius: 3px;
-            cursor: pointer;
-            text-align: center;
-        `;
-        toggleButton.addEventListener('click', () => this.toggleAutoClicker());
-        modMenu.appendChild(toggleButton);
-
-        // Add an explanatory note
-        let note = document.createElement('div');
-        note.id = 'betterAutoClickerNote';
-        note.textContent = this.getText('keyboardHint');
-        note.style.cssText = `
-            font-size: 10px;
-            margin-top: 5px;
-            color: #C0B070;
-            text-align: center;
-        `;
-        modMenu.appendChild(note);
-
-        this.setupDragEvents(modMenu, title);
-        this.setupDragEvents(modMenu, dragHandle);
-
-        // Add menu to document body
-        document.body.appendChild(modMenu);
-    },
-
-    /**
-     * Sets up events to make an element draggable
-     * @param {HTMLElement} element - The element to make draggable
-     * @param {HTMLElement} handle - The handle/drag area
-     */
-    setupDragEvents: function(element, handle) {
-        const self = this;
-
-        // Function to start dragging
-        const startDrag = function(e) {
-            e.preventDefault();
-            self.isDragging = true;
-
-            // Calculate the offset between the mouse and the element
-            const rect = element.getBoundingClientRect();
-            self.dragOffsetX = e.clientX - rect.left;
-            self.dragOffsetY = e.clientY - rect.top;
-
-            // Add mousemove and mouseup events to the document
-            document.addEventListener('mousemove', doDrag);
-            document.addEventListener('mouseup', stopDrag);
-        };
-
-        // Function to perform dragging
-        const doDrag = function(e) {
-            if (!self.isDragging) return;
-
-            // Calculate new coordinates
-            let newX = e.clientX - self.dragOffsetX;
-            let newY = e.clientY - self.dragOffsetY;
-
-            // Limit the coordinates to the window size
-            newX = Math.max(0, Math.min(window.innerWidth - element.offsetWidth, newX));
-            newY = Math.max(0, Math.min(window.innerHeight - element.offsetHeight, newY));
-
-            // Set new position
-            element.style.left = newX + 'px';
-
-            // Change positioning mode from bottom to top when dragged
-            element.style.bottom = 'auto';
-            element.style.top = newY + 'px';
-
-            // Update the panel position variables
-            self.panelX = newX;
-            self.panelY = 'top';
-            self.panelOffsetY = newY;
-        };
-
-        // Function to stop dragging
-        const stopDrag = function() {
-            self.isDragging = false;
-            document.removeEventListener('mousemove', doDrag);
-            document.removeEventListener('mouseup', stopDrag);
-        };
-
-        // Attach the drag start event to the handle
-        handle.addEventListener('mousedown', startDrag);
     },
 
     /**
@@ -1530,6 +1392,7 @@ Game.registerMod("betterautoclicker", {
                 2
             );
         }
+        this.saveSettings();
     },
 
     /**
@@ -1546,8 +1409,6 @@ Game.registerMod("betterautoclicker", {
         this.clickInterval = setInterval(function() {
             self.performClick();
         }, clickDelay);
-
-        console.log(`Auto-clicker started at ${this.clicksPerSecond} clicks/sec, centered animations: ${this.centerAnimations ? 'yes' : 'no'}`);
     },
 
     /**
@@ -1558,7 +1419,6 @@ Game.registerMod("betterautoclicker", {
             clearInterval(this.clickInterval);
             this.clickInterval = null;
         }
-        console.log("Auto-clicker stopped");
     },
 
     /**
@@ -1574,8 +1434,6 @@ Game.registerMod("betterautoclicker", {
         this.goldenCheckInterval = setInterval(function() {
             self.checkForSpecialCookies();
         }, 500);
-
-        console.log("Golden cookie checker started");
     },
 
     /**
@@ -1586,7 +1444,6 @@ Game.registerMod("betterautoclicker", {
             clearInterval(this.goldenCheckInterval);
             this.goldenCheckInterval = null;
         }
-        console.log("Golden cookie checker stopped");
     },
 
     /**
@@ -1630,7 +1487,6 @@ Game.registerMod("betterautoclicker", {
                     if (shimmer.wrath > 0) {
                         if (this.clickWrathCookies) {
                             shimmer.pop();
-                            console.log("Auto-clicked a wrath cookie");
                             Game.Notify(
                                 this.getText('wrathCookieClicked'),
                                 '',
@@ -1644,7 +1500,6 @@ Game.registerMod("betterautoclicker", {
                     else if (shimmer.wrath === 0 && this.clickGoldenCookies) {
                         // Cookie doré normal
                         shimmer.pop();
-                        console.log("Auto-clicked a golden cookie");
                         Game.Notify(
                             this.getText('goldenCookieClicked'),
                             '',
@@ -1657,7 +1512,6 @@ Game.registerMod("betterautoclicker", {
                 // Check if it's a seasonal cookie (like reindeer for Christmas)
                 else if (shimmer.type === 'reindeer' && this.clickSeasonalCookies) {
                     shimmer.pop();
-                    console.log("Auto-clicked a reindeer");
                     Game.Notify(
                         this.getText('seasonalCookieClicked'),
                         this.getText('reindeerClicked'),
@@ -1730,8 +1584,6 @@ Game.registerMod("betterautoclicker", {
 
             // Access Cookie Clicker's internal mechanism to pop the Wrinkler
             Game.wrinklers[id].hp = 0; // Setting HP to 0 automatically triggers the pop
-
-            console.log("Popped Wrinkler #" + id + " directly, collected " + Beautify(sucked) + " cookies");
 
             // Notification
             const cookiesGained = sucked > 0 ? (": " + Beautify(sucked) + " cookies") : "";
@@ -1835,11 +1687,34 @@ Game.registerMod("betterautoclicker", {
             clickWrathCookies: this.clickWrathCookies,
             clickWrinklers: this.clickWrinklers,
             wrinklerClickDelay: this.wrinklerClickDelay,
-            clickSeasonalCookies: this.clickSeasonalCookies,
-            panelX: this.panelX,
-            panelY: this.panelY,
-            panelOffsetY: this.panelOffsetY
+            clickSeasonalCookies: this.clickSeasonalCookies
         });
+    },
+
+    /**
+     * Function to save settings in localStorage
+     */
+    saveSettings: function() {
+        const data = {
+            clicksPerSecond: this.clicksPerSecond,
+            isActive: this.isActive,
+            clicksInBackground: this.clicksInBackground,
+            centerAnimations: this.centerAnimations,
+            userLanguage: this.userLanguage,
+            clickGoldenCookies: this.clickGoldenCookies,
+            clickWrathCookies: this.clickWrathCookies,
+            clickWrinklers: this.clickWrinklers,
+            wrinklerClickDelay: this.wrinklerClickDelay,
+            clickSeasonalCookies: this.clickSeasonalCookies
+        };
+
+        localStorage.setItem('betterAutoClickerSettings', JSON.stringify(data));
+
+        // Toujours essayer la méthode standard aussi
+        if (!Game.customSave) Game.customSave = {};
+        if (!Game.customSave['betterautoclicker']) Game.customSave['betterautoclicker'] = {};
+        Game.customSave['betterautoclicker'] = this.save();
+        Game.WriteSave(1);
     },
 
     /**
@@ -1849,99 +1724,49 @@ Game.registerMod("betterautoclicker", {
      */
     load: function(str) {
         try {
-            if (str) {
-                const config = JSON.parse(str);
+
+            const localData = localStorage.getItem('betterAutoClickerSettings');
+            if (localData) {
+                const config = JSON.parse(localData);
 
                 // Load options
                 this.clicksPerSecond = config.clicksPerSecond || 10;
-
                 if (config.hasOwnProperty('clicksInBackground')) {
                     this.clicksInBackground = config.clicksInBackground;
                 }
-
                 if (config.hasOwnProperty('centerAnimations')) {
                     this.centerAnimations = config.centerAnimations;
                 }
-
                 // Load language preference
                 if (config.hasOwnProperty('userLanguage')) {
                     this.userLanguage = config.userLanguage;
                 }
-
                 // Load golden cookie preference
                 if (config.hasOwnProperty('clickGoldenCookies')) {
                     this.clickGoldenCookies = config.clickGoldenCookies;
                 }
-
                 if (config.hasOwnProperty('clickWrathCookies')) {
                     this.clickWrathCookies = config.clickWrathCookies;
                 }
-
                 if (config.hasOwnProperty('clickWrinklers')) {
                     this.clickWrinklers = config.clickWrinklers;
                 }
-
                 if (config.hasOwnProperty('wrinklerClickDelay')) {
                     this.wrinklerClickDelay = config.wrinklerClickDelay;
                 }
-
                 if (config.hasOwnProperty('clickSeasonalCookies')) {
                     this.clickSeasonalCookies = config.clickSeasonalCookies;
                 }
+            }
 
-                if (config.hasOwnProperty('panelX')) {
-                    this.panelX = config.panelX;
-                }
-                if (config.hasOwnProperty('panelY')) {
-                    this.panelY = config.panelY;
-                }
-                if (config.hasOwnProperty('panelOffsetY')) {
-                    this.panelOffsetY = config.panelOffsetY;
-                }
+            // Load the auto-clicker state
+            const wasActive = (localStorage.getItem('betterAutoClickerSettings') ? JSON.parse(localStorage.getItem('betterAutoClickerSettings')).isActive : false);
 
-                // Update user interface (if it already exists)
-                const speedInput = document.getElementById('autoClickerSpeed');
-                if (speedInput) {
-                    speedInput.value = this.clicksPerSecond;
-                }
-
-                const backgroundCheck = document.getElementById('backgroundClicking');
-                if (backgroundCheck) {
-                    backgroundCheck.checked = this.clicksInBackground;
-                }
-
-                const centerCheck = document.getElementById('centerAnimations');
-                if (centerCheck) {
-                    centerCheck.checked = this.centerAnimations;
-                }
-
-                const goldenCheck = document.getElementById('goldenCookieClicking');
-                if (goldenCheck) {
-                    goldenCheck.checked = this.clickGoldenCookies;
-                }
-
-                const wrathCheck = document.getElementById('wrathCookieClicking');
-                if (wrathCheck) {
-                    wrathCheck.checked = this.clickWrathCookies;
-                }
-
-                const wrinklerCheck = document.getElementById('wrinklerClicking');
-                if (wrinklerCheck) {
-                    wrinklerCheck.checked = this.clickWrinklers;
-                }
-
-                const wrinklerDelayInput = document.getElementById('wrinklerClickDelay');
-                if (wrinklerDelayInput) {
-                    wrinklerDelayInput.value = this.wrinklerClickDelay;
-                }
-
-                // Activate auto-clicker if it was active before
-                if (config.isActive) {
-                    // Wait a bit to ensure the game is fully loaded
-                    setTimeout(() => {
-                        this.toggleAutoClicker();
-                    }, 1000);
-                }
+            if (wasActive) {
+                // Start the auto-clicker if it was active with delay to ensure the game is ready
+                setTimeout(() => {
+                    this.toggleAutoClicker();
+                }, 1000);
             }
         } catch (e) {
             console.error("Error loading mod configuration:", e);
