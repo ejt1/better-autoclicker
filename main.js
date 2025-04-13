@@ -29,6 +29,9 @@ Game.registerMod("betterautoclicker", {
     wrinklerCheckInterval: null,  // Reference to the wrinkler check interval
     clickSeasonalCookies: true,   // Enable auto-click on seasonal cookies like Reindeer for Christmas
     seasonalCheckInterval: null,  // Reference to the seasonal cookie check interval
+    autoManageChocolateEgg: false,     // Enable auto-management of Chocolate Egg
+    chocolateEggBehavior: 'ascension', // 'ascension' or 'immediate'
+    chocolateEggCheckInterval: null,   // Reference to the chocolate egg check interval
 
     // Localization system integrated directly into the code because i don't know how to use the external file in the mod
     localization: {
@@ -91,7 +94,20 @@ Game.registerMod("betterautoclicker", {
             "seasonalCookiesWont": "Seasonal specials will not be clicked automatically",
             "discordSupport": "Join our Discord server",
             "discordSupportDesc": "For support, bug reports, or idea sharing",
-            "discordButton": "Discord Better AutoClicker"
+            "discordButton": "Discord Better AutoClicker",
+            "chocolateEggOption": "Auto-manage Chocolate Egg",
+            "chocolateEggEnabled": "Chocolate Egg auto-management enabled",
+            "chocolateEggDisabled": "Chocolate Egg auto-management disabled",
+            "chocolateEggStrategyLabel": "Strategy:",
+            "chocolateEggStrategyAscension": "Save for ascension",
+            "chocolateEggStrategyImmediate": "Buy immediately",
+            "chocolateEggWillSave": "Chocolate Egg will be saved for ascension",
+            "chocolateEggWillBuy": "Chocolate Egg will be purchased immediately",
+            "chocolateEggBought": "Auto-bought a Chocolate Egg!",
+            "chocolateEggSaved": "Found Chocolate Egg - saving for ascension",
+            "chocolateEggAscensionBought": "Auto-bought Chocolate Egg before ascension",
+            "chocolateEggStrategyExplanationAscension": "This strategy will save your Chocolate Egg for ascension. The mod will automatically purchase the egg right before you ascend to maximize prestige gains. If you have the 'Earth Shatterer' dragon aura, all buildings will be automatically sold before ascension (with this aura, buildings sell for <b>50%</b> instead of 25%).",
+            "chocolateEggStrategyExplanationImmediate": "This strategy will buy the Chocolate Egg as soon as it becomes available, giving you an immediate cookie boost.",
         },
         "FR": {
             "modTitle": "Better AutoClicker",
@@ -153,6 +169,17 @@ Game.registerMod("betterautoclicker", {
             "discordSupport": "Rejoignez notre serveur Discord",
             "discordSupportDesc": "Pour le support, signaler des bugs ou proposer des idées",
             "discordButton": "Discord Better AutoClicker",
+            "chocolateEggOption": "Auto-gestion Œuf en Chocolat",
+            "chocolateEggEnabled": "Gestion auto de l'Œuf en Chocolat activée",
+            "chocolateEggDisabled": "Gestion auto de l'Œuf en Chocolat désactivée",
+            "chocolateEggStrategyLabel": "Stratégie :",
+            "chocolateEggStrategyAscension": "Garder pour l'ascension",
+            "chocolateEggStrategyImmediate": "Acheter immédiatement",
+            "chocolateEggWillSave": "L'Œuf en Chocolat sera gardé pour l'ascension",
+            "chocolateEggWillBuy": "L'Œuf en Chocolat sera acheté immédiatement",
+            "chocolateEggBought": "Œuf en Chocolat acheté automatiquement !",
+            "chocolateEggSaved": "Œuf en Chocolat trouvé - réservé pour l'ascension",
+            "chocolateEggAscensionBought": "Œuf en Chocolat acheté auto avant ascension",
         },
         "DE": {
             "modTitle": "Better AutoClicker",
@@ -213,7 +240,20 @@ Game.registerMod("betterautoclicker", {
             "seasonalCookiesWont": "Saisonale Spezialobjekte werden nicht automatisch geklickt",
             "discordSupport": "Tritt unserem Discord-Server bei",
             "discordSupportDesc": "Für Support, Bugmeldungen oder Ideen",
-            "discordButton": "Discord Better AutoClicker"
+            "discordButton": "Discord Better AutoClicker",
+            "chocolateEggOption": "Schokoladenei automatisch verwalten",
+            "chocolateEggEnabled": "Automatische Verwaltung des Schokoladeneis aktiviert",
+            "chocolateEggDisabled": "Automatische Verwaltung des Schokoladeneis deaktiviert",
+            "chocolateEggStrategyLabel": "Strategie:",
+            "chocolateEggStrategyAscension": "Für Aufstieg speichern",
+            "chocolateEggStrategyImmediate": "Sofort kaufen",
+            "chocolateEggWillSave": "Schokoladenei wird für den Aufstieg gespeichert",
+            "chocolateEggWillBuy": "Schokoladenei wird sofort gekauft",
+            "chocolateEggBought": "Schokoladenei automatisch gekauft!",
+            "chocolateEggSaved": "Schokoladenei gefunden – wird für Aufstieg gespeichert",
+            "chocolateEggAscensionBought": "Schokoladenei automatisch vor dem Aufstieg gekauft",
+            "chocolateEggStrategyExplanationAscension": "Diese Strategie speichert dein Schokoladenei für den Aufstieg. Das Mod wird das Ei automatisch kurz vor deinem Aufstieg kaufen, um die Prestigegewinne zu maximieren.",
+            "chocolateEggStrategyExplanationImmediate": "Diese Strategie kauft das Schokoladenei sofort, sobald es verfügbar ist, und verschafft dir einen sofortigen Keks-Schub."
         },
         "NL": {
             "modTitle": "Better AutoClicker",
@@ -274,7 +314,20 @@ Game.registerMod("betterautoclicker", {
             "seasonalCookiesWont": "Seizoensgebonden specials worden niet automatisch geklikt",
             "discordSupport": "Word lid van onze Discord-server",
             "discordSupportDesc": "Voor ondersteuning, bugrapporten of ideeën",
-            "discordButton": "Discord Better AutoClicker"
+            "discordButton": "Discord Better AutoClicker",
+            "chocolateEggOption": "Chocolade-ei automatisch beheren",
+            "chocolateEggEnabled": "Automatisch beheer van chocolade-ei ingeschakeld",
+            "chocolateEggDisabled": "Automatisch beheer van chocolade-ei uitgeschakeld",
+            "chocolateEggStrategyLabel": "Strategie:",
+            "chocolateEggStrategyAscension": "Bewaren voor ascensie",
+            "chocolateEggStrategyImmediate": "Onmiddellijk kopen",
+            "chocolateEggWillSave": "Chocolade-ei wordt bewaard voor ascensie",
+            "chocolateEggWillBuy": "Chocolade-ei wordt onmiddellijk gekocht",
+            "chocolateEggBought": "Automatisch chocolade-ei gekocht!",
+            "chocolateEggSaved": "Chocolade-ei gevonden – wordt bewaard voor ascensie",
+            "chocolateEggAscensionBought": "Chocolade-ei automatisch gekocht voor ascensie",
+            "chocolateEggStrategyExplanationAscension": "Deze strategie zal je Chocolade-ei bewaren voor de ascensie. De mod koopt het ei automatisch net voor je ascendeert om de prestige-winsten te maximaliseren.",
+            "chocolateEggStrategyExplanationImmediate": "Deze strategie zal het Chocolade-ei kopen zodra het beschikbaar is, waardoor je een onmiddellijke koekjesboost krijgt."
         },
         "CS": {
             "modTitle": "Better AutoClicker",
@@ -335,7 +388,20 @@ Game.registerMod("betterautoclicker", {
             "seasonalCookiesWont": "Sezónní speciály nebudou automaticky klikány",
             "discordSupport": "Připojte se k našemu Discord serveru",
             "discordSupportDesc": "Pro podporu, hlášení chyb nebo návrhy",
-            "discordButton": "Discord Better AutoClicker"
+            "discordButton": "Discord Better AutoClicker",
+            "chocolateEggOption": "Automaticky spravovat čokoládové vejce",
+            "chocolateEggEnabled": "Automatická správa čokoládového vejce zapnuta",
+            "chocolateEggDisabled": "Automatická správa čokoládového vejce vypnuta",
+            "chocolateEggStrategyLabel": "Strategie:",
+            "chocolateEggStrategyAscension": "Uložit pro vzestup",
+            "chocolateEggStrategyImmediate": "Koupit okamžitě",
+            "chocolateEggWillSave": "Čokoládové vejce bude uloženo pro vzestup",
+            "chocolateEggWillBuy": "Čokoládové vejce bude okamžitě zakoupeno",
+            "chocolateEggBought": "Automaticky zakoupeno čokoládové vejce!",
+            "chocolateEggSaved": "Nalezeno čokoládové vejce – uloženo pro vzestup",
+            "chocolateEggAscensionBought": "Automaticky zakoupeno čokoládové vejce před vzestupem",
+            "chocolateEggStrategyExplanationAscension": "Tato strategie uloží vaše čokoládové vejce na vzestup. Mod automaticky koupí vejce těsně před vaším vzestupem, aby maximalizoval zisky prestiže.",
+            "chocolateEggStrategyExplanationImmediate": "Tato strategie koupí čokoládové vejce, jakmile bude dostupné, čímž vám poskytne okamžitý nárůst sušenek."
         },
         "PL": {
             "modTitle": "Better AutoClicker",
@@ -396,7 +462,20 @@ Game.registerMod("betterautoclicker", {
             "seasonalCookiesWont": "Sezonowe specjalności nie będą klikane automatycznie",
             "discordSupport": "Dołącz do naszego serwera Discord",
             "discordSupportDesc": "Aby uzyskać pomoc, zgłosić błędy lub podzielić się pomysłami",
-            "discordButton": "Discord Better AutoClicker"
+            "discordButton": "Discord Better AutoClicker",
+            "chocolateEggOption": "Automatyczne zarządzanie Czekoladowym Jajkiem",
+            "chocolateEggEnabled": "Automatyczne zarządzanie Czekoladowym Jajkiem włączone",
+            "chocolateEggDisabled": "Automatyczne zarządzanie Czekoladowym Jajkiem wyłączone",
+            "chocolateEggStrategyLabel": "Strategia:",
+            "chocolateEggStrategyAscension": "Zapisz na awans",
+            "chocolateEggStrategyImmediate": "Kup natychmiast",
+            "chocolateEggWillSave": "Czekoladowe Jajko zostanie zapisane na awans",
+            "chocolateEggWillBuy": "Czekoladowe Jajko zostanie natychmiast kupione",
+            "chocolateEggBought": "Automatycznie kupiono Czekoladowe Jajko!",
+            "chocolateEggSaved": "Znaleziono Czekoladowe Jajko – zapisano na awans",
+            "chocolateEggAscensionBought": "Automatycznie kupiono Czekoladowe Jajko przed awansem",
+            "chocolateEggStrategyExplanationAscension": "Ta strategia zachowa Twoje Czekoladowe Jajko na awans. Mod automatycznie kupi jajko tuż przed awansem, aby zmaksymalizować zyski prestiżu.",
+            "chocolateEggStrategyExplanationImmediate": "Ta strategia kupi Czekoladowe Jajko, gdy tylko stanie się dostępne, zapewniając natychmiastowy wzrost ciasteczek."
         },
         "IT": {
             "modTitle": "Better AutoClicker",
@@ -457,7 +536,20 @@ Game.registerMod("betterautoclicker", {
             "seasonalCookiesWont": "Gli speciali stagionali non verranno cliccati automaticamente",
             "discordSupport": "Unisciti al nostro server Discord",
             "discordSupportDesc": "Per supporto, segnalazione bug o suggerimenti",
-            "discordButton": "Discord Better AutoClicker"
+            "discordButton": "Discord Better AutoClicker",
+            "chocolateEggOption": "Gestione automatica dell'Uovo di Cioccolato",
+            "chocolateEggEnabled": "Gestione automatica dell'Uovo di Cioccolato attivata",
+            "chocolateEggDisabled": "Gestione automatica dell'Uovo di Cioccolato disattivata",
+            "chocolateEggStrategyLabel": "Strategia:",
+            "chocolateEggStrategyAscension": "Conserva per l'ascensione",
+            "chocolateEggStrategyImmediate": "Compra subito",
+            "chocolateEggWillSave": "L'Uovo di Cioccolato sarà conservato per l'ascensione",
+            "chocolateEggWillBuy": "L'Uovo di Cioccolato sarà acquistato immediatamente",
+            "chocolateEggBought": "Uovo di Cioccolato acquistato automaticamente!",
+            "chocolateEggSaved": "Uovo di Cioccolato trovato – conservato per l'ascensione",
+            "chocolateEggAscensionBought": "Uovo di Cioccolato acquistato automaticamente prima dell'ascensione",
+            "chocolateEggStrategyExplanationAscension": "Questa strategia salverà il tuo Uovo di Cioccolato per l'ascensione. Il mod acquisterà automaticamente l'uovo appena prima che tu ascenda per massimizzare i guadagni di prestigio.",
+            "chocolateEggStrategyExplanationImmediate": "Questa strategia acquisterà l'Uovo di Cioccolato non appena sarà disponibile, dandoti un immediato aumento di biscotti."
         },
         "ES": {
             "modTitle": "Better AutoClicker",
@@ -518,7 +610,20 @@ Game.registerMod("betterautoclicker", {
             "seasonalCookiesWont": "Los especiales de temporada no se clicarán automáticamente",
             "discordSupport": "Únete a nuestro servidor de Discord",
             "discordSupportDesc": "Para soporte, reportar errores o compartir ideas",
-            "discordButton": "Discord Better AutoClicker"
+            "discordButton": "Discord Better AutoClicker",
+            "chocolateEggOption": "Gestión automática del Huevo de Chocolate",
+            "chocolateEggEnabled": "Gestión automática del Huevo de Chocolate activada",
+            "chocolateEggDisabled": "Gestión automática del Huevo de Chocolate desactivada",
+            "chocolateEggStrategyLabel": "Estrategia:",
+            "chocolateEggStrategyAscension": "Guardar para la ascensión",
+            "chocolateEggStrategyImmediate": "Comprar inmediatamente",
+            "chocolateEggWillSave": "El Huevo de Chocolate se guardará para la ascensión",
+            "chocolateEggWillBuy": "El Huevo de Chocolate se comprará inmediatamente",
+            "chocolateEggBought": "¡Huevo de Chocolate comprado automáticamente!",
+            "chocolateEggSaved": "Huevo de Chocolate encontrado – guardado para la ascensión",
+            "chocolateEggAscensionBought": "Huevo de Chocolate comprado automáticamente antes de la ascensión",
+            "chocolateEggStrategyExplanationAscension": "Esta estrategia guardará tu Huevo de Chocolate para la ascensión. El mod comprará el huevo automáticamente justo antes de que asciendas para maximizar las ganancias de prestigio.",
+            "chocolateEggStrategyExplanationImmediate": "Esta estrategia comprará el Huevo de Chocolate tan pronto como esté disponible, dándote un aumento inmediato de galletas."
         },
         "PT-BR": {
             "modTitle": "Better AutoClicker",
@@ -579,7 +684,20 @@ Game.registerMod("betterautoclicker", {
             "seasonalCookiesWont": "Os especiais sazonais não serão clicados automaticamente",
             "discordSupport": "Entre no nosso servidor do Discord",
             "discordSupportDesc": "Para suporte, relatar bugs ou enviar ideias",
-            "discordButton": "Discord Better AutoClicker"
+            "discordButton": "Discord Better AutoClicker",
+            "chocolateEggOption": "Gerenciar automaticamente o Ovo de Chocolate",
+            "chocolateEggEnabled": "Gerenciamento automático do Ovo de Chocolate ativado",
+            "chocolateEggDisabled": "Gerenciamento automático do Ovo de Chocolate desativado",
+            "chocolateEggStrategyLabel": "Estratégia:",
+            "chocolateEggStrategyAscension": "Guardar para ascensão",
+            "chocolateEggStrategyImmediate": "Comprar imediatamente",
+            "chocolateEggWillSave": "O Ovo de Chocolate será guardado para ascensão",
+            "chocolateEggWillBuy": "O Ovo de Chocolate será comprado imediatamente",
+            "chocolateEggBought": "Ovo de Chocolate comprado automaticamente!",
+            "chocolateEggSaved": "Ovo de Chocolate encontrado – guardando para ascensão",
+            "chocolateEggAscensionBought": "Ovo de Chocolate comprado automaticamente antes da ascensão",
+            "chocolateEggStrategyExplanationAscension": "Esta estratégia salvará seu Ovo de Chocolate para a ascensão. O mod comprará automaticamente o ovo logo antes de você ascender para maximizar os ganhos de prestígio.",
+            "chocolateEggStrategyExplanationImmediate": "Esta estratégia comprará o Ovo de Chocolate assim que ele se tornar disponível, proporcionando um impulso imediato de biscoitos."
         },
         "ZH-CN": {
             "modTitle": "Better AutoClicker",
@@ -640,7 +758,20 @@ Game.registerMod("betterautoclicker", {
             "seasonalCookiesWont": "季节性特殊项目不会自动点击",
             "discordSupport": "加入我们的 Discord 服务器",
             "discordSupportDesc": "用于支持、报告错误或提出建议",
-            "discordButton": "Discord Better AutoClicker"
+            "discordButton": "Discord Better AutoClicker",
+            "chocolateEggOption": "自动管理巧克力蛋",
+            "chocolateEggEnabled": "已启用巧克力蛋自动管理",
+            "chocolateEggDisabled": "已禁用巧克力蛋自动管理",
+            "chocolateEggStrategyLabel": "策略：",
+            "chocolateEggStrategyAscension": "为转生保存",
+            "chocolateEggStrategyImmediate": "立即购买",
+            "chocolateEggWillSave": "巧克力蛋将为转生而保存",
+            "chocolateEggWillBuy": "巧克力蛋将立即购买",
+            "chocolateEggBought": "已自动购买巧克力蛋！",
+            "chocolateEggSaved": "发现巧克力蛋 – 为转生而保存",
+            "chocolateEggAscensionBought": "在转生前自动购买了巧克力蛋",
+            "chocolateEggStrategyExplanationAscension": "该策略将把你的巧克力蛋保存到转生。该mod将在你转生前自动购买巧克力蛋，以最大化声望收益。",
+            "chocolateEggStrategyExplanationImmediate": "该策略将在巧克力蛋可用时立即购买，为你提供即时的饼干提升。"
         },
         "JA": {
             "modTitle": "Better AutoClicker",
@@ -701,7 +832,20 @@ Game.registerMod("betterautoclicker", {
             "seasonalCookiesWont": "季節限定スペシャルは自動的にクリックされません",
             "discordSupport": "Discordサーバーに参加する",
             "discordSupportDesc": "サポート、バグ報告、アイデアの共有のために",
-            "discordButton": "Discord Better AutoClicker"
+            "discordButton": "Discord Better AutoClicker",
+            "chocolateEggOption": "チョコレートエッグを自動管理",
+            "chocolateEggEnabled": "チョコレートエッグの自動管理が有効になりました",
+            "chocolateEggDisabled": "チョコレートエッグの自動管理が無効になりました",
+            "chocolateEggStrategyLabel": "戦略：",
+            "chocolateEggStrategyAscension": "転生用に保存",
+            "chocolateEggStrategyImmediate": "すぐに購入",
+            "chocolateEggWillSave": "チョコレートエッグは転生のために保存されます",
+            "chocolateEggWillBuy": "チョコレートエッグはすぐに購入されます",
+            "chocolateEggBought": "チョコレートエッグを自動購入しました！",
+            "chocolateEggSaved": "チョコレートエッグを発見 – 転生のために保存中",
+            "chocolateEggAscensionBought": "転生前にチョコレートエッグを自動購入しました",
+            "chocolateEggStrategyExplanationAscension": "この戦略は、チョコレートエッグを転生のために保存します。MODは、転生直前にエッグを自動で購入し、名声の獲得を最大化します。",
+            "chocolateEggStrategyExplanationImmediate": "この戦略は、チョコレートエッグが利用可能になった瞬間に購入し、即座にクッキーを増加させます。"
         },
         "KO": {
             "modTitle": "Better AutoClicker",
@@ -762,7 +906,20 @@ Game.registerMod("betterautoclicker", {
             "seasonalCookiesWont": "계절 특수 아이템이 자동으로 클릭되지 않습니다",
             "discordSupport": "우리의 Discord 서버에 참여하세요",
             "discordSupportDesc": "지원, 버그 신고 또는 아이디어 제안용",
-            "discordButton": "Discord Better AutoClicker"
+            "discordButton": "Discord Better AutoClicker",
+            "chocolateEggOption": "초콜릿 에그 자동 관리",
+            "chocolateEggEnabled": "초콜릿 에그 자동 관리 활성화됨",
+            "chocolateEggDisabled": "초콜릿 에그 자동 관리 비활성화됨",
+            "chocolateEggStrategyLabel": "전략:",
+            "chocolateEggStrategyAscension": "승천을 위해 저장",
+            "chocolateEggStrategyImmediate": "즉시 구매",
+            "chocolateEggWillSave": "초콜릿 에그가 승천을 위해 저장됩니다",
+            "chocolateEggWillBuy": "초콜릿 에그가 즉시 구매됩니다",
+            "chocolateEggBought": "초콜릿 에그 자동 구매됨!",
+            "chocolateEggSaved": "초콜릿 에그 발견 – 승천을 위해 저장됨",
+            "chocolateEggAscensionBought": "승천 전에 초콜릿 에그 자동 구매됨",
+            "chocolateEggStrategyExplanationAscension": "이 전략은 초콜릿 에그를 승천을 위해 저장합니다. 모드는 승천 직전에 자동으로 에그를 구매하여 명성 증가를 극대화합니다.",
+            "chocolateEggStrategyExplanationImmediate": "이 전략은 초콜릿 에그가 사용 가능해지자마자 즉시 구매하여 즉각적인 쿠키 부스트를 제공합니다."
         },
         "RU": {
             "modTitle": "Better AutoClicker",
@@ -823,7 +980,20 @@ Game.registerMod("betterautoclicker", {
             "seasonalCookiesWont": "Сезонные объекты не будут нажиматься автоматически",
             "discordSupport": "Присоединяйтесь к нашему серверу Discord",
             "discordSupportDesc": "Для поддержки, отчётов об ошибках и идей",
-            "discordButton": "Discord Better AutoClicker"
+            "discordButton": "Discord Better AutoClicker",
+            "chocolateEggOption": "Автоматическое управление Шоколадным Яйцом",
+            "chocolateEggEnabled": "Автоуправление Шоколадным Яйцом включено",
+            "chocolateEggDisabled": "Автоуправление Шоколадным Яйцом отключено",
+            "chocolateEggStrategyLabel": "Стратегия:",
+            "chocolateEggStrategyAscension": "Сохранить для возвышения",
+            "chocolateEggStrategyImmediate": "Купить немедленно",
+            "chocolateEggWillSave": "Шоколадное Яйцо будет сохранено для возвышения",
+            "chocolateEggWillBuy": "Шоколадное Яйцо будет куплено немедленно",
+            "chocolateEggBought": "Шоколадное Яйцо куплено автоматически!",
+            "chocolateEggSaved": "Обнаружено Шоколадное Яйцо – сохранено для возвышения",
+            "chocolateEggAscensionBought": "Шоколадное Яйцо автоматически куплено перед возвышением",
+            "chocolateEggStrategyExplanationAscension": "Эта стратегия сохранит ваше Шоколадное Яйцо для возвышения. Мод автоматически купит яйцо прямо перед возвышением, чтобы максимизировать доход от престижа.",
+            "chocolateEggStrategyExplanationImmediate": "Эта стратегия купит Шоколадное Яйцо, как только оно станет доступным, обеспечив немедленное увеличение печенек."
         }
     },
 
@@ -1150,6 +1320,28 @@ Game.registerMod("betterautoclicker", {
                             }
                         }
                     }
+                    else if (id === 'chocolateEggOption') {
+                        const newState = this[property];
+
+                        chocolateEggStrategyControl.style.display = newState ? 'block' : 'none';
+                        chocolateEggExplanationBox.style.display = newState ? 'block' : 'none';
+
+                        Game.Notify(
+                            this.getText(newState ? 'chocolateEggEnabled' : 'chocolateEggDisabled'),
+                            this.getText(this.chocolateEggBehavior === 'ascension' ? 'chocolateEggWillSave' : 'chocolateEggWillBuy'),
+                            [0, newState ? 2 : 3],
+                            2
+                        );
+
+                        // Start or stop chocolate egg checking
+                        if (this.isActive) {
+                            if (newState) {
+                                this.startChocolateEggChecker();
+                            } else {
+                                this.stopChocolateEggChecker();
+                            }
+                        }
+                    }
 
                     this.saveSettings();
 
@@ -1246,6 +1438,91 @@ Game.registerMod("betterautoclicker", {
                 this.getText('seasonalCookieOption') + ' ' + this.getText('deactivate')
             ));
 
+            // Option for chocolate egg
+            optionsDiv.appendChild(createToggleButton(
+                'chocolateEggOption',
+                'autoManageChocolateEgg',
+                this.getText('chocolateEggOption') + ' ' + this.getText('activate'),
+                this.getText('chocolateEggOption') + ' ' + this.getText('deactivate')
+            ));
+
+            // Control for Chocolate Egg strategy
+            let chocolateEggStrategyControl = document.createElement('div');
+            chocolateEggStrategyControl.className = 'listing';
+            chocolateEggStrategyControl.style.marginLeft = '20px';
+            chocolateEggStrategyControl.style.display = this.autoManageChocolateEgg ? 'block' : 'none';
+
+            // Label for strategy
+            let chocolateEggStrategyLabel = document.createElement('span');
+            chocolateEggStrategyLabel.textContent = this.getText('chocolateEggStrategyLabel') + ' ';
+            chocolateEggStrategyControl.appendChild(chocolateEggStrategyLabel);
+
+            // Selector for strategy
+            let chocolateEggStrategySelect = document.createElement('select');
+            chocolateEggStrategySelect.id = 'chocolateEggStrategy';
+            chocolateEggStrategySelect.style.marginLeft = '5px';
+
+            // Option: Save for ascension
+            let strategyAscension = document.createElement('option');
+            strategyAscension.value = 'ascension';
+            strategyAscension.textContent = this.getText('chocolateEggStrategyAscension');
+            strategyAscension.selected = this.chocolateEggBehavior === 'ascension';
+            chocolateEggStrategySelect.appendChild(strategyAscension);
+
+            // Option: Buy immediately
+            let strategyImmediate = document.createElement('option');
+            strategyImmediate.value = 'immediate';
+            strategyImmediate.textContent = this.getText('chocolateEggStrategyImmediate');
+            strategyImmediate.selected = this.chocolateEggBehavior === 'immediate';
+            chocolateEggStrategySelect.appendChild(strategyImmediate);
+
+            // Strategy change event
+            chocolateEggStrategySelect.addEventListener('change', () => {
+                this.chocolateEggBehavior = chocolateEggStrategySelect.value;
+
+                // Update the explanation text based on the new strategy
+                const explanationElement = document.getElementById('chocolateEggStrategyExplanation');
+                if (explanationElement) {
+                    explanationElement.innerHTML = this.getText(this.chocolateEggBehavior === 'ascension' ?
+                        'chocolateEggStrategyExplanationAscension' :
+                        'chocolateEggStrategyExplanationImmediate');
+                }
+
+                Game.Notify(
+                    this.getText('chocolateEggOption'),
+                    this.getText(this.chocolateEggBehavior === 'ascension' ? 'chocolateEggWillSave' : 'chocolateEggWillBuy'),
+                    [0, 2],
+                    2
+                );
+
+                this.saveSettings();
+            });
+
+            chocolateEggStrategyControl.appendChild(chocolateEggStrategySelect);
+            optionsDiv.appendChild(chocolateEggStrategyControl);
+
+            // Explanation box for the selected strategy
+            let chocolateEggExplanationBox = document.createElement('div');
+            chocolateEggExplanationBox.className = 'listing';
+            chocolateEggExplanationBox.style.marginLeft = '20px';
+            chocolateEggExplanationBox.style.marginTop = '8px';
+            chocolateEggExplanationBox.style.padding = '8px';
+            chocolateEggExplanationBox.style.backgroundColor = 'rgba(200, 0, 0, 0.1)';
+            chocolateEggExplanationBox.style.border = '1px solid #800000';
+            chocolateEggExplanationBox.style.borderRadius = '5px';
+            chocolateEggExplanationBox.style.display = this.autoManageChocolateEgg ? 'block' : 'none';
+
+            // Explanation text content
+            let explanationText = document.createElement('div');
+            explanationText.id = 'chocolateEggStrategyExplanation';
+            explanationText.innerHTML = this.getText(this.chocolateEggBehavior === 'ascension' ?
+                'chocolateEggStrategyExplanationAscension' :
+                'chocolateEggStrategyExplanationImmediate');
+            chocolateEggExplanationBox.appendChild(explanationText);
+
+            // Add the explanation box after the strategy control
+            optionsDiv.appendChild(chocolateEggExplanationBox);
+
             // Language options section
             let langBox = document.createElement("div");
             langBox.className = "listing";
@@ -1326,6 +1603,104 @@ Game.registerMod("betterautoclicker", {
     },
 
     /**
+     * Check if the chocolate egg is available
+     */
+    startChocolateEggChecker: function() {
+        if (this.chocolateEggCheckInterval) {
+            clearInterval(this.chocolateEggCheckInterval);
+        }
+
+        const self = this;
+        // Check for chocolate egg every 2 seconds
+        this.chocolateEggCheckInterval = setInterval(function() {
+            self.checkForChocolateEgg();
+        }, 2000);
+    },
+
+    /**
+     * Check if the chocolate egg is available and click it
+     */
+    stopChocolateEggChecker: function() {
+        if (this.chocolateEggCheckInterval) {
+            clearInterval(this.chocolateEggCheckInterval);
+            this.chocolateEggCheckInterval = null;
+        }
+    },
+
+    /**
+     * Check for the chocolate egg and manage its purchase
+     */
+    checkForChocolateEgg: function() {
+        // Check if the game is in Easter season
+        if (Game.season !== 'easter') return;
+
+        // Check if the chocolate egg is available
+        let chocolateEgg = Game.UpgradesById[227]; // ID of the chocolate egg
+
+        if (chocolateEgg && !chocolateEgg.bought && Game.HasUnlocked('Chocolate egg')) {
+            // If the strategy is 'immediate', buy the chocolate egg
+            if (this.chocolateEggBehavior === 'immediate') {
+                // Check if we can buy the chocolate egg
+                if (Game.cookies >= chocolateEgg.getPrice()) {
+                    chocolateEgg.buy(true);
+                    Game.Notify(
+                        this.getText('chocolateEggBought'),
+                        '',
+                        [22, 12], // Icon for egg
+                        2
+                    );
+                }
+            } else {
+                // Strategy is 'ascension', show a notification to advise the user
+                Game.Notify(
+                    this.getText('chocolateEggSaved'),
+                    '',
+                    [22, 12],
+                    1
+                );
+            }
+        }
+
+        // Check if we are on the point of ascending
+        if (this.chocolateEggBehavior === 'ascension' && Game.OnAscend) {
+            // Check if we can buy the chocolate egg
+            if (chocolateEgg && !chocolateEgg.bought && Game.HasUnlocked('Chocolate egg')) {
+
+                // Sell all buildings if we are about to ascend and if we have the "Earth Shatterer" dragon aura
+                if (Game.dragonAura === 5 || Game.dragonAura2 === 5) { // 5 is the ID for "Earth Shatterer"
+                    // Sell all buildings to maximize cookies
+                    this.sellAllBuildings();
+                }
+
+                // Buy the chocolate egg if we have enough cookies
+                if (Game.cookies >= chocolateEgg.getPrice()) {
+                    chocolateEgg.buy(true);
+                    Game.Notify(
+                        this.getText('chocolateEggAscensionBought'),
+                        '',
+                        [22, 12],
+                        2
+                    );
+                }
+            }
+        }
+    },
+
+    /**
+     * Sell all buildings
+     */
+    sellAllBuildings: function() {
+        // Iterate through all buildings and sell them from the last to the first
+        for (let i = Game.ObjectsById.length - 1; i >= 0; i--) {
+            let building = Game.ObjectsById[i];
+            // While the building has a positive amount, sell it
+            while (building.amount > 0) {
+                building.sell(1);
+            }
+        }
+    },
+
+    /**
      * Register keyboard shortcut (A key)
      */
     registerKeyboardShortcut: function() {
@@ -1356,6 +1731,11 @@ Game.registerMod("betterautoclicker", {
                 this.startWrinklerChecker();
             }
 
+            // Also start the chocolate egg checker if enabled
+            if (this.autoManageChocolateEgg) {
+                this.startChocolateEggChecker();
+            }
+
             if (toggleButton) {
                 toggleButton.textContent = this.getText('deactivate');
                 toggleButton.style.background = '#CC0000';
@@ -1380,6 +1760,9 @@ Game.registerMod("betterautoclicker", {
 
             // Also stop the Wrinkler checker
             this.stopWrinklerChecker();
+
+            // Also stop the chocolate egg checker
+            this.stopChocolateEggChecker();
 
             if (toggleButton) {
                 toggleButton.textContent = this.getText('activate');
@@ -1687,7 +2070,9 @@ Game.registerMod("betterautoclicker", {
             clickWrathCookies: this.clickWrathCookies,
             clickWrinklers: this.clickWrinklers,
             wrinklerClickDelay: this.wrinklerClickDelay,
-            clickSeasonalCookies: this.clickSeasonalCookies
+            clickSeasonalCookies: this.clickSeasonalCookies,
+            autoManageChocolateEgg: this.autoManageChocolateEgg,
+            chocolateEggBehavior: this.chocolateEggBehavior
         });
     },
 
@@ -1705,7 +2090,9 @@ Game.registerMod("betterautoclicker", {
             clickWrathCookies: this.clickWrathCookies,
             clickWrinklers: this.clickWrinklers,
             wrinklerClickDelay: this.wrinklerClickDelay,
-            clickSeasonalCookies: this.clickSeasonalCookies
+            clickSeasonalCookies: this.clickSeasonalCookies,
+            autoManageChocolateEgg: this.autoManageChocolateEgg,
+            chocolateEggBehavior: this.chocolateEggBehavior
         };
 
         localStorage.setItem('betterAutoClickerSettings', JSON.stringify(data));
@@ -1756,6 +2143,12 @@ Game.registerMod("betterautoclicker", {
                 }
                 if (config.hasOwnProperty('clickSeasonalCookies')) {
                     this.clickSeasonalCookies = config.clickSeasonalCookies;
+                }
+                if (config.hasOwnProperty('autoManageChocolateEgg')) {
+                    this.autoManageChocolateEgg = config.autoManageChocolateEgg;
+                }
+                if (config.hasOwnProperty('chocolateEggBehavior')) {
+                    this.chocolateEggBehavior = config.chocolateEggBehavior;
                 }
             }
 
