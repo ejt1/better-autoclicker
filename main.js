@@ -12,29 +12,55 @@
  * - NonCommercial: You may not use this for commercial purposes
  * - ShareAlike: If you remix or transform, you must distribute under the same license
  */
-Game.registerMod("betterautoclicker", {
-    // Configuration variables
-    clicksPerSecond: 10,          // Default clicks per second
-    isActive: false,              // Initial state of the auto-clicker (disabled)
-    clickInterval: null,          // Reference to the interval to be able to stop it
-    clicksInBackground: true,     // Enable clicks when window is inactive
-    centerAnimations: true,       // Center animations on the cookie
-    originalMouseX: 0,            // Store original mouse coordinates
-    originalMouseY: 0,            // To restore position after clicking
-    clickGoldenCookies: true,     // Enable auto-click on golden cookies
-    clickWrathCookies: false,     // Enable auto-click on wrath cookies
-    goldenCheckInterval: null,    // Reference to the golden cookie check interval
-    clickWrinklers: false,        // Enable auto-click on Wrinklers
-    wrinklerClickDelay: 1000,     // Delay between clicks on Wrinklers (in ms)
-    wrinklerCheckInterval: null,  // Reference to the wrinkler check interval
-    clickSeasonalCookies: true,   // Enable auto-click on seasonal cookies like Reindeer for Christmas
-    seasonalCheckInterval: null,  // Reference to the seasonal cookie check interval
-    autoManageChocolateEgg: false,     // Enable auto-management of Chocolate Egg
-    chocolateEggBehavior: 'ascension', // 'ascension' or 'immediate'
-    chocolateEggCheckInterval: null,   // Reference to the chocolate egg check interval
 
-    // Localization system integrated directly into the code because i don't know how to use the external file in the mod
-    localization: {
+if(BetterAutoClicker === undefined) var BetterAutoClicker = {};
+if(typeof CCSE == 'undefined') Game.LoadMod('https://cdn.jsdelivr.net/gh/Teyk0o/better-autoclicker@master/CCSE/main.js');
+
+BetterAutoClicker.name = "Better AutoClicker";
+BetterAutoClicker.version = "1.0";
+BetterAutoClicker.GameVersion = "2.052";
+
+BetterAutoClicker.launch = function() {
+    // Configuration variables
+    BetterAutoClicker.clicksPerSecond = 10;
+    BetterAutoClicker.isActive = false;
+    BetterAutoClicker.clickInterval = null;
+    BetterAutoClicker.clicksInBackground = true;
+    BetterAutoClicker.centerAnimations = true;
+    BetterAutoClicker.originalMouseX = 0;
+    BetterAutoClicker.originalMouseY = 0;
+    BetterAutoClicker.clickGoldenCookies = true;
+    BetterAutoClicker.clickWrathCookies = false;
+    BetterAutoClicker.goldenCheckInterval = null;
+    BetterAutoClicker.clickWrinklers = false;
+    BetterAutoClicker.wrinklerClickDelay = 1000;
+    BetterAutoClicker.wrinklerCheckInterval = null;
+    BetterAutoClicker.clickSeasonalCookies = true;
+    BetterAutoClicker.seasonalCheckInterval = null;
+    BetterAutoClicker.autoManageChocolateEgg = false;
+    BetterAutoClicker.chocolateEggBehavior = 'ascension';
+    BetterAutoClicker.chocolateEggCheckInterval = null;
+
+    // List of available languages for the selector
+    BetterAutoClicker.userLanguage = 'EN';
+    BetterAutoClicker.availableLanguages = [
+        {code: 'EN', name: 'English'},
+        {code: 'FR', name: 'Français'},
+        {code: 'DE', name: 'Deutsch'},
+        {code: 'NL', name: 'Nederlands'},
+        {code: 'CS', name: 'Česky'},
+        {code: 'PL', name: 'Polski'},
+        {code: 'IT', name: 'Italiano'},
+        {code: 'ES', name: 'Español'},
+        {code: 'PT-BR', name: 'Português'},
+        {code: 'ZH-CN', name: '中文'},
+        {code: 'JA', name: '日本語'},
+        {code: 'KO', name: '한국어'},
+        {code: 'RU', name: 'Русский'}
+    ];
+
+    // Localization system - simplified to English only for this example
+    BetterAutoClicker.localization = {
         "EN": {
             "modTitle": "Better AutoClicker",
             "clicksPerSecond": "Clicks per second:",
@@ -107,948 +133,15 @@ Game.registerMod("betterautoclicker", {
             "chocolateEggSaved": "Found Chocolate Egg - saving for ascension",
             "chocolateEggAscensionBought": "Auto-bought Chocolate Egg before ascension",
             "chocolateEggStrategyExplanationAscension": "This strategy will save your Chocolate Egg for ascension. The mod will automatically purchase the egg right before you ascend to maximize prestige gains. If you have the 'Earth Shatterer' dragon aura, all buildings will be automatically sold before ascension (with this aura, buildings sell for <b>50%</b> instead of 25%).",
-            "chocolateEggStrategyExplanationImmediate": "This strategy will buy the Chocolate Egg as soon as it becomes available, giving you an immediate cookie boost.",
-        },
-        "FR": {
-            "modTitle": "Better AutoClicker",
-            "clicksPerSecond": "Clics par seconde :",
-            "backgroundOption": "Cliquer en arrière-plan",
-            "centerOption": "Animations centrées",
-            "goldenCookieOption": "Auto-clic cookies dorés",
-            "activate": "Activer",
-            "deactivate": "Désactiver",
-            "keyboardHint": "Appuyez sur A pour alterner",
-            "modLoaded": "Mod Better AutoClicker chargé !",
-            "modLoadedDesc": "Avec animations centrées sur le cookie",
-            "autoClickerEnabled": "Better AutoClicker activé",
-            "autoClickerDisabled": "Better AutoClicker désactivé",
-            "autoClickerDisabledDesc": "Le mode automatique a été arrêté",
-            "backgroundEnabled": "Mode arrière-plan activé",
-            "backgroundDisabled": "Mode arrière-plan désactivé",
-            "backgroundWill": "L'auto-clicker continuera",
-            "backgroundWont": "L'auto-clicker ne continuera pas",
-            "backgroundWhenInactive": "quand la fenêtre est inactive",
-            "animationsEnabled": "Animations centrées activées",
-            "animationsDisabled": "Animations centrées désactivées",
-            "animationsWill": "Les animations de clics apparaîtront",
-            "animationsWont": "Les animations de clics n'apparaîtront pas",
-            "atCookieCenter": "au centre du cookie",
-            "clicksPerSecDisplay": "{0} clics/sec, {1} en arrière-plan",
-            "languageOption": "Langue du mod :",
-            "languageChanged": "Langue du mod modifiée",
-            "languageInfo": "Vous pouvez changer la langue du mod dans le menu Options",
-            "betterAutoClickerOptions": "Options Better AutoClicker",
-            "goldenCookieEnabled": "Auto-clic des cookies dorés activé",
-            "goldenCookieDisabled": "Auto-clic des cookies dorés désactivé",
-            "goldenCookieClicked": "Cookie doré cliqué automatiquement !",
-            "goldenCookiesWill": "Les cookies dorés seront cliqués automatiquement",
-            "goldenCookiesWont": "Les cookies dorés ne seront pas cliqués automatiquement",
-            "wrathCookieOption": "Auto-clic cookies colériques",
-            "wrathCookieEnabled": "Auto-clic des cookies colériques activé",
-            "wrathCookieDisabled": "Auto-clic des cookies colériques désactivé",
-            "wrathCookieClicked": "Cookie colérique cliqué automatiquement !",
-            "wrathCookiesWill": "Les cookies colériques seront cliqués automatiquement",
-            "wrathCookiesWont": "Les cookies colériques ne seront pas cliqués automatiquement",
-            "wrinklerOption": "Auto-pop des rideux",
-            "wrinklerClickEnabled": "Auto-pop des rideux activé",
-            "wrinklerClickDisabled": "Auto-pop des rideux désactivé",
-            "wrinklersWill": "Les rideux seront éclatés automatiquement",
-            "wrinklersWont": "Les rideux ne seront pas éclatés automatiquement",
-            "wrinklerPopped": "Éclaté un rideux !",
-            "wrinklerPoppedDesc": "Cookies collectés d'un rideux",
-            "wrinklerClickDelay": "Délai entre clics :",
-            "wrinklerDelayChanged": "Délai des clics de rideux modifié",
-            "wrinklerDelayChangedDesc": "Délai entre les clics défini à {0} ms",
-            "seasonalCookieOption": "Auto-clic sur les spéciaux saisonniers",
-            "seasonalCookieEnabled": "Auto-clic des spéciaux saisonniers activé",
-            "seasonalCookieDisabled": "Auto-clic des spéciaux saisonniers désactivé",
-            "seasonalCookieClicked": "Spécial saisonnier cliqué automatiquement !",
-            "christmasReindeerClicked": "Renne de Noël trouvé !",
-            "seasonalCookiesWill": "Les spéciaux saisonniers seront cliqués automatiquement",
-            "seasonalCookiesWont": "Les spéciaux saisonniers ne seront pas cliqués automatiquement",
-            "discordSupport": "Rejoignez notre serveur Discord",
-            "discordSupportDesc": "Pour le support, signaler des bugs ou proposer des idées",
-            "discordButton": "Discord Better AutoClicker",
-            "chocolateEggOption": "Auto-gestion Œuf en Chocolat",
-            "chocolateEggEnabled": "Gestion auto de l'Œuf en Chocolat activée",
-            "chocolateEggDisabled": "Gestion auto de l'Œuf en Chocolat désactivée",
-            "chocolateEggStrategyLabel": "Stratégie :",
-            "chocolateEggStrategyAscension": "Garder pour l'ascension",
-            "chocolateEggStrategyImmediate": "Acheter immédiatement",
-            "chocolateEggWillSave": "L'Œuf en Chocolat sera gardé pour l'ascension",
-            "chocolateEggWillBuy": "L'Œuf en Chocolat sera acheté immédiatement",
-            "chocolateEggBought": "Œuf en Chocolat acheté automatiquement !",
-            "chocolateEggSaved": "Œuf en Chocolat trouvé - réservé pour l'ascension",
-            "chocolateEggAscensionBought": "Œuf en Chocolat acheté auto avant ascension",
-        },
-        "DE": {
-            "modTitle": "Better AutoClicker",
-            "clicksPerSecond": "Klicks pro Sekunde:",
-            "backgroundOption": "Im Hintergrund klicken",
-            "centerOption": "Zentrierte Animationen",
-            "goldenCookieOption": "Auto-Klick goldene Kekse",
-            "activate": "Aktivieren",
-            "deactivate": "Deaktivieren",
-            "keyboardHint": "Drücke A zum Umschalten",
-            "modLoaded": "Better AutoClicker-Mod geladen!",
-            "modLoadedDesc": "Mit zentrierten Animationen auf dem Keks",
-            "autoClickerEnabled": "Better AutoClicker aktiviert",
-            "autoClickerDisabled": "Better AutoClicker deaktiviert",
-            "autoClickerDisabledDesc": "Der automatische Modus wurde beendet",
-            "backgroundEnabled": "Hintergrundmodus aktiviert",
-            "backgroundDisabled": "Hintergrundmodus deaktiviert",
-            "backgroundWill": "Der Auto-Klicker wird weiterlaufen",
-            "backgroundWont": "Der Auto-Klicker wird nicht weiterlaufen",
-            "backgroundWhenInactive": "wenn das Fenster inaktiv ist",
-            "animationsEnabled": "Zentrierte Animationen aktiviert",
-            "animationsDisabled": "Zentrierte Animationen deaktiviert",
-            "animationsWill": "Klick-Animationen werden erscheinen",
-            "animationsWont": "Klick-Animationen werden nicht erscheinen",
-            "atCookieCenter": "in der Mitte des Kekses",
-            "clicksPerSecDisplay": "{0} Klicks/Sek, {1} im Hintergrund",
-            "languageOption": "Mod-Sprache:",
-            "languageChanged": "Mod-Sprache geändert",
-            "languageInfo": "Du kannst die Mod-Sprache im Optionsmenü ändern",
-            "betterAutoClickerOptions": "Better AutoClicker Optionen",
-            "goldenCookieEnabled": "Auto-Klick für goldene Kekse aktiviert",
-            "goldenCookieDisabled": "Auto-Klick für goldene Kekse deaktiviert",
-            "goldenCookieClicked": "Goldener Keks automatisch angeklickt!",
-            "goldenCookiesWill": "Goldene Kekse werden automatisch angeklickt",
-            "goldenCookiesWont": "Goldene Kekse werden nicht automatisch angeklickt",
-            "wrathCookieOption": "Auto-Klick Zorn-Kekse",
-            "wrathCookieEnabled": "Auto-Klick für Zorn-Kekse aktiviert",
-            "wrathCookieDisabled": "Auto-Klick für Zorn-Kekse deaktiviert",
-            "wrathCookieClicked": "Zorn-Keks automatisch angeklickt!",
-            "wrathCookiesWill": "Zorn-Kekse werden automatisch angeklickt",
-            "wrathCookiesWont": "Zorn-Kekse werden nicht automatisch angeklickt",
-            "wrinklerOption": "Auto-Pop Falter",
-            "wrinklerClickEnabled": "Falter Auto-Pop aktiviert",
-            "wrinklerClickDisabled": "Falter Auto-Pop deaktiviert",
-            "wrinklersWill": "Falter werden automatisch geplatzt",
-            "wrinklersWont": "Falter werden nicht automatisch geplatzt",
-            "wrinklerPopped": "Einen Falter geplatzt!",
-            "wrinklerPoppedDesc": "Kekse von einem Falter gesammelt",
-            "wrinklerClickDelay": "Klick-Verzögerung:",
-            "wrinklerDelayChanged": "Falter-Klick-Verzögerung geändert",
-            "wrinklerDelayChangedDesc": "Verzögerung zwischen Klicks auf {0} ms gesetzt",
-            "seasonalCookieOption": "Automatischer Klick auf saisonale Spezialobjekte",
-            "seasonalCookieEnabled": "Automatischer Klick auf saisonale Spezialobjekte aktiviert",
-            "seasonalCookieDisabled": "Automatischer Klick auf saisonale Spezialobjekte deaktiviert",
-            "seasonalCookieClicked": "Saisonales Spezialobjekt automatisch geklickt!",
-            "christmasReindeerClicked": "Weihnachtsrentier gefunden!",
-            "seasonalCookiesWill": "Saisonale Spezialobjekte werden automatisch geklickt",
-            "seasonalCookiesWont": "Saisonale Spezialobjekte werden nicht automatisch geklickt",
-            "discordSupport": "Tritt unserem Discord-Server bei",
-            "discordSupportDesc": "Für Support, Bugmeldungen oder Ideen",
-            "discordButton": "Discord Better AutoClicker",
-            "chocolateEggOption": "Schokoladenei automatisch verwalten",
-            "chocolateEggEnabled": "Automatische Verwaltung des Schokoladeneis aktiviert",
-            "chocolateEggDisabled": "Automatische Verwaltung des Schokoladeneis deaktiviert",
-            "chocolateEggStrategyLabel": "Strategie:",
-            "chocolateEggStrategyAscension": "Für Aufstieg speichern",
-            "chocolateEggStrategyImmediate": "Sofort kaufen",
-            "chocolateEggWillSave": "Schokoladenei wird für den Aufstieg gespeichert",
-            "chocolateEggWillBuy": "Schokoladenei wird sofort gekauft",
-            "chocolateEggBought": "Schokoladenei automatisch gekauft!",
-            "chocolateEggSaved": "Schokoladenei gefunden – wird für Aufstieg gespeichert",
-            "chocolateEggAscensionBought": "Schokoladenei automatisch vor dem Aufstieg gekauft",
-            "chocolateEggStrategyExplanationAscension": "Diese Strategie speichert dein Schokoladenei für den Aufstieg. Das Mod wird das Ei automatisch kurz vor deinem Aufstieg kaufen, um die Prestigegewinne zu maximieren.",
-            "chocolateEggStrategyExplanationImmediate": "Diese Strategie kauft das Schokoladenei sofort, sobald es verfügbar ist, und verschafft dir einen sofortigen Keks-Schub."
-        },
-        "NL": {
-            "modTitle": "Better AutoClicker",
-            "clicksPerSecond": "Klikken per seconde:",
-            "backgroundOption": "Klikken op de achtergrond",
-            "centerOption": "Gecentreerde animaties",
-            "goldenCookieOption": "Auto-klik gouden koekjes",
-            "activate": "Activeren",
-            "deactivate": "Deactiveren",
-            "keyboardHint": "Druk op A om te schakelen",
-            "modLoaded": "Better AutoClicker mod geladen!",
-            "modLoadedDesc": "Met gecentreerde animaties op de cookie",
-            "autoClickerEnabled": "Better AutoClicker ingeschakeld",
-            "autoClickerDisabled": "Better AutoClicker uitgeschakeld",
-            "autoClickerDisabledDesc": "Automatische modus is gestopt",
-            "backgroundEnabled": "Achtergrondmodus ingeschakeld",
-            "backgroundDisabled": "Achtergrondmodus uitgeschakeld",
-            "backgroundWill": "De auto-klikker zal doorgaan",
-            "backgroundWont": "De auto-klikker zal niet doorgaan",
-            "backgroundWhenInactive": "wanneer het venster inactief is",
-            "animationsEnabled": "Gecentreerde animaties ingeschakeld",
-            "animationsDisabled": "Gecentreerde animaties uitgeschakeld",
-            "animationsWill": "Klikanimaties zullen verschijnen",
-            "animationsWont": "Klikanimaties zullen niet verschijnen",
-            "atCookieCenter": "in het midden van de cookie",
-            "clicksPerSecDisplay": "{0} klikken/sec, {1} op de achtergrond",
-            "languageOption": "Mod taal:",
-            "languageChanged": "Mod taal gewijzigd",
-            "languageInfo": "Je kunt de mod-taal wijzigen in het menu Opties",
-            "betterAutoClickerOptions": "Better AutoClicker Opties",
-            "goldenCookieEnabled": "Auto-klik voor gouden koekjes ingeschakeld",
-            "goldenCookieDisabled": "Auto-klik voor gouden koekjes uitgeschakeld",
-            "goldenCookieClicked": "Automatisch op een gouden koekje geklikt!",
-            "goldenCookiesWill": "Gouden koekjes worden automatisch aangeklikt",
-            "goldenCookiesWont": "Gouden koekjes worden niet automatisch aangeklikt",
-            "wrathCookieOption": "Auto-klik boze koekjes",
-            "wrathCookieEnabled": "Auto-klik voor boze koekjes ingeschakeld",
-            "wrathCookieDisabled": "Auto-klik voor boze koekjes uitgeschakeld",
-            "wrathCookieClicked": "Automatisch op een boos koekje geklikt!",
-            "wrathCookiesWill": "Boze koekjes worden automatisch aangeklikt",
-            "wrathCookiesWont": "Boze koekjes worden niet automatisch aangeklikt",
-            "wrinklerOption": "Auto-pop Rimpelers",
-            "wrinklerClickEnabled": "Rimpeler auto-pop ingeschakeld",
-            "wrinklerClickDisabled": "Rimpeler auto-pop uitgeschakeld",
-            "wrinklersWill": "Rimpelers worden automatisch geknapt",
-            "wrinklersWont": "Rimpelers worden niet automatisch geknapt",
-            "wrinklerPopped": "Een Rimpeler geknapt!",
-            "wrinklerPoppedDesc": "Cookies verzameld van een Rimpeler",
-            "wrinklerClickDelay": "Klikvertraging:",
-            "wrinklerDelayChanged": "Rimpeler klikvertraging gewijzigd",
-            "wrinklerDelayChangedDesc": "Vertraging tussen klikken ingesteld op {0} ms",
-            "seasonalCookieOption": "Auto-klik op seizoensgebonden specials",
-            "seasonalCookieEnabled": "Auto-klik op seizoensgebonden specials ingeschakeld",
-            "seasonalCookieDisabled": "Auto-klik op seizoensgebonden specials uitgeschakeld",
-            "seasonalCookieClicked": "Seizoensgebonden special automatisch geklikt!",
-            "christmasReindeerClicked": "Kerst rendier gevonden!",
-            "seasonalCookiesWill": "Seizoensgebonden specials worden automatisch geklikt",
-            "seasonalCookiesWont": "Seizoensgebonden specials worden niet automatisch geklikt",
-            "discordSupport": "Word lid van onze Discord-server",
-            "discordSupportDesc": "Voor ondersteuning, bugrapporten of ideeën",
-            "discordButton": "Discord Better AutoClicker",
-            "chocolateEggOption": "Chocolade-ei automatisch beheren",
-            "chocolateEggEnabled": "Automatisch beheer van chocolade-ei ingeschakeld",
-            "chocolateEggDisabled": "Automatisch beheer van chocolade-ei uitgeschakeld",
-            "chocolateEggStrategyLabel": "Strategie:",
-            "chocolateEggStrategyAscension": "Bewaren voor ascensie",
-            "chocolateEggStrategyImmediate": "Onmiddellijk kopen",
-            "chocolateEggWillSave": "Chocolade-ei wordt bewaard voor ascensie",
-            "chocolateEggWillBuy": "Chocolade-ei wordt onmiddellijk gekocht",
-            "chocolateEggBought": "Automatisch chocolade-ei gekocht!",
-            "chocolateEggSaved": "Chocolade-ei gevonden – wordt bewaard voor ascensie",
-            "chocolateEggAscensionBought": "Chocolade-ei automatisch gekocht voor ascensie",
-            "chocolateEggStrategyExplanationAscension": "Deze strategie zal je Chocolade-ei bewaren voor de ascensie. De mod koopt het ei automatisch net voor je ascendeert om de prestige-winsten te maximaliseren.",
-            "chocolateEggStrategyExplanationImmediate": "Deze strategie zal het Chocolade-ei kopen zodra het beschikbaar is, waardoor je een onmiddellijke koekjesboost krijgt."
-        },
-        "CS": {
-            "modTitle": "Better AutoClicker",
-            "clicksPerSecond": "Kliknutí za sekundu:",
-            "backgroundOption": "Klikat na pozadí",
-            "centerOption": "Centrované animace",
-            "goldenCookieOption": "Auto-klik na zlaté sušenky",
-            "activate": "Aktivovat",
-            "deactivate": "Deaktivovat",
-            "keyboardHint": "Stiskněte A pro přepnutí",
-            "modLoaded": "Better AutoClicker mod načten!",
-            "modLoadedDesc": "S centrovanými animacemi na sušence",
-            "autoClickerEnabled": "Better AutoClicker povolen",
-            "autoClickerDisabled": "Better AutoClicker zakázán",
-            "autoClickerDisabledDesc": "Automatický režim byl zastaven",
-            "backgroundEnabled": "Režim na pozadí povolen",
-            "backgroundDisabled": "Režim na pozadí zakázán",
-            "backgroundWill": "Auto-klikač bude pokračovat",
-            "backgroundWont": "Auto-klikač nebude pokračovat",
-            "backgroundWhenInactive": "když je okno neaktivní",
-            "animationsEnabled": "Centrované animace povoleny",
-            "animationsDisabled": "Centrované animace zakázány",
-            "animationsWill": "Animace kliknutí se zobrazí",
-            "animationsWont": "Animace kliknutí se nezobrazí",
-            "atCookieCenter": "ve středu sušenky",
-            "clicksPerSecDisplay": "{0} kliků/s, {1} na pozadí",
-            "languageOption": "Jazyk modu:",
-            "languageChanged": "Jazyk modu změněn",
-            "languageInfo": "Jazyk modu můžete změnit v menu Možnosti",
-            "betterAutoClickerOptions": "Možnosti Better AutoClicker",
-            "goldenCookieEnabled": "Auto-klik na zlaté sušenky povolen",
-            "goldenCookieDisabled": "Auto-klik na zlaté sušenky zakázán",
-            "goldenCookieClicked": "Automaticky kliknuto na zlatou sušenku!",
-            "goldenCookiesWill": "Zlaté sušenky budou automaticky kliknuty",
-            "goldenCookiesWont": "Zlaté sušenky nebudou automaticky kliknuty",
-            "wrathCookieOption": "Auto-klik na hněvivé sušenky",
-            "wrathCookieEnabled": "Auto-klik na hněvivé sušenky povolen",
-            "wrathCookieDisabled": "Auto-klik na hněvivé sušenky zakázán",
-            "wrathCookieClicked": "Automaticky kliknuto na hněvivou sušenku!",
-            "wrathCookiesWill": "Hněvivé sušenky budou automaticky kliknuty",
-            "wrathCookiesWont": "Hněvivé sušenky nebudou automaticky kliknuty",
-            "wrinklerOption": "Auto-pop Vráskavců",
-            "wrinklerClickEnabled": "Auto-pop Vráskavců povolen",
-            "wrinklerClickDisabled": "Auto-pop Vráskavců zakázán",
-            "wrinklersWill": "Vráskavci budou automaticky prasknuti",
-            "wrinklersWont": "Vráskavci nebudou automaticky prasknuti",
-            "wrinklerPopped": "Prasknut Vráskavec!",
-            "wrinklerPoppedDesc": "Sesbírány sušenky z Vráskavce",
-            "wrinklerClickDelay": "Prodleva kliknutí:",
-            "wrinklerDelayChanged": "Prodleva kliknutí na Vráskavce změněna",
-            "wrinklerDelayChangedDesc": "Prodleva mezi kliknutími nastavena na {0} ms",
-            "seasonalCookieOption": "Automatické klikání na sezónní speciály",
-            "seasonalCookieEnabled": "Automatické klikání na sezónní speciály je zapnuto",
-            "seasonalCookieDisabled": "Automatické klikání na sezónní speciály je vypnuto",
-            "seasonalCookieClicked": "Sezónní speciál automaticky kliknut!",
-            "christmasReindeerClicked": "Vánoční sob nalezen!",
-            "seasonalCookiesWill": "Sezónní speciály budou automaticky klikány",
-            "seasonalCookiesWont": "Sezónní speciály nebudou automaticky klikány",
-            "discordSupport": "Připojte se k našemu Discord serveru",
-            "discordSupportDesc": "Pro podporu, hlášení chyb nebo návrhy",
-            "discordButton": "Discord Better AutoClicker",
-            "chocolateEggOption": "Automaticky spravovat čokoládové vejce",
-            "chocolateEggEnabled": "Automatická správa čokoládového vejce zapnuta",
-            "chocolateEggDisabled": "Automatická správa čokoládového vejce vypnuta",
-            "chocolateEggStrategyLabel": "Strategie:",
-            "chocolateEggStrategyAscension": "Uložit pro vzestup",
-            "chocolateEggStrategyImmediate": "Koupit okamžitě",
-            "chocolateEggWillSave": "Čokoládové vejce bude uloženo pro vzestup",
-            "chocolateEggWillBuy": "Čokoládové vejce bude okamžitě zakoupeno",
-            "chocolateEggBought": "Automaticky zakoupeno čokoládové vejce!",
-            "chocolateEggSaved": "Nalezeno čokoládové vejce – uloženo pro vzestup",
-            "chocolateEggAscensionBought": "Automaticky zakoupeno čokoládové vejce před vzestupem",
-            "chocolateEggStrategyExplanationAscension": "Tato strategie uloží vaše čokoládové vejce na vzestup. Mod automaticky koupí vejce těsně před vaším vzestupem, aby maximalizoval zisky prestiže.",
-            "chocolateEggStrategyExplanationImmediate": "Tato strategie koupí čokoládové vejce, jakmile bude dostupné, čímž vám poskytne okamžitý nárůst sušenek."
-        },
-        "PL": {
-            "modTitle": "Better AutoClicker",
-            "clicksPerSecond": "Kliknięć na sekundę:",
-            "backgroundOption": "Klikanie w tle",
-            "centerOption": "Centrowane animacje",
-            "goldenCookieOption": "Auto-klik złotych ciasteczek",
-            "activate": "Aktywuj",
-            "deactivate": "Dezaktywuj",
-            "keyboardHint": "Naciśnij A, aby przełączyć",
-            "modLoaded": "Mod Better AutoClicker załadowany!",
-            "modLoadedDesc": "Z centrowanymi animacjami na ciastku",
-            "autoClickerEnabled": "Better AutoClicker włączony",
-            "autoClickerDisabled": "Better AutoClicker wyłączony",
-            "autoClickerDisabledDesc": "Tryb automatyczny został zatrzymany",
-            "backgroundEnabled": "Tryb działania w tle włączony",
-            "backgroundDisabled": "Tryb działania w tle wyłączony",
-            "backgroundWill": "Auto-klikacz będzie kontynuował",
-            "backgroundWont": "Auto-klikacz nie będzie kontynuował",
-            "backgroundWhenInactive": "gdy okno jest nieaktywne",
-            "animationsEnabled": "Centrowane animacje włączone",
-            "animationsDisabled": "Centrowane animacje wyłączone",
-            "animationsWill": "Animacje kliknięć będą pojawiać się",
-            "animationsWont": "Animacje kliknięć nie będą pojawiać się",
-            "atCookieCenter": "w centrum ciastka",
-            "clicksPerSecDisplay": "{0} kliknięć/s, {1} w tle",
-            "languageOption": "Język moda:",
-            "languageChanged": "Zmieniono język moda",
-            "languageInfo": "Możesz zmienić język moda w menu Opcje",
-            "betterAutoClickerOptions": "Opcje Better AutoClicker",
-            "goldenCookieEnabled": "Auto-klik złotych ciasteczek włączony",
-            "goldenCookieDisabled": "Auto-klik złotych ciasteczek wyłączony",
-            "goldenCookieClicked": "Automatycznie kliknięto złote ciasteczko!",
-            "goldenCookiesWill": "Złote ciasteczka będą automatycznie klikane",
-            "goldenCookiesWont": "Złote ciasteczka nie będą automatycznie klikane",
-            "wrathCookieOption": "Auto-klik gniewnych ciasteczek",
-            "wrathCookieEnabled": "Auto-klik gniewnych ciasteczek włączony",
-            "wrathCookieDisabled": "Auto-klik gniewnych ciasteczek wyłączony",
-            "wrathCookieClicked": "Automatycznie kliknięto gniewne ciasteczko!",
-            "wrathCookiesWill": "Gniewne ciasteczka będą automatycznie klikane",
-            "wrathCookiesWont": "Gniewne ciasteczka nie będą automatycznie klikane",
-            "wrinklerOption": "Auto-pop Pomarszczaczy",
-            "wrinklerClickEnabled": "Auto-pop Pomarszczaczy włączony",
-            "wrinklerClickDisabled": "Auto-pop Pomarszczaczy wyłączony",
-            "wrinklersWill": "Pomarszczacze będą automatycznie pękać",
-            "wrinklersWont": "Pomarszczacze nie będą automatycznie pękać",
-            "wrinklerPopped": "Pęknięty Pomarszczacz!",
-            "wrinklerPoppedDesc": "Zebrane ciasteczka z Pomarszczacza",
-            "wrinklerClickDelay": "Opóźnienie kliknięcia:",
-            "wrinklerDelayChanged": "Zmieniono opóźnienie kliknięcia Pomarszczacza",
-            "wrinklerDelayChangedDesc": "Opóźnienie między kliknięciami ustawione na {0} ms",
-            "seasonalCookieOption": "Auto-klik na sezonowe specjalności",
-            "seasonalCookieEnabled": "Auto-klik na sezonowe specjalności włączony",
-            "seasonalCookieDisabled": "Auto-klik na sezonowe specjalności wyłączony",
-            "seasonalCookieClicked": "Sezonowa specjalność automatycznie kliknięta!",
-            "christmasReindeerClicked": "Znaleziono świątecznego renifera!",
-            "seasonalCookiesWill": "Sezonowe specjalności będą klikane automatycznie",
-            "seasonalCookiesWont": "Sezonowe specjalności nie będą klikane automatycznie",
-            "discordSupport": "Dołącz do naszego serwera Discord",
-            "discordSupportDesc": "Aby uzyskać pomoc, zgłosić błędy lub podzielić się pomysłami",
-            "discordButton": "Discord Better AutoClicker",
-            "chocolateEggOption": "Automatyczne zarządzanie Czekoladowym Jajkiem",
-            "chocolateEggEnabled": "Automatyczne zarządzanie Czekoladowym Jajkiem włączone",
-            "chocolateEggDisabled": "Automatyczne zarządzanie Czekoladowym Jajkiem wyłączone",
-            "chocolateEggStrategyLabel": "Strategia:",
-            "chocolateEggStrategyAscension": "Zapisz na awans",
-            "chocolateEggStrategyImmediate": "Kup natychmiast",
-            "chocolateEggWillSave": "Czekoladowe Jajko zostanie zapisane na awans",
-            "chocolateEggWillBuy": "Czekoladowe Jajko zostanie natychmiast kupione",
-            "chocolateEggBought": "Automatycznie kupiono Czekoladowe Jajko!",
-            "chocolateEggSaved": "Znaleziono Czekoladowe Jajko – zapisano na awans",
-            "chocolateEggAscensionBought": "Automatycznie kupiono Czekoladowe Jajko przed awansem",
-            "chocolateEggStrategyExplanationAscension": "Ta strategia zachowa Twoje Czekoladowe Jajko na awans. Mod automatycznie kupi jajko tuż przed awansem, aby zmaksymalizować zyski prestiżu.",
-            "chocolateEggStrategyExplanationImmediate": "Ta strategia kupi Czekoladowe Jajko, gdy tylko stanie się dostępne, zapewniając natychmiastowy wzrost ciasteczek."
-        },
-        "IT": {
-            "modTitle": "Better AutoClicker",
-            "clicksPerSecond": "Click al secondo:",
-            "backgroundOption": "Click in background",
-            "centerOption": "Animazioni centrate",
-            "goldenCookieOption": "Auto-click biscotti dorati",
-            "activate": "Attiva",
-            "deactivate": "Disattiva",
-            "keyboardHint": "Premi A per alternare",
-            "modLoaded": "Mod Better AutoClicker caricata!",
-            "modLoadedDesc": "Con animazioni centrate sul biscotto",
-            "autoClickerEnabled": "Better AutoClicker abilitato",
-            "autoClickerDisabled": "Better AutoClicker disabilitato",
-            "autoClickerDisabledDesc": "La modalità automatica è stata fermata",
-            "backgroundEnabled": "Modalità background abilitata",
-            "backgroundDisabled": "Modalità background disabilitata",
-            "backgroundWill": "L'auto-clicker continuerà",
-            "backgroundWont": "L'auto-clicker non continuerà",
-            "backgroundWhenInactive": "quando la finestra è inattiva",
-            "animationsEnabled": "Animazioni centrate abilitate",
-            "animationsDisabled": "Animazioni centrate disabilitate",
-            "animationsWill": "Le animazioni dei click appariranno",
-            "animationsWont": "Le animazioni dei click non appariranno",
-            "atCookieCenter": "al centro del biscotto",
-            "clicksPerSecDisplay": "{0} click/sec, {1} in background",
-            "languageOption": "Lingua della mod:",
-            "languageChanged": "Lingua della mod cambiata",
-            "languageInfo": "Puoi cambiare la lingua della mod nel menu Opzioni",
-            "betterAutoClickerOptions": "Opzioni Better AutoClicker",
-            "goldenCookieEnabled": "Auto-click biscotti dorati abilitato",
-            "goldenCookieDisabled": "Auto-click biscotti dorati disabilitato",
-            "goldenCookieClicked": "Cliccato automaticamente un biscotto dorato!",
-            "goldenCookiesWill": "I biscotti dorati saranno cliccati automaticamente",
-            "goldenCookiesWont": "I biscotti dorati non saranno cliccati automaticamente",
-            "wrathCookieOption": "Auto-click biscotti dell'ira",
-            "wrathCookieEnabled": "Auto-click biscotti dell'ira abilitato",
-            "wrathCookieDisabled": "Auto-click biscotti dell'ira disabilitato",
-            "wrathCookieClicked": "Cliccato automaticamente un biscotto dell'ira!",
-            "wrathCookiesWill": "I biscotti dell'ira saranno cliccati automaticamente",
-            "wrathCookiesWont": "I biscotti dell'ira non saranno cliccati automaticamente",
-            "wrinklerOption": "Auto-pop Rugosi",
-            "wrinklerClickEnabled": "Auto-pop Rugosi abilitato",
-            "wrinklerClickDisabled": "Auto-pop Rugosi disabilitato",
-            "wrinklersWill": "I Rugosi saranno scoppiati automaticamente",
-            "wrinklersWont": "I Rugosi non saranno scoppiati automaticamente",
-            "wrinklerPopped": "Scoppiato un Rugoso!",
-            "wrinklerPoppedDesc": "Biscotti raccolti da un Rugoso",
-            "wrinklerClickDelay": "Ritardo di clic:",
-            "wrinklerDelayChanged": "Ritardo di clic dei Rugosi modificato",
-            "wrinklerDelayChangedDesc": "Ritardo tra i clic impostato a {0} ms",
-            "seasonalCookieOption": "Auto-click sugli speciali stagionali",
-            "seasonalCookieEnabled": "Auto-click sugli speciali stagionali attivato",
-            "seasonalCookieDisabled": "Auto-click sugli speciali stagionali disattivato",
-            "seasonalCookieClicked": "Speciale stagionale cliccato automaticamente!",
-            "christmasReindeerClicked": "Renna di Natale trovata!",
-            "seasonalCookiesWill": "Gli speciali stagionali verranno cliccati automaticamente",
-            "seasonalCookiesWont": "Gli speciali stagionali non verranno cliccati automaticamente",
-            "discordSupport": "Unisciti al nostro server Discord",
-            "discordSupportDesc": "Per supporto, segnalazione bug o suggerimenti",
-            "discordButton": "Discord Better AutoClicker",
-            "chocolateEggOption": "Gestione automatica dell'Uovo di Cioccolato",
-            "chocolateEggEnabled": "Gestione automatica dell'Uovo di Cioccolato attivata",
-            "chocolateEggDisabled": "Gestione automatica dell'Uovo di Cioccolato disattivata",
-            "chocolateEggStrategyLabel": "Strategia:",
-            "chocolateEggStrategyAscension": "Conserva per l'ascensione",
-            "chocolateEggStrategyImmediate": "Compra subito",
-            "chocolateEggWillSave": "L'Uovo di Cioccolato sarà conservato per l'ascensione",
-            "chocolateEggWillBuy": "L'Uovo di Cioccolato sarà acquistato immediatamente",
-            "chocolateEggBought": "Uovo di Cioccolato acquistato automaticamente!",
-            "chocolateEggSaved": "Uovo di Cioccolato trovato – conservato per l'ascensione",
-            "chocolateEggAscensionBought": "Uovo di Cioccolato acquistato automaticamente prima dell'ascensione",
-            "chocolateEggStrategyExplanationAscension": "Questa strategia salverà il tuo Uovo di Cioccolato per l'ascensione. Il mod acquisterà automaticamente l'uovo appena prima che tu ascenda per massimizzare i guadagni di prestigio.",
-            "chocolateEggStrategyExplanationImmediate": "Questa strategia acquisterà l'Uovo di Cioccolato non appena sarà disponibile, dandoti un immediato aumento di biscotti."
-        },
-        "ES": {
-            "modTitle": "Better AutoClicker",
-            "clicksPerSecond": "Clics por segundo:",
-            "backgroundOption": "Clic en segundo plano",
-            "centerOption": "Animaciones centradas",
-            "goldenCookieOption": "Auto-clic galletas doradas",
-            "activate": "Activar",
-            "deactivate": "Desactivar",
-            "keyboardHint": "Presiona A para alternar",
-            "modLoaded": "¡Mod Better AutoClicker cargado!",
-            "modLoadedDesc": "Con animaciones centradas en la galleta",
-            "autoClickerEnabled": "Better AutoClicker activado",
-            "autoClickerDisabled": "Better AutoClicker desactivado",
-            "autoClickerDisabledDesc": "El modo automático ha sido detenido",
-            "backgroundEnabled": "Modo en segundo plano activado",
-            "backgroundDisabled": "Modo en segundo plano desactivado",
-            "backgroundWill": "El auto-clicker continuará",
-            "backgroundWont": "El auto-clicker no continuará",
-            "backgroundWhenInactive": "cuando la ventana esté inactiva",
-            "animationsEnabled": "Animaciones centradas activadas",
-            "animationsDisabled": "Animaciones centradas desactivadas",
-            "animationsWill": "Las animaciones de clic aparecerán",
-            "animationsWont": "Las animaciones de clic no aparecerán",
-            "atCookieCenter": "en el centro de la galleta",
-            "clicksPerSecDisplay": "{0} clics/seg, {1} en segundo plano",
-            "languageOption": "Idioma del mod:",
-            "languageChanged": "Idioma del mod cambiado",
-            "languageInfo": "Puedes cambiar el idioma del mod en el menú Opciones",
-            "betterAutoClickerOptions": "Opciones de Better AutoClicker",
-            "goldenCookieEnabled": "Auto-clic de galletas doradas activado",
-            "goldenCookieDisabled": "Auto-clic de galletas doradas desactivado",
-            "goldenCookieClicked": "¡Galleta dorada clicada automáticamente!",
-            "goldenCookiesWill": "Las galletas doradas serán clicadas automáticamente",
-            "goldenCookiesWont": "Las galletas doradas no serán clicadas automáticamente",
-            "wrathCookieOption": "Auto-clic galletas de ira",
-            "wrathCookieEnabled": "Auto-clic de galletas de ira activado",
-            "wrathCookieDisabled": "Auto-clic de galletas de ira desactivado",
-            "wrathCookieClicked": "¡Galleta de ira clicada automáticamente!",
-            "wrathCookiesWill": "Las galletas de ira serán clicadas automáticamente",
-            "wrathCookiesWont": "Las galletas de ira no serán clicadas automáticamente",
-            "wrinklerOption": "Auto-explotar Arrugadores",
-            "wrinklerClickEnabled": "Auto-explotar Arrugadores activado",
-            "wrinklerClickDisabled": "Auto-explotar Arrugadores desactivado",
-            "wrinklersWill": "Los Arrugadores serán explotados automáticamente",
-            "wrinklersWont": "Los Arrugadores no serán explotados automáticamente",
-            "wrinklerPopped": "¡Explotado un Arrugador!",
-            "wrinklerPoppedDesc": "Galletas recolectadas de un Arrugador",
-            "wrinklerClickDelay": "Retardo de clic:",
-            "wrinklerDelayChanged": "Retardo de clic de Arrugadores cambiado",
-            "wrinklerDelayChangedDesc": "Retardo entre clics establecido en {0} ms",
-            "seasonalCookieOption": "Auto-clic en los especiales de temporada",
-            "seasonalCookieEnabled": "Auto-clic en especiales de temporada activado",
-            "seasonalCookieDisabled": "Auto-clic en especiales de temporada desactivado",
-            "seasonalCookieClicked": "¡Especial de temporada clicado automáticamente!",
-            "christmasReindeerClicked": "¡Reno navideño encontrado!",
-            "seasonalCookiesWill": "Los especiales de temporada se clicarán automáticamente",
-            "seasonalCookiesWont": "Los especiales de temporada no se clicarán automáticamente",
-            "discordSupport": "Únete a nuestro servidor de Discord",
-            "discordSupportDesc": "Para soporte, reportar errores o compartir ideas",
-            "discordButton": "Discord Better AutoClicker",
-            "chocolateEggOption": "Gestión automática del Huevo de Chocolate",
-            "chocolateEggEnabled": "Gestión automática del Huevo de Chocolate activada",
-            "chocolateEggDisabled": "Gestión automática del Huevo de Chocolate desactivada",
-            "chocolateEggStrategyLabel": "Estrategia:",
-            "chocolateEggStrategyAscension": "Guardar para la ascensión",
-            "chocolateEggStrategyImmediate": "Comprar inmediatamente",
-            "chocolateEggWillSave": "El Huevo de Chocolate se guardará para la ascensión",
-            "chocolateEggWillBuy": "El Huevo de Chocolate se comprará inmediatamente",
-            "chocolateEggBought": "¡Huevo de Chocolate comprado automáticamente!",
-            "chocolateEggSaved": "Huevo de Chocolate encontrado – guardado para la ascensión",
-            "chocolateEggAscensionBought": "Huevo de Chocolate comprado automáticamente antes de la ascensión",
-            "chocolateEggStrategyExplanationAscension": "Esta estrategia guardará tu Huevo de Chocolate para la ascensión. El mod comprará el huevo automáticamente justo antes de que asciendas para maximizar las ganancias de prestigio.",
-            "chocolateEggStrategyExplanationImmediate": "Esta estrategia comprará el Huevo de Chocolate tan pronto como esté disponible, dándote un aumento inmediato de galletas."
-        },
-        "PT-BR": {
-            "modTitle": "Better AutoClicker",
-            "clicksPerSecond": "Cliques por segundo:",
-            "backgroundOption": "Clicar em segundo plano",
-            "centerOption": "Animações centralizadas",
-            "goldenCookieOption": "Auto-clicar cookies dourados",
-            "activate": "Ativar",
-            "deactivate": "Desativar",
-            "keyboardHint": "Pressione A para alternar",
-            "modLoaded": "Mod Better AutoClicker carregado!",
-            "modLoadedDesc": "Com animações centralizadas no cookie",
-            "autoClickerEnabled": "Better AutoClicker ativado",
-            "autoClickerDisabled": "Better AutoClicker desativado",
-            "autoClickerDisabledDesc": "O modo automático foi interrompido",
-            "backgroundEnabled": "Modo em segundo plano ativado",
-            "backgroundDisabled": "Modo em segundo plano desativado",
-            "backgroundWill": "O auto-clicker continuará",
-            "backgroundWont": "O auto-clicker não continuará",
-            "backgroundWhenInactive": "quando a janela estiver inativa",
-            "animationsEnabled": "Animações centralizadas ativadas",
-            "animationsDisabled": "Animações centralizadas desativadas",
-            "animationsWill": "As animações de clique aparecerão",
-            "animationsWont": "As animações de clique não aparecerão",
-            "atCookieCenter": "no centro do cookie",
-            "clicksPerSecDisplay": "{0} cliques/seg, {1} em segundo plano",
-            "languageOption": "Idioma do mod:",
-            "languageChanged": "Idioma do mod alterado",
-            "languageInfo": "Você pode alterar o idioma do mod no menu Opções",
-            "betterAutoClickerOptions": "Opções do Better AutoClicker",
-            "goldenCookieEnabled": "Auto-clique de cookies dourados ativado",
-            "goldenCookieDisabled": "Auto-clique de cookies dourados desativado",
-            "goldenCookieClicked": "Cookie dourado clicado automaticamente!",
-            "goldenCookiesWill": "Os cookies dourados serão clicados automaticamente",
-            "goldenCookiesWont": "Os cookies dourados não serão clicados automaticamente",
-            "wrathCookieOption": "Auto-clicar cookies irados",
-            "wrathCookieEnabled": "Auto-clique de cookies irados ativado",
-            "wrathCookieDisabled": "Auto-clique de cookies irados desativado",
-            "wrathCookieClicked": "Cookie irado clicado automaticamente!",
-            "wrathCookiesWill": "Os cookies irados serão clicados automaticamente",
-            "wrathCookiesWont": "Os cookies irados não serão clicados automaticamente",
-            "wrinklerOption": "Auto-estourar Enrugadores",
-            "wrinklerClickEnabled": "Auto-estourar Enrugadores ativado",
-            "wrinklerClickDisabled": "Auto-estourar Enrugadores desativado",
-            "wrinklersWill": "Os Enrugadores serão estourados automaticamente",
-            "wrinklersWont": "Os Enrugadores não serão estourados automaticamente",
-            "wrinklerPopped": "Estourou um Enrugador!",
-            "wrinklerPoppedDesc": "Cookies coletados de um Enrugador",
-            "wrinklerClickDelay": "Atraso de clique:",
-            "wrinklerDelayChanged": "Atraso de clique de Enrugadores alterado",
-            "wrinklerDelayChangedDesc": "Atraso entre cliques definido para {0} ms",
-            "seasonalCookieOption": "Clique automático nos especiais sazonais",
-            "seasonalCookieEnabled": "Clique automático nos especiais sazonais ativado",
-            "seasonalCookieDisabled": "Clique automático nos especiais sazonais desativado",
-            "seasonalCookieClicked": "Especial sazonal clicado automaticamente!",
-            "christmasReindeerClicked": "Rena de Natal encontrada!",
-            "seasonalCookiesWill": "Os especiais sazonais serão clicados automaticamente",
-            "seasonalCookiesWont": "Os especiais sazonais não serão clicados automaticamente",
-            "discordSupport": "Entre no nosso servidor do Discord",
-            "discordSupportDesc": "Para suporte, relatar bugs ou enviar ideias",
-            "discordButton": "Discord Better AutoClicker",
-            "chocolateEggOption": "Gerenciar automaticamente o Ovo de Chocolate",
-            "chocolateEggEnabled": "Gerenciamento automático do Ovo de Chocolate ativado",
-            "chocolateEggDisabled": "Gerenciamento automático do Ovo de Chocolate desativado",
-            "chocolateEggStrategyLabel": "Estratégia:",
-            "chocolateEggStrategyAscension": "Guardar para ascensão",
-            "chocolateEggStrategyImmediate": "Comprar imediatamente",
-            "chocolateEggWillSave": "O Ovo de Chocolate será guardado para ascensão",
-            "chocolateEggWillBuy": "O Ovo de Chocolate será comprado imediatamente",
-            "chocolateEggBought": "Ovo de Chocolate comprado automaticamente!",
-            "chocolateEggSaved": "Ovo de Chocolate encontrado – guardando para ascensão",
-            "chocolateEggAscensionBought": "Ovo de Chocolate comprado automaticamente antes da ascensão",
-            "chocolateEggStrategyExplanationAscension": "Esta estratégia salvará seu Ovo de Chocolate para a ascensão. O mod comprará automaticamente o ovo logo antes de você ascender para maximizar os ganhos de prestígio.",
-            "chocolateEggStrategyExplanationImmediate": "Esta estratégia comprará o Ovo de Chocolate assim que ele se tornar disponível, proporcionando um impulso imediato de biscoitos."
-        },
-        "ZH-CN": {
-            "modTitle": "Better AutoClicker",
-            "clicksPerSecond": "每秒点击次数：",
-            "backgroundOption": "后台点击",
-            "centerOption": "居中动画",
-            "goldenCookieOption": "自动点击黄金饼干",
-            "activate": "激活",
-            "deactivate": "停用",
-            "keyboardHint": "按A键切换",
-            "modLoaded": "Better AutoClicker Mod已加载！",
-            "modLoadedDesc": "带有饼干居中动画",
-            "autoClickerEnabled": "Better AutoClicker已启用",
-            "autoClickerDisabled": "Better AutoClicker已禁用",
-            "autoClickerDisabledDesc": "自动模式已停止",
-            "backgroundEnabled": "后台模式已启用",
-            "backgroundDisabled": "后台模式已禁用",
-            "backgroundWill": "自动点击器将继续",
-            "backgroundWont": "自动点击器将不会继续",
-            "backgroundWhenInactive": "当窗口处于非活动状态时",
-            "animationsEnabled": "居中动画已启用",
-            "animationsDisabled": "居中动画已禁用",
-            "animationsWill": "点击动画将出现",
-            "animationsWont": "点击动画将不会出现",
-            "atCookieCenter": "在饼干中心",
-            "clicksPerSecDisplay": "每秒{0}次点击，后台{1}",
-            "languageOption": "模组语言：",
-            "languageChanged": "模组语言已更改",
-            "languageInfo": "您可以在选项菜单中更改模组语言",
-            "betterAutoClickerOptions": "Better AutoClicker 选项",
-            "goldenCookieEnabled": "自动点击黄金饼干已启用",
-            "goldenCookieDisabled": "自动点击黄金饼干已禁用",
-            "goldenCookieClicked": "自动点击了一个黄金饼干！",
-            "goldenCookiesWill": "黄金饼干将被自动点击",
-            "goldenCookiesWont": "黄金饼干将不会被自动点击",
-            "wrathCookieOption": "自动点击愤怒饼干",
-            "wrathCookieEnabled": "自动点击愤怒饼干已启用",
-            "wrathCookieDisabled": "自动点击愤怒饼干已禁用",
-            "wrathCookieClicked": "自动点击了一个愤怒饼干！",
-            "wrathCookiesWill": "愤怒饼干将被自动点击",
-            "wrathCookiesWont": "愤怒饼干将不会被自动点击",
-            "wrinklerOption": "自动弹皱纹怪",
-            "wrinklerClickEnabled": "皱纹怪自动弹起已启用",
-            "wrinklerClickDisabled": "皱纹怪自动弹起已禁用",
-            "wrinklersWill": "皱纹怪将被自动弹起",
-            "wrinklersWont": "皱纹怪将不会被自动弹起",
-            "wrinklerPopped": "弹起了一个皱纹怪！",
-            "wrinklerPoppedDesc": "从皱纹怪收集了饼干",
-            "wrinklerClickDelay": "点击延迟：",
-            "wrinklerDelayChanged": "皱纹怪点击延迟已更改",
-            "wrinklerDelayChangedDesc": "点击间隔设置为 {0} 毫秒",
-            "seasonalCookieOption": "自动点击季节性特殊项目",
-            "seasonalCookieEnabled": "已启用自动点击季节性特殊项目",
-            "seasonalCookieDisabled": "已禁用自动点击季节性特殊项目",
-            "seasonalCookieClicked": "已自动点击季节性特殊项目！",
-            "christmasReindeerClicked": "找到了圣诞驯鹿！",
-            "seasonalCookiesWill": "季节性特殊项目将自动点击",
-            "seasonalCookiesWont": "季节性特殊项目不会自动点击",
-            "discordSupport": "加入我们的 Discord 服务器",
-            "discordSupportDesc": "用于支持、报告错误或提出建议",
-            "discordButton": "Discord Better AutoClicker",
-            "chocolateEggOption": "自动管理巧克力蛋",
-            "chocolateEggEnabled": "已启用巧克力蛋自动管理",
-            "chocolateEggDisabled": "已禁用巧克力蛋自动管理",
-            "chocolateEggStrategyLabel": "策略：",
-            "chocolateEggStrategyAscension": "为转生保存",
-            "chocolateEggStrategyImmediate": "立即购买",
-            "chocolateEggWillSave": "巧克力蛋将为转生而保存",
-            "chocolateEggWillBuy": "巧克力蛋将立即购买",
-            "chocolateEggBought": "已自动购买巧克力蛋！",
-            "chocolateEggSaved": "发现巧克力蛋 – 为转生而保存",
-            "chocolateEggAscensionBought": "在转生前自动购买了巧克力蛋",
-            "chocolateEggStrategyExplanationAscension": "该策略将把你的巧克力蛋保存到转生。该mod将在你转生前自动购买巧克力蛋，以最大化声望收益。",
-            "chocolateEggStrategyExplanationImmediate": "该策略将在巧克力蛋可用时立即购买，为你提供即时的饼干提升。"
-        },
-        "JA": {
-            "modTitle": "Better AutoClicker",
-            "clicksPerSecond": "毎秒クリック数：",
-            "backgroundOption": "バックグラウンドでクリック",
-            "centerOption": "中央寄せアニメーション",
-            "goldenCookieOption": "ゴールデンクッキー自動クリック",
-            "activate": "有効化",
-            "deactivate": "無効化",
-            "keyboardHint": "Aキーで切り替え",
-            "modLoaded": "Better AutoClicker Mod読み込み完了！",
-            "modLoadedDesc": "クッキー中央のアニメーション付き",
-            "autoClickerEnabled": "Better AutoClicker有効",
-            "autoClickerDisabled": "Better AutoClicker無効",
-            "autoClickerDisabledDesc": "自動モードが停止しました",
-            "backgroundEnabled": "バックグラウンドモード有効",
-            "backgroundDisabled": "バックグラウンドモード無効",
-            "backgroundWill": "オートクリッカーは継続します",
-            "backgroundWont": "オートクリッカーは継続しません",
-            "backgroundWhenInactive": "ウィンドウが非アクティブの時",
-            "animationsEnabled": "中央寄せアニメーション有効",
-            "animationsDisabled": "中央寄せアニメーション無効",
-            "animationsWill": "クリックアニメーションは表示されます",
-            "animationsWont": "クリックアニメーションは表示されません",
-            "atCookieCenter": "クッキーの中央に",
-            "clicksPerSecDisplay": "毎秒{0}クリック、バックグラウンドで{1}",
-            "languageOption": "Mod言語：",
-            "languageChanged": "Mod言語が変更されました",
-            "languageInfo": "オプションメニューでMod言語を変更できます",
-            "betterAutoClickerOptions": "Better AutoClicker オプション",
-            "goldenCookieEnabled": "ゴールデンクッキー自動クリック有効",
-            "goldenCookieDisabled": "ゴールデンクッキー自動クリック無効",
-            "goldenCookieClicked": "ゴールデンクッキーを自動クリックしました！",
-            "goldenCookiesWill": "ゴールデンクッキーは自動的にクリックされます",
-            "goldenCookiesWont": "ゴールデンクッキーは自動的にクリックされません",
-            "wrathCookieOption": "怒りのクッキー自動クリック",
-            "wrathCookieEnabled": "怒りのクッキー自動クリック有効",
-            "wrathCookieDisabled": "怒りのクッキー自動クリック無効",
-            "wrathCookieClicked": "怒りのクッキーを自動クリックしました！",
-            "wrathCookiesWill": "怒りのクッキーは自動的にクリックされます",
-            "wrathCookiesWont": "怒りのクッキーは自動的にクリックされません",
-            "wrinklerOption": "リンクラー自動破裂",
-            "wrinklerClickEnabled": "リンクラー自動破裂が有効",
-            "wrinklerClickDisabled": "リンクラー自動破裂が無効",
-            "wrinklersWill": "リンクラーは自動的に破裂します",
-            "wrinklersWont": "リンクラーは自動的に破裂しません",
-            "wrinklerPopped": "リンクラーを破裂させました！",
-            "wrinklerPoppedDesc": "リンクラーからクッキーを回収しました",
-            "wrinklerClickDelay": "クリック遅延：",
-            "wrinklerDelayChanged": "リンクラークリック遅延が変更されました",
-            "wrinklerDelayChangedDesc": "クリック間の遅延が {0} ミリ秒に設定されました",
-            "seasonalCookieOption": "季節限定スペシャルを自動クリック",
-            "seasonalCookieEnabled": "季節限定スペシャルの自動クリックが有効",
-            "seasonalCookieDisabled": "季節限定スペシャルの自動クリックが無効",
-            "seasonalCookieClicked": "季節限定スペシャルを自動クリックしました！",
-            "christmasReindeerClicked": "クリスマスのトナカイを発見！",
-            "seasonalCookiesWill": "季節限定スペシャルは自動的にクリックされます",
-            "seasonalCookiesWont": "季節限定スペシャルは自動的にクリックされません",
-            "discordSupport": "Discordサーバーに参加する",
-            "discordSupportDesc": "サポート、バグ報告、アイデアの共有のために",
-            "discordButton": "Discord Better AutoClicker",
-            "chocolateEggOption": "チョコレートエッグを自動管理",
-            "chocolateEggEnabled": "チョコレートエッグの自動管理が有効になりました",
-            "chocolateEggDisabled": "チョコレートエッグの自動管理が無効になりました",
-            "chocolateEggStrategyLabel": "戦略：",
-            "chocolateEggStrategyAscension": "転生用に保存",
-            "chocolateEggStrategyImmediate": "すぐに購入",
-            "chocolateEggWillSave": "チョコレートエッグは転生のために保存されます",
-            "chocolateEggWillBuy": "チョコレートエッグはすぐに購入されます",
-            "chocolateEggBought": "チョコレートエッグを自動購入しました！",
-            "chocolateEggSaved": "チョコレートエッグを発見 – 転生のために保存中",
-            "chocolateEggAscensionBought": "転生前にチョコレートエッグを自動購入しました",
-            "chocolateEggStrategyExplanationAscension": "この戦略は、チョコレートエッグを転生のために保存します。MODは、転生直前にエッグを自動で購入し、名声の獲得を最大化します。",
-            "chocolateEggStrategyExplanationImmediate": "この戦略は、チョコレートエッグが利用可能になった瞬間に購入し、即座にクッキーを増加させます。"
-        },
-        "KO": {
-            "modTitle": "Better AutoClicker",
-            "clicksPerSecond": "초당 클릭 수:",
-            "backgroundOption": "백그라운드에서 클릭",
-            "centerOption": "중앙 정렬 애니메이션",
-            "goldenCookieOption": "황금 쿠키 자동 클릭",
-            "activate": "활성화",
-            "deactivate": "비활성화",
-            "keyboardHint": "A키를 눌러 전환",
-            "modLoaded": "Better AutoClicker 모드 로드됨!",
-            "modLoadedDesc": "쿠키 중앙에 애니메이션 효과",
-            "autoClickerEnabled": "Better AutoClicker 활성화됨",
-            "autoClickerDisabled": "Better AutoClicker 비활성화됨",
-            "autoClickerDisabledDesc": "자동 모드가 중지되었습니다",
-            "backgroundEnabled": "백그라운드 모드 활성화됨",
-            "backgroundDisabled": "백그라운드 모드 비활성화됨",
-            "backgroundWill": "자동 클리커가 계속 작동합니다",
-            "backgroundWont": "자동 클리커가 계속 작동하지 않습니다",
-            "backgroundWhenInactive": "창이 비활성 상태일 때",
-            "animationsEnabled": "중앙 정렬 애니메이션 활성화됨",
-            "animationsDisabled": "중앙 정렬 애니메이션 비활성화됨",
-            "animationsWill": "클릭 애니메이션이 나타납니다",
-            "animationsWont": "클릭 애니메이션이 나타나지 않습니다",
-            "atCookieCenter": "쿠키 중앙에",
-            "clicksPerSecDisplay": "초당 {0}회 클릭, 백그라운드에서 {1}",
-            "languageOption": "모드 언어:",
-            "languageChanged": "모드 언어가 변경되었습니다",
-            "languageInfo": "옵션 메뉴에서 모드 언어를 변경할 수 있습니다",
-            "betterAutoClickerOptions": "Better AutoClicker 옵션",
-            "goldenCookieEnabled": "황금 쿠키 자동 클릭 활성화됨",
-            "goldenCookieDisabled": "황금 쿠키 자동 클릭 비활성화됨",
-            "goldenCookieClicked": "황금 쿠키를 자동으로 클릭했습니다!",
-            "goldenCookiesWill": "황금 쿠키가 자동으로 클릭됩니다",
-            "goldenCookiesWont": "황금 쿠키가 자동으로 클릭되지 않습니다",
-            "wrathCookieOption": "분노 쿠키 자동 클릭",
-            "wrathCookieEnabled": "분노 쿠키 자동 클릭 활성화됨",
-            "wrathCookieDisabled": "분노 쿠키 자동 클릭 비활성화됨",
-            "wrathCookieClicked": "분노 쿠키를 자동으로 클릭했습니다!",
-            "wrathCookiesWill": "분노 쿠키가 자동으로 클릭됩니다",
-            "wrathCookiesWont": "분노 쿠키가 자동으로 클릭되지 않습니다",
-            "wrinklerOption": "주름벌레 자동 터뜨리기",
-            "wrinklerClickEnabled": "주름벌레 자동 터뜨리기 활성화됨",
-            "wrinklerClickDisabled": "주름벌레 자동 터뜨리기 비활성화됨",
-            "wrinklersWill": "주름벌레가 자동으로 터집니다",
-            "wrinklersWont": "주름벌레가 자동으로 터지지 않습니다",
-            "wrinklerPopped": "주름벌레를 터뜨렸습니다!",
-            "wrinklerPoppedDesc": "주름벌레에서 쿠키를 수집했습니다",
-            "wrinklerClickDelay": "클릭 지연:",
-            "wrinklerDelayChanged": "주름벌레 클릭 지연이 변경되었습니다",
-            "wrinklerDelayChangedDesc": "클릭 사이의 지연이 {0}ms로 설정되었습니다",
-            "seasonalCookieOption": "계절 특수 아이템 자동 클릭",
-            "seasonalCookieEnabled": "계절 특수 아이템 자동 클릭 활성화됨",
-            "seasonalCookieDisabled": "계절 특수 아이템 자동 클릭 비활성화됨",
-            "seasonalCookieClicked": "계절 특수 아이템이 자동으로 클릭됨!",
-            "christmasReindeerClicked": "크리스마스 순록을 찾았습니다!",
-            "seasonalCookiesWill": "계절 특수 아이템이 자동으로 클릭됩니다",
-            "seasonalCookiesWont": "계절 특수 아이템이 자동으로 클릭되지 않습니다",
-            "discordSupport": "우리의 Discord 서버에 참여하세요",
-            "discordSupportDesc": "지원, 버그 신고 또는 아이디어 제안용",
-            "discordButton": "Discord Better AutoClicker",
-            "chocolateEggOption": "초콜릿 에그 자동 관리",
-            "chocolateEggEnabled": "초콜릿 에그 자동 관리 활성화됨",
-            "chocolateEggDisabled": "초콜릿 에그 자동 관리 비활성화됨",
-            "chocolateEggStrategyLabel": "전략:",
-            "chocolateEggStrategyAscension": "승천을 위해 저장",
-            "chocolateEggStrategyImmediate": "즉시 구매",
-            "chocolateEggWillSave": "초콜릿 에그가 승천을 위해 저장됩니다",
-            "chocolateEggWillBuy": "초콜릿 에그가 즉시 구매됩니다",
-            "chocolateEggBought": "초콜릿 에그 자동 구매됨!",
-            "chocolateEggSaved": "초콜릿 에그 발견 – 승천을 위해 저장됨",
-            "chocolateEggAscensionBought": "승천 전에 초콜릿 에그 자동 구매됨",
-            "chocolateEggStrategyExplanationAscension": "이 전략은 초콜릿 에그를 승천을 위해 저장합니다. 모드는 승천 직전에 자동으로 에그를 구매하여 명성 증가를 극대화합니다.",
-            "chocolateEggStrategyExplanationImmediate": "이 전략은 초콜릿 에그가 사용 가능해지자마자 즉시 구매하여 즉각적인 쿠키 부스트를 제공합니다."
-        },
-        "RU": {
-            "modTitle": "Better AutoClicker",
-            "clicksPerSecond": "Кликов в секунду:",
-            "backgroundOption": "Клик в фоновом режиме",
-            "centerOption": "Центрированные анимации",
-            "goldenCookieOption": "Авто-клик золотых печений",
-            "activate": "Активировать",
-            "deactivate": "Деактивировать",
-            "keyboardHint": "Нажмите A для переключения",
-            "modLoaded": "Мод Better AutoClicker загружен!",
-            "modLoadedDesc": "С центрированными анимациями на печенье",
-            "autoClickerEnabled": "Better AutoClicker включен",
-            "autoClickerDisabled": "Better AutoClicker выключен",
-            "autoClickerDisabledDesc": "Автоматический режим остановлен",
-            "backgroundEnabled": "Фоновый режим включен",
-            "backgroundDisabled": "Фоновый режим выключен",
-            "backgroundWill": "Авто-кликер продолжит работу",
-            "backgroundWont": "Авто-кликер не будет продолжать работу",
-            "backgroundWhenInactive": "когда окно неактивно",
-            "animationsEnabled": "Центрированные анимации включены",
-            "animationsDisabled": "Центрированные анимации выключены",
-            "animationsWill": "Анимации кликов будут появляться",
-            "animationsWont": "Анимации кликов не будут появляться",
-            "atCookieCenter": "в центре печенья",
-            "clicksPerSecDisplay": "{0} кликов/сек, {1} в фоновом режиме",
-            "languageOption": "Язык мода:",
-            "languageChanged": "Язык мода изменен",
-            "languageInfo": "Вы можете изменить язык мода в меню Настройки",
-            "betterAutoClickerOptions": "Настройки Better AutoClicker",
-            "goldenCookieEnabled": "Авто-клик золотых печений включен",
-            "goldenCookieDisabled": "Авто-клик золотых печений выключен",
-            "goldenCookieClicked": "Золотое печенье автоматически кликнуто!",
-            "goldenCookiesWill": "Золотые печенья будут автоматически кликнуты",
-            "goldenCookiesWont": "Золотые печенья не будут автоматически кликнуты",
-            "wrathCookieOption": "Авто-клик печений гнева",
-            "wrathCookieEnabled": "Авто-клик печений гнева включен",
-            "wrathCookieDisabled": "Авто-клик печений гнева выключен",
-            "wrathCookieClicked": "Печенье гнева автоматически кликнуто!",
-            "wrathCookiesWill": "Печенья гнева будут автоматически кликнуты",
-            "wrathCookiesWont": "Печенья гнева не будут автоматически кликнуты",
-            "wrinklerOption": "Авто-лопание Морщунов",
-            "wrinklerClickEnabled": "Авто-лопание Морщунов включено",
-            "wrinklerClickDisabled": "Авто-лопание Морщунов выключено",
-            "wrinklersWill": "Морщуны будут автоматически лопаться",
-            "wrinklersWont": "Морщуны не будут автоматически лопаться",
-            "wrinklerPopped": "Лопнул Морщун!",
-            "wrinklerPoppedDesc": "Собраны печеньки из Морщуна",
-            "wrinklerClickDelay": "Задержка клика:",
-            "wrinklerDelayChanged": "Задержка клика по Морщунам изменена",
-            "wrinklerDelayChangedDesc": "Задержка между кликами установлена на {0} мс",
-            "seasonalCookieOption": "Автоклик по сезонным объектам",
-            "seasonalCookieEnabled": "Автоклик по сезонным объектам включен",
-            "seasonalCookieDisabled": "Автоклик по сезонным объектам отключен",
-            "seasonalCookieClicked": "Сезонный объект автоматически нажат!",
-            "christmasReindeerClicked": "Рождественский олень найден!",
-            "seasonalCookiesWill": "Сезонные объекты будут нажиматься автоматически",
-            "seasonalCookiesWont": "Сезонные объекты не будут нажиматься автоматически",
-            "discordSupport": "Присоединяйтесь к нашему серверу Discord",
-            "discordSupportDesc": "Для поддержки, отчётов об ошибках и идей",
-            "discordButton": "Discord Better AutoClicker",
-            "chocolateEggOption": "Автоматическое управление Шоколадным Яйцом",
-            "chocolateEggEnabled": "Автоуправление Шоколадным Яйцом включено",
-            "chocolateEggDisabled": "Автоуправление Шоколадным Яйцом отключено",
-            "chocolateEggStrategyLabel": "Стратегия:",
-            "chocolateEggStrategyAscension": "Сохранить для возвышения",
-            "chocolateEggStrategyImmediate": "Купить немедленно",
-            "chocolateEggWillSave": "Шоколадное Яйцо будет сохранено для возвышения",
-            "chocolateEggWillBuy": "Шоколадное Яйцо будет куплено немедленно",
-            "chocolateEggBought": "Шоколадное Яйцо куплено автоматически!",
-            "chocolateEggSaved": "Обнаружено Шоколадное Яйцо – сохранено для возвышения",
-            "chocolateEggAscensionBought": "Шоколадное Яйцо автоматически куплено перед возвышением",
-            "chocolateEggStrategyExplanationAscension": "Эта стратегия сохранит ваше Шоколадное Яйцо для возвышения. Мод автоматически купит яйцо прямо перед возвышением, чтобы максимизировать доход от престижа.",
-            "chocolateEggStrategyExplanationImmediate": "Эта стратегия купит Шоколадное Яйцо, как только оно станет доступным, обеспечив немедленное увеличение печенек."
+            "chocolateEggStrategyExplanationImmediate": "This strategy will buy the Chocolate Egg as soon as it becomes available, giving you an immediate cookie boost."
         }
-    },
-
-    // List of available languages for the selector
-    userLanguage: 'EN',
-    availableLanguages: [
-        {code: 'EN', name: 'English'},
-        {code: 'FR', name: 'Français'},
-        {code: 'DE', name: 'Deutsch'},
-        {code: 'NL', name: 'Nederlands'},
-        {code: 'CS', name: 'Česky'},
-        {code: 'PL', name: 'Polski'},
-        {code: 'IT', name: 'Italiano'},
-        {code: 'ES', name: 'Español'},
-        {code: 'PT-BR', name: 'Português'},
-        {code: 'ZH-CN', name: '中文'},
-        {code: 'JA', name: '日本語'},
-        {code: 'KO', name: '한국어'},
-        {code: 'RU', name: 'Русский'}
-    ],
-
-    /**
-     * Mod initialization
-     * This function is automatically called by the game when loading the mod
-     */
-    init: function() {
-        // Track the actual mouse position
-        let self = this;
-        document.addEventListener('mousemove', function(e) {
-            self.originalMouseX = e.clientX;
-            self.originalMouseY = e.clientY;
-        });
-
-        // Initialize mod with short delay
-        setTimeout(() => {
-            // Register keyboard shortcut
-            this.registerKeyboardShortcut();
-
-            // Add mod to the game's Options menu
-            this.injectGameOptions();
-
-            // Initialization notification
-            Game.Notify(
-                this.getText('modLoaded'),
-                this.getText('modLoadedDesc'),
-                [16, 5]
-            );
-        }, 1000);
-    },
+        // Other language dictionaries would be here
+    };
 
     /**
      * Gets the current mod language based on preferences
-     * @returns {string} Language code ('EN', 'FR', etc.)
      */
-    getLanguage: function() {
+    BetterAutoClicker.getLanguage = function() {
         // If the user has chosen a specific language (different from 'auto')
         if (this.userLanguage !== 'auto' && this.localization && this.localization[this.userLanguage]) {
             return this.userLanguage;
@@ -1061,13 +154,12 @@ Game.registerMod("betterautoclicker", {
 
         // Fallback to English if no other option is viable
         return 'EN';
-    },
+    };
 
     /**
      * Sets the user language and updates the interface
-     * @param {string} langCode - Language code ('EN', 'FR', etc. or 'auto')
      */
-    setLanguage: function(langCode) {
+    BetterAutoClicker.setLanguage = function(langCode) {
         // Save the new language
         this.userLanguage = langCode;
 
@@ -1081,25 +173,23 @@ Game.registerMod("betterautoclicker", {
             [16, 5],
             3
         );
-    },
+    };
 
     /**
      * Updates the user interface with the current language
      */
-    updateUILanguage: function() {
+    BetterAutoClicker.updateUILanguage = function() {
         // Update options in the game menu
         if (Game.onMenu === 'prefs') {
             // Force an update of the Options menu
             Game.UpdateMenu();
         }
-    },
+    };
 
     /**
      * Retrieves a translation by its key in the current language
-     * @param {string} key - Translation key
-     * @returns {string} Translated text
      */
-    getText: function(key) {
+    BetterAutoClicker.getText = function(key) {
         const lang = this.getLanguage();
         if (this.localization && this.localization[lang] && this.localization[lang][key]) {
             return this.localization[lang][key];
@@ -1109,24 +199,21 @@ Game.registerMod("betterautoclicker", {
             return this.localization['EN'][key];
         }
         return key; // Last resort: return the key itself
-    },
+    };
 
     /**
      * Replaces parameters in a string
-     * @param {string} str - String with placeholders {0}, {1}, etc.
-     * @param {...*} args - Arguments to insert
-     * @returns {string} Formatted string
      */
-    formatString: function(str, ...args) {
+    BetterAutoClicker.formatString = function(str, ...args) {
         return str.replace(/{(\d+)}/g, function(match, number) {
             return typeof args[number] != 'undefined' ? args[number] : match;
         });
-    },
+    };
 
     /**
      * Injects mod options into the game's Options menu
      */
-    injectGameOptions: function() {
+    BetterAutoClicker.injectGameOptions = function() {
         // Ensure Game.customOptionsMenu exists
         if (!Game.customOptionsMenu) {
             Game.customOptionsMenu = [];
@@ -1600,12 +687,12 @@ Game.registerMod("betterautoclicker", {
         if (Game.onMenu === 'prefs') {
             Game.UpdateMenu();
         }
-    },
+    };
 
     /**
      * Check if the chocolate egg is available
      */
-    startChocolateEggChecker: function() {
+    BetterAutoClicker.startChocolateEggChecker = function() {
         if (this.chocolateEggCheckInterval) {
             clearInterval(this.chocolateEggCheckInterval);
         }
@@ -1615,22 +702,22 @@ Game.registerMod("betterautoclicker", {
         this.chocolateEggCheckInterval = setInterval(function() {
             self.checkForChocolateEgg();
         }, 2000);
-    },
+    };
 
     /**
      * Check if the chocolate egg is available and click it
      */
-    stopChocolateEggChecker: function() {
+    BetterAutoClicker.stopChocolateEggChecker = function() {
         if (this.chocolateEggCheckInterval) {
             clearInterval(this.chocolateEggCheckInterval);
             this.chocolateEggCheckInterval = null;
         }
-    },
+    };
 
     /**
      * Check for the chocolate egg and manage its purchase
      */
-    checkForChocolateEgg: function() {
+    BetterAutoClicker.checkForChocolateEgg = function() {
         // Check if the game is in Easter season
         if (Game.season !== 'easter') return;
 
@@ -1684,12 +771,12 @@ Game.registerMod("betterautoclicker", {
                 }
             }
         }
-    },
+    };
 
     /**
      * Sell all buildings
      */
-    sellAllBuildings: function() {
+    BetterAutoClicker.sellAllBuildings = function() {
         // Iterate through all buildings and sell them from the last to the first
         for (let i = Game.ObjectsById.length - 1; i >= 0; i--) {
             let building = Game.ObjectsById[i];
@@ -1698,24 +785,24 @@ Game.registerMod("betterautoclicker", {
                 building.sell(1);
             }
         }
-    },
+    };
 
     /**
      * Register keyboard shortcut (A key)
      */
-    registerKeyboardShortcut: function() {
+    BetterAutoClicker.registerKeyboardShortcut = function() {
         let self = this;
         window.addEventListener('keydown', function(e) {
             if (e.key.toLowerCase() === 'a') {
                 self.toggleAutoClicker();
             }
         });
-    },
+    };
 
     /**
      * Function to enable/disable the auto-clicker
      */
-    toggleAutoClicker: function() {
+    BetterAutoClicker.toggleAutoClicker = function() {
         this.isActive = !this.isActive;
         const toggleButton = document.getElementById('autoClickerToggle');
 
@@ -1776,12 +863,12 @@ Game.registerMod("betterautoclicker", {
             );
         }
         this.saveSettings();
-    },
+    };
 
     /**
      * Start the auto-clicker
      */
-    startAutoClicker: function() {
+    BetterAutoClicker.startAutoClicker = function() {
         if (this.clickInterval) {
             clearInterval(this.clickInterval);
         }
@@ -1792,22 +879,22 @@ Game.registerMod("betterautoclicker", {
         this.clickInterval = setInterval(function() {
             self.performClick();
         }, clickDelay);
-    },
+    };
 
     /**
      * Stop the auto-clicker
      */
-    stopAutoClicker: function() {
+    BetterAutoClicker.stopAutoClicker = function() {
         if (this.clickInterval) {
             clearInterval(this.clickInterval);
             this.clickInterval = null;
         }
-    },
+    };
 
     /**
      * Start periodic checking for golden cookies
      */
-    startGoldenCookieChecker: function() {
+    BetterAutoClicker.startGoldenCookieChecker = function() {
         if (this.goldenCheckInterval) {
             clearInterval(this.goldenCheckInterval);
         }
@@ -1817,23 +904,22 @@ Game.registerMod("betterautoclicker", {
         this.goldenCheckInterval = setInterval(function() {
             self.checkForSpecialCookies();
         }, 500);
-    },
+    };
 
     /**
      * Stop checking for golden cookies
      */
-    stopGoldenCookieChecker: function() {
+    BetterAutoClicker.stopGoldenCookieChecker = function() {
         if (this.goldenCheckInterval) {
             clearInterval(this.goldenCheckInterval);
             this.goldenCheckInterval = null;
         }
-    },
+    };
 
     /**
      * Start periodic checking for special cookies (seasonal)
      */
-    startSpecialCookieChecker: function() {
-
+    BetterAutoClicker.startSpecialCookieChecker = function() {
         if (this.seasonalCheckInterval) {
             clearInterval(this.seasonalCheckInterval);
         }
@@ -1843,23 +929,22 @@ Game.registerMod("betterautoclicker", {
         this.seasonalCheckInterval = setInterval(function() {
             self.checkForSpecialCookies();
         }, 500);
-
-    },
+    };
 
     /**
      * Stop checking for special cookies
      */
-    stopSpecialCookieChecker: function() {
+    BetterAutoClicker.stopSpecialCookieChecker = function() {
         if (this.seasonalCheckInterval) {
             clearInterval(this.seasonalCheckInterval);
             this.seasonalCheckInterval = null;
         }
-    },
+    };
 
     /**
      * Check if there are golden cookies on screen and click them
      */
-    checkForSpecialCookies: function() {
+    BetterAutoClicker.checkForSpecialCookies = function() {
         // Special cookies are stored in Game.shimmers
         if (Game.shimmers && Game.shimmers.length > 0) {
             for (let i = 0; i < Game.shimmers.length; i++) {
@@ -1897,7 +982,7 @@ Game.registerMod("betterautoclicker", {
                     shimmer.pop();
                     Game.Notify(
                         this.getText('seasonalCookieClicked'),
-                        this.getText('reindeerClicked'),
+                        this.getText('christmasReindeerClicked'),
                         [12, 9],
                         1
                     );
@@ -1905,12 +990,12 @@ Game.registerMod("betterautoclicker", {
                 }
             }
         }
-    },
+    };
 
     /**
      * Start periodic checking for Wrinklers
      */
-    startWrinklerChecker: function() {
+    BetterAutoClicker.startWrinklerChecker = function() {
         if (this.wrinklerCheckInterval) {
             clearInterval(this.wrinklerCheckInterval);
         }
@@ -1920,23 +1005,22 @@ Game.registerMod("betterautoclicker", {
         this.wrinklerCheckInterval = setInterval(function() {
             self.checkForWrinklers();
         }, 2000);
-
-    },
+    };
 
     /**
      * Stop checking for Wrinklers
      */
-    stopWrinklerChecker: function() {
+    BetterAutoClicker.stopWrinklerChecker = function() {
         if (this.wrinklerCheckInterval) {
             clearInterval(this.wrinklerCheckInterval);
             this.wrinklerCheckInterval = null;
         }
-    },
+    };
 
     /**
      * Check if there are Wrinklers on screen and directly pop them
      */
-    checkForWrinklers: function() {
+    BetterAutoClicker.checkForWrinklers = function() {
         // Check if in Grandmapocalypse mode (otherwise no Wrinklers)
         if (Game.elderWrath <= 0) return;
 
@@ -1953,13 +1037,13 @@ Game.registerMod("betterautoclicker", {
                 }
             }
         }
-    },
+    };
 
     /**
      * Pop a Wrinkler directly without clicking
      * @param {number} id - ID of the Wrinkler to pop
      */
-    popWrinklerDirectly: function(id) {
+    BetterAutoClicker.popWrinklerDirectly = function(id) {
         // Check that the Wrinkler exists and is active
         if (Game.wrinklers[id] && Game.wrinklers[id].phase === 2) {
             // Save how many cookies it sucked for the notification
@@ -1977,13 +1061,13 @@ Game.registerMod("betterautoclicker", {
                 2 // Medium duration
             );
         }
-    },
+    };
 
     /**
      * Simulate a click on the cookie
      * Uses the appropriate method according to chosen options
      */
-    performClick: function() {
+    BetterAutoClicker.performClick = function() {
         if (this.centerAnimations) {
             // Method with centered click simulations
             this.clickCookieAtCenter();
@@ -1991,13 +1075,13 @@ Game.registerMod("betterautoclicker", {
             // Standard method that uses the internal function without specified position
             Game.ClickCookie();
         }
-    },
+    };
 
     /**
      * Method to click at the center of the cookie
      * This method preserves mouse coordinates to avoid affecting other functionalities
      */
-    clickCookieAtCenter: function() {
+    BetterAutoClicker.clickCookieAtCenter = function() {
         // Get reference to the cookie
         const bigCookie = document.getElementById('bigCookie');
 
@@ -2030,7 +1114,7 @@ Game.registerMod("betterautoclicker", {
             // without modifying global mouse coordinates
             this.spawnCenteredParticles(centerX, centerY);
         }
-    },
+    };
 
     /**
      * Generate visual particles at the specified location
@@ -2038,7 +1122,7 @@ Game.registerMod("betterautoclicker", {
      * @param {number} x - X coordinate where to generate particles
      * @param {number} y - Y coordinate where to generate particles
      */
-    spawnCenteredParticles: function(x, y) {
+    BetterAutoClicker.spawnCenteredParticles = function(x, y) {
         // Add visual particles at the specified location
         for (let i = 0; i < 3; i++) { // Generate a few particles for visual effect
             Game.particleAdd(
@@ -2051,14 +1135,14 @@ Game.registerMod("betterautoclicker", {
                 2                           // Particle type
             );
         }
-    },
+    };
 
     /**
      * Function to save mod parameters
      * This function is called by the game when saving state
      * @returns {string} Data serialized as JSON
      */
-    save: function() {
+    BetterAutoClicker.save = function() {
         // Save parameters in JSON format
         return JSON.stringify({
             clicksPerSecond: this.clicksPerSecond,
@@ -2074,12 +1158,12 @@ Game.registerMod("betterautoclicker", {
             autoManageChocolateEgg: this.autoManageChocolateEgg,
             chocolateEggBehavior: this.chocolateEggBehavior
         });
-    },
+    };
 
     /**
      * Function to save settings in localStorage
      */
-    saveSettings: function() {
+    BetterAutoClicker.saveSettings = function() {
         const data = {
             clicksPerSecond: this.clicksPerSecond,
             isActive: this.isActive,
@@ -2099,19 +1183,17 @@ Game.registerMod("betterautoclicker", {
 
         // Toujours essayer la méthode standard aussi
         if (!Game.customSave) Game.customSave = {};
-        if (!Game.customSave['betterautoclicker']) Game.customSave['betterautoclicker'] = {};
         Game.customSave['betterautoclicker'] = this.save();
         Game.WriteSave(1);
-    },
+    };
 
     /**
      * Function to load mod parameters
      * This function is called by the game when loading a save
      * @param {string} str - Serialized data to load
      */
-    load: function(str) {
+    BetterAutoClicker.load = function(str) {
         try {
-
             const localData = localStorage.getItem('betterAutoClickerSettings');
             if (localData) {
                 const config = JSON.parse(localData);
@@ -2164,5 +1246,45 @@ Game.registerMod("betterautoclicker", {
         } catch (e) {
             console.error("Error loading mod configuration:", e);
         }
+    };
+
+    // Track the actual mouse position
+    let self = BetterAutoClicker;
+    document.addEventListener('mousemove', function(e) {
+        self.originalMouseX = e.clientX;
+        self.originalMouseY = e.clientY;
+    });
+
+    // Initialize mod with short delay
+    setTimeout(() => {
+        // Register keyboard shortcut
+        BetterAutoClicker.registerKeyboardShortcut();
+
+        // Add mod to the game's Options menu
+        BetterAutoClicker.injectGameOptions();
+
+        // Initialization notification
+        Game.Notify(
+            BetterAutoClicker.getText('modLoaded'),
+            BetterAutoClicker.getText('modLoadedDesc'),
+            [16, 5]
+        );
+
+        // Load saved settings
+        BetterAutoClicker.load();
+    }, 1000);
+
+    // Set isLoaded flag when initialization is complete
+    BetterAutoClicker.isLoaded = 1;
+};
+
+if(!BetterAutoClicker.isLoaded){
+    if(CCSE && CCSE.isLoaded){
+        BetterAutoClicker.launch();
     }
-});
+    else{
+        if(!CCSE) var CCSE = {};
+        if(!CCSE.postLoadHooks) CCSE.postLoadHooks = [];
+        CCSE.postLoadHooks.push(BetterAutoClicker.launch);
+    }
+}
