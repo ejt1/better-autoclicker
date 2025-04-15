@@ -70,7 +70,7 @@ BetterAutoClicker.launch = function() {
         fetch(langUrl)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`Erreur de chargement du fichier de langue: ${response.status}`);
+                    throw new Error(`Error while loading the land file: ${response.status}`);
                 }
                 return response.json();
             })
@@ -82,14 +82,11 @@ BetterAutoClicker.launch = function() {
                 if (this.userLanguage === langCode) {
                     this.updateUILanguage();
                 }
-
-                console.log(`Fichier de langue ${langCode} chargé avec succès`);
             })
             .catch(error => {
-                console.error(`Échec du chargement du fichier de langue ${langCode}:`, error);
+                console.error(`Error while loading lang file ${langCode}:`, error);
                 // Try to load the default English language file if the specified one fails
                 if (langCode !== 'EN') {
-                    console.log('Tentative de chargement de la langue anglaise par défaut...');
                     this.loadLanguageFile('EN');
                 }
             });
