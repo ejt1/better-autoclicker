@@ -59,84 +59,58 @@ BetterAutoClicker.launch = function() {
         {code: 'RU', name: 'Русский'}
     ];
 
-    // Localization system - simplified to English only for this example
-    BetterAutoClicker.localization = {
-        "EN": {
-            "modTitle": "Better AutoClicker",
-            "clicksPerSecond": "Clicks per second:",
-            "backgroundOption": "Click in background",
-            "centerOption": "Centered animations",
-            "goldenCookieOption": "Auto-click golden cookies",
-            "activate": "Activate",
-            "deactivate": "Deactivate",
-            "keyboardHint": "Press A to toggle",
-            "modLoaded": "Better AutoClicker mod loaded!",
-            "modLoadedDesc": "With centered animations on the cookie",
-            "autoClickerEnabled": "Better AutoClicker enabled",
-            "autoClickerDisabled": "Better AutoClicker disabled",
-            "autoClickerDisabledDesc": "Automatic mode has been stopped",
-            "backgroundEnabled": "Background mode enabled",
-            "backgroundDisabled": "Background mode disabled",
-            "backgroundWill": "The auto-clicker will continue",
-            "backgroundWont": "The auto-clicker will not continue",
-            "backgroundWhenInactive": "when window is inactive",
-            "animationsEnabled": "Centered animations enabled",
-            "animationsDisabled": "Centered animations disabled",
-            "animationsWill": "Click animations will appear",
-            "animationsWont": "Click animations will not appear",
-            "atCookieCenter": "at the center of the cookie",
-            "clicksPerSecDisplay": "{0} clicks/sec, {1} in background",
-            "languageOption": "Mod language:",
-            "languageChanged": "Mod language changed",
-            "languageInfo": "You can change the mod language in the Options menu",
-            "betterAutoClickerOptions": "Better AutoClicker Options",
-            "goldenCookieEnabled": "Golden cookie auto-click enabled",
-            "goldenCookieDisabled": "Golden cookie auto-click disabled",
-            "goldenCookieClicked": "Auto-clicked a golden cookie!",
-            "goldenCookiesWill": "Golden cookies will be clicked automatically",
-            "goldenCookiesWont": "Golden cookies will not be clicked automatically",
-            "wrathCookieOption": "Auto-click wrath cookies",
-            "wrathCookieEnabled": "Wrath cookie auto-click enabled",
-            "wrathCookieDisabled": "Wrath cookie auto-click disabled",
-            "wrathCookieClicked": "Auto-clicked a wrath cookie!",
-            "wrathCookiesWill": "Wrath cookies will be clicked automatically",
-            "wrathCookiesWont": "Wrath cookies will not be clicked automatically",
-            "wrinklerOption": "Auto-pop Wrinklers",
-            "wrinklerClickEnabled": "Wrinkler auto-pop enabled",
-            "wrinklerClickDisabled": "Wrinkler auto-pop disabled",
-            "wrinklersWill": "Wrinklers will be popped automatically",
-            "wrinklersWont": "Wrinklers will not be popped automatically",
-            "wrinklerPopped": "Popped a wrinkler!",
-            "wrinklerPoppedDesc": "Collected cookies from a wrinkler",
-            "wrinklerClickDelay": "Click delay:",
-            "wrinklerDelayChanged": "Wrinkler click delay changed",
-            "wrinklerDelayChangedDesc": "Delay between clicks set to {0} ms",
-            "seasonalCookieOption": "Auto-click seasonal specials",
-            "seasonalCookieEnabled": "Seasonal specials auto-click enabled",
-            "seasonalCookieDisabled": "Seasonal specials auto-click disabled",
-            "seasonalCookieClicked": "Auto-clicked a seasonal special!",
-            "christmasReindeerClicked": "Found a Christmas reindeer!",
-            "seasonalCookiesWill": "Seasonal specials will be clicked automatically",
-            "seasonalCookiesWont": "Seasonal specials will not be clicked automatically",
-            "discordSupport": "Join our Discord server",
-            "discordSupportDesc": "For support, bug reports, or idea sharing",
-            "discordButton": "Discord Better AutoClicker",
-            "chocolateEggOption": "Auto-manage Chocolate Egg",
-            "chocolateEggEnabled": "Chocolate Egg auto-management enabled",
-            "chocolateEggDisabled": "Chocolate Egg auto-management disabled",
-            "chocolateEggStrategyLabel": "Strategy:",
-            "chocolateEggStrategyAscension": "Save for ascension",
-            "chocolateEggStrategyImmediate": "Buy immediately",
-            "chocolateEggWillSave": "Chocolate Egg will be saved for ascension",
-            "chocolateEggWillBuy": "Chocolate Egg will be purchased immediately",
-            "chocolateEggBought": "Auto-bought a Chocolate Egg!",
-            "chocolateEggSaved": "Found Chocolate Egg - saving for ascension",
-            "chocolateEggAscensionBought": "Auto-bought Chocolate Egg before ascension",
-            "chocolateEggStrategyExplanationAscension": "This strategy will save your Chocolate Egg for ascension. The mod will automatically purchase the egg right before you ascend to maximize prestige gains. If you have the 'Earth Shatterer' dragon aura, all buildings will be automatically sold before ascension (with this aura, buildings sell for <b>50%</b> instead of 25%).",
-            "chocolateEggStrategyExplanationImmediate": "This strategy will buy the Chocolate Egg as soon as it becomes available, giving you an immediate cookie boost."
-        }
-        // Other language dictionaries would be here
+    /**
+     * Load the language file from the CDN
+     * @param langCode
+     */
+    BetterAutoClicker.loadLanguageFile = function(langCode) {
+        const langUrl = `https://cdn.jsdelivr.net/gh/Teyk0o/better-autoclicker@master/lang/${langCode.toLowerCase()}.json`;
+
+        // Fetch the language file on the CDN
+        fetch(langUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erreur de chargement du fichier de langue: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(langData => {
+                // Update the localization object with the loaded language data
+                this.localization[langCode] = langData;
+
+                // Update the user interface language if the current language matches
+                if (this.userLanguage === langCode) {
+                    this.updateUILanguage();
+                }
+
+                console.log(`Fichier de langue ${langCode} chargé avec succès`);
+            })
+            .catch(error => {
+                console.error(`Échec du chargement du fichier de langue ${langCode}:`, error);
+                // Try to load the default English language file if the specified one fails
+                if (langCode !== 'EN') {
+                    console.log('Tentative de chargement de la langue anglaise par défaut...');
+                    this.loadLanguageFile('EN');
+                }
+            });
     };
+
+    /**
+     * Initializes the language system
+     */
+    BetterAutoClicker.initLanguages = function() {
+        this.localization = {};
+
+        // Load the default English language file
+        this.loadLanguageFile('EN');
+
+        // Load the user's preferred language if it's not English
+        if (this.userLanguage !== 'EN') {
+            this.loadLanguageFile(this.userLanguage);
+        }
+    };
+
+    BetterAutoClicker.initLanguages();
 
     /**
      * Gets the current mod language based on preferences
@@ -160,19 +134,24 @@ BetterAutoClicker.launch = function() {
      * Sets the user language and updates the interface
      */
     BetterAutoClicker.setLanguage = function(langCode) {
-        // Save the new language
+        // Sauvegarder la nouvelle langue
         this.userLanguage = langCode;
 
-        // Update interface elements
-        this.updateUILanguage();
+        // Vérifier si les traductions pour cette langue sont déjà chargées
+        if (!this.localization[langCode]) {
+            this.loadLanguageFile(langCode);
+        } else {
+            // Mettre à jour l'interface
+            this.updateUILanguage();
 
-        // Notification of language change
-        Game.Notify(
-            this.getText('languageChanged'),
-            this.getText('languageInfo'),
-            [16, 5],
-            3
-        );
+            // Notification de changement de langue
+            Game.Notify(
+                this.getText('languageChanged'),
+                this.getText('languageInfo'),
+                [16, 5],
+                3
+            );
+        }
     };
 
     /**
