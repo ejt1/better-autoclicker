@@ -21,6 +21,17 @@ BetterAutoClicker.version = "1.0";
 BetterAutoClicker.GameVersion = "2.052";
 
 BetterAutoClicker.launch = function() {
+
+    fetch('https://api.github.com/repos/Teyk0o/better-autoclicker/tags')
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.length > 0) {
+                // Update the version number at startup
+                BetterAutoClicker.version = data[0].name.replace('v', '');
+            }
+        })
+        .catch(error => console.error('Erreur de vérification de version:', error));
+
     // Configuration variables
     BetterAutoClicker.clicksPerSecond = 10;
     BetterAutoClicker.isActive = false;
@@ -32,6 +43,7 @@ BetterAutoClicker.launch = function() {
     BetterAutoClicker.clickGoldenCookies = true;
     BetterAutoClicker.clickWrathCookies = false;
     BetterAutoClicker.goldenCheckInterval = null;
+    BetterAutoClicker.goldenCheckIntervalTime = 50;
     BetterAutoClicker.clickWrinklers = false;
     BetterAutoClicker.wrinklerClickDelay = 1000;
     BetterAutoClicker.wrinklerCheckInterval = null;
@@ -40,6 +52,8 @@ BetterAutoClicker.launch = function() {
     BetterAutoClicker.autoManageChocolateEgg = false;
     BetterAutoClicker.chocolateEggBehavior = 'ascension';
     BetterAutoClicker.chocolateEggCheckInterval = null;
+    BetterAutoClicker.clickFortunes = false;
+    BetterAutoClicker.fortuneCheckInterval = null;
 
     // List of available languages for the selector
     BetterAutoClicker.userLanguage = 'EN';
@@ -58,6 +72,30 @@ BetterAutoClicker.launch = function() {
         {code: 'KO', name: '한국어'},
         {code: 'RU', name: 'Русский'}
     ];
+
+    /**
+     * Check the latest version of the mod on GitHub
+     */
+    BetterAutoClicker.checkLatestVersion = function() {
+        // Update the version element in the game
+        const versionElement = document.getElementById('autoClickerVersion');
+        if (versionElement) {
+            // Check if the latest version is different from the current version
+            if (cleanLatestTag !== this.version) {
+                versionElement.textContent = 'v' + this.version + ' (' + this.getText('latestVersion') + ': ' + latestTag + ')';
+                versionElement.style.color = '#FFA500'; // Orange if an update is available
+                // Notification to inform the user about the update
+                Game.Notify(
+                    this.getText('updateAvailable'),
+                    this.formatString(this.getText('updateAvailableDesc'), latestTag),
+                    [16, 5],
+                    10 // Display for 10 seconds because it's important
+                );
+            } else {
+                versionElement.textContent = 'v' + this.version;
+            }
+        }
+    };
 
     /**
      * Load the language file from the CDN
@@ -207,11 +245,28 @@ BetterAutoClicker.launch = function() {
             box.style.marginBottom = "15px";
 
             // Section title
+            let titleContainer = document.createElement("div");
+            titleContainer.style.display = "flex";
+            titleContainer.style.alignItems = "center";
+            titleContainer.style.marginBottom = "5px";
+
             let title = document.createElement("div");
             title.className = "title";
-            title.style.marginBottom = "5px";
             title.textContent = this.getText('betterAutoClickerOptions');
-            box.appendChild(title);
+            titleContainer.appendChild(title);
+
+            let versionText = document.createElement("span");
+            versionText.id = "autoClickerVersion";
+            versionText.textContent = "v" + this.version;
+            versionText.style.marginLeft = "10px";
+            versionText.style.fontSize = "0.8em";
+            versionText.style.opacity = "0.8";
+            versionText.style.color = "#CCC";
+            titleContainer.appendChild(versionText);
+
+            box.appendChild(titleContainer);
+
+            this.checkLatestVersion();
 
             // Activation button using game style
             let toggleButton = document.createElement('a');
@@ -405,6 +460,22 @@ BetterAutoClicker.launch = function() {
                             }
                         }
                     }
+                    else if (id === 'fortuneClicking') {
+                        Game.Notify(
+                            this.getText(this[property] ? 'fortuneEnabled' : 'fortuneDisabled'),
+                            this.getText(this[property] ? 'fortunesWill' : 'fortunesWont'),
+                            [0, this[property] ? 2 : 3],
+                            2
+                        );
+
+                        if (this.isActive) {
+                            if (this[property]) {
+                                this.startFortuneChecker();
+                            } else {
+                                this.stopFortuneChecker();
+                            }
+                        }
+                    }
 
                     this.saveSettings();
 
@@ -586,6 +657,14 @@ BetterAutoClicker.launch = function() {
             // Add the explanation box after the strategy control
             optionsDiv.appendChild(chocolateEggExplanationBox);
 
+            // Option pour les fortunes
+            optionsDiv.appendChild(createToggleButton(
+                'fortuneClicking',
+                'clickFortunes',
+                this.getText('fortuneOption') + ' ' + this.getText('activate'),
+                this.getText('fortuneOption') + ' ' + this.getText('deactivate')
+            ));
+
             // Language options section
             let langBox = document.createElement("div");
             langBox.className = "listing";
@@ -750,6 +829,56 @@ BetterAutoClicker.launch = function() {
     };
 
     /**
+     * Start periodic checking for fortunes
+     */
+    BetterAutoClicker.startFortuneChecker = function() {
+        if (this.fortuneCheckInterval) {
+            clearInterval(this.fortuneCheckInterval);
+        }
+
+        const self = this;
+        this.fortuneCheckInterval = setInterval(function() {
+            self.checkForFortunes();
+        }, 500);
+    };
+
+    /**
+     * Stop checking for fortunes
+     */
+    BetterAutoClicker.stopFortuneChecker = function() {
+        if (this.fortuneCheckInterval) {
+            clearInterval(this.fortuneCheckInterval);
+            this.fortuneCheckInterval = null;
+        }
+    };
+
+    /**
+     * Check for fortunes in the ticker
+     */
+    BetterAutoClicker.checkForFortunes = function() {
+        // Check if the game has the "Fortune cookies" upgrade
+        if (!Game.Has('Fortune cookies')) return;
+
+        // Check if the fortune ticker is present
+        const ticker = document.getElementById('commentsText');
+        if (!ticker) return;
+
+        // Check if the fortune is present in the ticker
+        if (ticker.querySelector('.fortune')) {
+            // Click on the fortune
+            ticker.click();
+
+            // Notification
+            Game.Notify(
+                this.getText('fortuneClicked'),
+                this.getText('fortuneClickedDesc'),
+                [0, 2],
+                2
+            );
+        }
+    };
+
+    /**
      * Sell all buildings
      */
     BetterAutoClicker.sellAllBuildings = function() {
@@ -799,6 +928,11 @@ BetterAutoClicker.launch = function() {
                 this.startChocolateEggChecker();
             }
 
+            // Also start the fortune checker if enabled
+            if (this.clickFortunes) {
+                this.startFortuneChecker();
+            }
+
             if (toggleButton) {
                 toggleButton.textContent = this.getText('deactivate');
                 toggleButton.style.background = '#CC0000';
@@ -826,6 +960,9 @@ BetterAutoClicker.launch = function() {
 
             // Also stop the chocolate egg checker
             this.stopChocolateEggChecker();
+
+            // Also stop the fortune checker
+            this.stopFortuneChecker();
 
             if (toggleButton) {
                 toggleButton.textContent = this.getText('activate');
@@ -876,10 +1013,9 @@ BetterAutoClicker.launch = function() {
         }
 
         const self = this;
-        // Check for golden cookies every 500 ms
         this.goldenCheckInterval = setInterval(function() {
             self.checkForSpecialCookies();
-        }, 500);
+        }, this.goldenCheckIntervalTime);
     };
 
     /**
@@ -1132,7 +1268,8 @@ BetterAutoClicker.launch = function() {
             wrinklerClickDelay: this.wrinklerClickDelay,
             clickSeasonalCookies: this.clickSeasonalCookies,
             autoManageChocolateEgg: this.autoManageChocolateEgg,
-            chocolateEggBehavior: this.chocolateEggBehavior
+            chocolateEggBehavior: this.chocolateEggBehavior,
+            clickFortunes: this.clickFortunes
         });
     };
 
@@ -1152,7 +1289,8 @@ BetterAutoClicker.launch = function() {
             wrinklerClickDelay: this.wrinklerClickDelay,
             clickSeasonalCookies: this.clickSeasonalCookies,
             autoManageChocolateEgg: this.autoManageChocolateEgg,
-            chocolateEggBehavior: this.chocolateEggBehavior
+            chocolateEggBehavior: this.chocolateEggBehavior,
+            clickFortunes: this.clickFortunes
         };
 
         localStorage.setItem('betterAutoClickerSettings', JSON.stringify(data));
@@ -1207,6 +1345,9 @@ BetterAutoClicker.launch = function() {
                 }
                 if (config.hasOwnProperty('chocolateEggBehavior')) {
                     this.chocolateEggBehavior = config.chocolateEggBehavior;
+                }
+                if (config.hasOwnProperty('clickFortunes')) {
+                    this.clickFortunes = config.clickFortunes;
                 }
             }
 
