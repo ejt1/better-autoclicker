@@ -52,6 +52,7 @@ BetterAutoClicker.launch = function() {
     BetterAutoClicker.autoManageChocolateEgg = false;
     BetterAutoClicker.chocolateEggBehavior = 'ascension';
     BetterAutoClicker.chocolateEggCheckInterval = null;
+    BetterAutoClicker.chocolateEggNotified = false;
     BetterAutoClicker.clickFortunes = false;
     BetterAutoClicker.fortuneCheckInterval = null;
 
@@ -792,7 +793,7 @@ BetterAutoClicker.launch = function() {
                         2
                     );
                 }
-            } else {
+            } else if (!this.chocolateEggNotified) {
                 // Strategy is 'ascension', show a notification to advise the user
                 Game.Notify(
                     this.getText('chocolateEggSaved'),
@@ -800,6 +801,7 @@ BetterAutoClicker.launch = function() {
                     [22, 12],
                     1
                 );
+                this.chocolateEggNotified = true;
             }
         }
 
