@@ -861,15 +861,10 @@ BetterAutoClicker.launch = function() {
         // Check if the game has the "Fortune cookies" upgrade
         if (!Game.Has('Fortune cookies')) return;
 
-        // Check if the fortune ticker is present
-        const ticker = document.getElementById('commentsText');
-        if (!ticker) return;
-
+        const receiver = document.getElementById('commentsText1');
         // Check if the fortune is present in the ticker
-        if (ticker.querySelector('.fortune')) {
-            // Click on the fortune
-            ticker.click();
-
+        if (receiver && Game.TickerEffect && Game.TickerEffect.type=='fortune'){
+            receiver.click();
             // Notification
             Game.Notify(
                 this.getText('fortuneClicked'),
